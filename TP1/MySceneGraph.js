@@ -230,7 +230,7 @@ class MySceneGraph {
     parseView(viewsNode) {
         //this.onXMLMinorError("To do: Parse views and create cameras.");
 
-        var defaultCamera = this.reader.getString(viewsNode, 'defaultCamera');
+        //var defaultCamera = this.reader.getString(viewsNode, 'defaultCamera');
         this.cameras = [];
 
         for(let i = 0; i < viewsNode.children.length; i++)
@@ -633,7 +633,7 @@ class MySceneGraph {
                         //this.onXMLMinorError("To do: Parse rotate transformations.");
                         var axis = this.reader.getString(grandChildren[j], 'axis');
                         var angle = this.reader.getFloat(grandChildren[j], 'angle') * DEGREE_TO_RAD;
-                        mat4.rotate(this.transformations[transfId], this.transformations[transfId], angle, this.axisCoords[axis]);
+                        mat4.rotate(transfMatrix, transfMatrix, angle, this.axisCoords[axis]);
                         break;
                 }
             }
