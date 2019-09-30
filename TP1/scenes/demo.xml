@@ -53,7 +53,7 @@
         </primitive>
       
         <primitive id="demoCylinder">
-          <cylinder slices="20" stacks="20" baseRadius="2" topRadius="2" height="4"/>
+          <cylinder slices="20" stacks="20" baseRadius="2" topRadius="0" height="4"/>
         </primitive>
 
         <primitive id="demoSphere">
@@ -78,6 +78,9 @@
             <children>
                 <primitiveref id="demoRectangle" />
                 <primitiveref id="demoTriangle" />
+                <primitiveref id="demoCylinder" />
+                <primitiveref id="demoSphere" />
+                <primitiveref id="demoTorus" />
             </children>
         </component>
     </components>
