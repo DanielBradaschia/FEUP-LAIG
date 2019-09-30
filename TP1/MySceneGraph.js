@@ -820,9 +820,9 @@ class MySceneGraph {
             return null;
         }
 
-        for(let i = 0; i < children.length; j++)
+        for(let i = 0; i < children.length; i++)
         {
-            switch (children[i].nodeNmae) {
+            switch (children[i].nodeName) {
                 case 'transformation':
                     grandChildren = children[i].children;
                     for(let j = 0; j < grandChildren.length; j++)
@@ -869,11 +869,137 @@ class MySceneGraph {
                         }
                     }
                     break;
-            
-                default:
+
+                case 'materials':
+                    grandChildren = children[i].children;
+                    if(grandChildren.length == 0)
+                    {
+                        this.onXMLMinorError("graphBuilder: at least one material must be assigned to component '" + node.id + "'");
+                        return null;
+                    }
+                    for(let j = 0; j < grandChildren.length; j++)
+                    {
+                        var matId = this.reader.getString(grandChildren[j], 'id');
+                        if (matId.length == 0)
+                        {
+                            this.onXMLMinorError("graphBuilder: an existing material id must be defined in order to be referenced");
+                            continue;
+                        }
+                        if(matId != 'inherit' && this.materials[matId] == null)
+                        {
+                            this.onXMLMinorError("graphBuilder: material '" + materialId + "' does not exist");
+                            continue;
+                        }
+                        if(matId == 'inherit')
+                        {
+                            if(node.id == this.idRoot)
+                            {
+                                var appearance = new CGFappearance(this.scene);
+                                appearance.setShininess(10);
+                                appearance.setEmission(0, 0, 0, 0);
+                                appearance.setAmbient(0.5, 0.5, 0.5, 1.0);
+                                appearance.setDiffuse(0.5, 0.5, 0.5, 1.0);
+                                appearance.setSpecular(0.5, 0.5, 0.5, 1.0);
+
+                                node.materials.push(appearance);
+                            }
+                            else
+                            {
+                                for(let k = 0; k < node.parentNode.materials.length; k++)
+                                {
+                                    node.materials.push(node.parentNode.materials[k]);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            node.materials.push(this.materials[matId]);
+                        } 
+                    }
+                   
                     break;
+
+                case 'texture':
+                    var textId = this.reader.getString(children[i], 'id');
+                    if(textId == 'none')
+                    {
+                        node.texture = {
+                            texture: textId
+                        }
+                    }
+                    else if (textId == 'inherit') {
+                        var lengthS = this.reader.getFloat(children[i], 'lengthS', false);
+                        var lengthT = this.reader.getFloat(children[i], 'lengthT', false)
+
+                        if (lengthS != null && lengthT != null) {
+                            node.texture = {
+                                texture: node.parent.texture.texture,
+                                lengthS: lengthS,
+                                lengthT: lengthT
+                            }
+                        }
+                        else {
+                            node.texture = {
+                                texture: node.parent.texture.texture,
+                                lengthS: node.parent.texture.lengthS,
+                                lengthT: node.parent.texture.lengthT
+                            }
+                        }
+                    }
+                    else {
+                        node.texture = {
+                            texture: this.textures[textId],
+                            lengthS: this.reader.getFloat(children[i], 'lengthS'),
+                            lengthT: this.reader.getFloat(children[i], 'lengthT')
+                        }
+                    }
+                    break;
+
+                case "children":
+                    grandChildren = children[i].children;
+                    if (grandChildren.length == 0) {
+                        this.onXMLMinorError("graphBuilder: at least one reference to a primitive or a component must be assigned to component '" + node.id + "'");
+                        return null;
+                    }
+                    for(let j = 0; j < grandChildren.length; j++)
+                    {
+                        if(grandChildren[j].nodeName == "componentref")
+                        {
+                            var refId = this.reader.getString(grandChildren[j], 'id');
+                            if (nodesList[refId] == null) {
+                                this.onXMLMinorError("graphBuilder: component '" + refId + "' not defined");
+                                continue;
+                            }
+                            var child = this.graphBuilder(refId, node, nodesList);
+                            node.children.push(child);
+                        }
+                        else if(grandChildren[j].nodeName == "primitiveref")
+                        {
+                            var refId = this.reader.getString(grandChildren[j], 'id');
+                            if (this.primitives[refId] == null) {
+                                this.onXMLMinorError("graphBuilder: primitive " + refId + " not defined.");
+                                continue;
+                            }
+                            else {
+                                //this.nodes[refId].parentNode.push(node);
+                                node.children.push(this.nodes[refId]);
+                            }
+                        }
+                        else 
+                        {
+                            this.onXMLMinorError("graphBuilder: unknown tag <" + grandChildren[k].nodeName + "> in children of " + node.id);
+                            continue;
+                        }
+                    }
+                    break;
+                
+                default:
+                    this.onXMLMinorError("graphBuilder: unknow tag <" + children[i].nodeName + "> for component " + node.id);
+                    continue;
             }
         }
+        this.nodes[node.id] = node;
+        return node;
     }
     /**
    * Parses the <components> block.
@@ -905,6 +1031,7 @@ class MySceneGraph {
             if (this.components[componentID] != null)
                 return "ID must be unique for each component (conflict: ID = " + componentID + ")";
 
+        /*
             grandChildren = children[i].children;
 
             nodeNames = [];
@@ -925,6 +1052,18 @@ class MySceneGraph {
             // Texture
 
             // Children
+        */
+            this.components[componentID] = children[i];
+        }
+        this.nodeAux = this.graphBuilder(this.idRoot, null, this.components);
+
+        if(this.nodeAux == null)
+        {
+            return "Error parsing components"
+        }
+        else
+        {
+            this.log("Parsed components");
         }
     }
 
