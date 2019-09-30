@@ -814,6 +814,32 @@ class MySceneGraph {
                 this.primitives[primitiveId] = sphere;
             }
 
+            else if (primitiveType == 'torus') {
+                // innerRadius
+                var innerRadius = this.reader.getFloat(grandChildren[0], 'innerRadius');
+                if (!(innerRadius != null && !isNaN(innerRadius)))
+                    return "unable to parse innerRadius of the primitive coordinates for ID = " + primitiveId;
+
+                // outerRadius
+                var outerRadius = this.reader.getFloat(grandChildren[0], 'outerRadius');
+                if (!(outerRadius != null && !isNaN(outerRadius)))
+                    return "unable to parse outerRadius of the primitive coordinates for ID = " + primitiveId;
+
+                // slices
+                var slices = this.reader.getFloat(grandChildren[0], 'slices');
+                if (!(slices != null && !isNaN(slices)))
+                    return "unable to parse slices of the primitive coordinates for ID = " + primitiveId;
+
+                // loops
+                var loops = this.reader.getFloat(grandChildren[0], 'loops');
+                if (!(loops != null && !isNaN(loops)))
+                    return "unable to parse loops of the primitive coordinates for ID = " + primitiveId;
+
+                var torus = new MyTorus(this.scene, primitiveId, innerRadius, outerRadius, slices, loops);
+
+                this.primitives[primitiveId] = torus;
+            }
+
             else {
                 console.warn("To do: Parse other primitives.");
             }
