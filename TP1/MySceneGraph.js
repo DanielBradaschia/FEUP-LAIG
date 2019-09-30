@@ -772,6 +772,79 @@ class MySceneGraph {
     }
 
     /**
+      * Build the components graph
+      * @param {String} node id
+      * @param {Node element} parent node
+      * @param {List} List with components
+      */
+    graphBuilder(nodeId, parentNode, nodesList) {
+        var node = new Node(nodeId, 'component');
+        var children = nodesList[nodeId].children;
+        var grandChildren;
+
+        node.parent = parentNode;
+
+        if (children.length == 0) {
+            this.onXMLMinorError("graphBuilder: at least one component must be defined");
+            return null;
+        }
+
+        for(let i = 0; i < children.length; j++)
+        {
+            switch (children[i].nodeNmae) {
+                case 'transformation':
+                    grandChildren = children[i].children;
+                    for(let j = 0; j < grandChildren.length; j++)
+                    {
+                        if(grandChildren[j].nodeName == "transformationref")
+                        {
+                            var transId = this.reader.getString(grandChildren[j], 'id');
+                            if(transId.length == 0)
+                            {
+                                this.onXMLMinorError("graphBuilder: an transformation id must be defined in order to reference it");
+                                continue;
+                            }
+                            if(this.transformations[transId] == null)
+                            {
+                                this.onXMLMinorError("graphBuilder: transformation '" + transfId + "' does not exist");
+                                continue;
+                            }
+                            
+                            mat4.multiply(node.transformMatrix, node.transformMatrix, this.transformations[transfId]);
+                        }
+                        else if(grandChildren[j].nodeName == "translate")
+                        {
+                            var x = this.reader.getFloat(grandChildren[j], 'x');
+                            var y = this.reader.getFloat(grandChildren[j], 'y');
+                            var z = this.reader.getFloat(grandChildren[j], 'z');
+                            mat4.translate(node.transformMatrix, node.transformMatrix, [x, y, z]);
+                        }
+                        else if(grandChildren[j].nodeName == "rotate")
+                        {
+                            var axis = this.reader.getString(grandChildren[j], 'axis');
+                            var angle = this.reader.getFloat(grandChildren[j], 'angle') * DEGREE_TO_RAD;
+                            mat4.rotate(node.transformMatrix, node.transformMatrix, angle, this.axisCoords[axis]);
+                        }
+                        else if (grandChildren[j].nodeName == "scale")
+                        {
+                            var x = this.reader.getFloat(grandChildren[j], 'x');
+                            var y = this.reader.getFloat(grandChildren[j], 'y');
+                            var z = this.reader.getFloat(grandChildren[j], 'z');
+                            mat4.scale(node.transformMatrix, node.transformMatrix, [x, y, z]);
+                        }
+                        else{
+                            this.onXMLMinorError("unknown tag <" + grandChildren[k].nodeName + ">");
+                            continue;
+                        }
+                    }
+                    break;
+            
+                default:
+                    break;
+            }
+        }
+    }
+    /**
    * Parses the <components> block.
    * @param {components block element} componentsNode
    */
