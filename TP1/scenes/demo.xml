@@ -49,15 +49,19 @@
         </primitive>
 
         <primitive id="demoTriangle">
-            <triangle x1="-0.5" y1="-1" z1='0' x2="0.5" y2="1" z2="0" x3="3" y3="2" z3="0"/>
+            <triangle x1="-0.5" y1="-1" z1="0" x2="0.5" y2="1" z2="0" x3="3" y3="2" z3="0"/>
         </primitive>
-
+      
         <primitive id="demoCylinder">
           <cylinder slices="20" stacks="20" baseRadius="2" topRadius="2" height="4"/>
         </primitive>
 
         <primitive id="demoSphere">
           <sphere radius="2" slices="20" stacks="20"/>
+        </primitive>
+        
+        <primitive id="demoTorus">
+          <torus innerRadius="1" outerRadius="5" slices="20" loops="10"/>
         </primitive>
     </primitives>
 
