@@ -53,7 +53,11 @@
         </primitive>
 
         <primitive id="demoCylinder">
-          <cylinder slices="20" stacks="20" baseRadius='2' topRadius="2" height="4"/>
+          <cylinder slices="20" stacks="20" baseRadius="2" topRadius="2" height="4"/>
+        </primitive>
+
+        <primitive id="demoSphere">
+          <sphere radius="2" slices="20" stacks="20"/>
         </primitive>
     </primitives>
 
