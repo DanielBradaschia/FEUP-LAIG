@@ -44,6 +44,7 @@
     </transformations>
 
     <primitives>
+        
         <primitive id="demoRectangle">
             <rectangle x1="-0.5" y1="-1" x2="0.5" y2="1" />
         </primitive>
@@ -63,6 +64,10 @@
         <primitive id="demoTorus">
           <torus innerRadius="1" outerRadius="5" slices="20" loops="10"/>
         </primitive>
+    
+        <primitive id="tableLeg">
+            <cylinder slices="10" stacks="30" baseRadius="0.1" topRadius="0.1" height="2.2"/>
+        </primitive>
     </primitives>
 
     <components>
@@ -76,12 +81,86 @@
             </materials>
             <texture id="demoTexture"/>
             <children>
-                <primitiveref id="demoRectangle" />
+              <!--  <primitiveref id="demoRectangle" />
                 <primitiveref id="demoTriangle" />
                 <primitiveref id="demoCylinder" />
                 <primitiveref id="demoSphere" />
                 <primitiveref id="demoTorus" />
+                --><componentref id="table" />
             </children>
         </component>
+
+        <component id="table">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="tableLegBottomLeft" />
+                <componentref id="tableLegBottomRight" />
+                <componentref id="tableLegTopLeft" />
+                <componentref id="tableLegTopRight" />
+                <!-- <componentref id="table_top" /> -->
+            </children>
+        </component>
+
+        <component id="tableLegBottomLeft">
+            <transformation>
+                <translate x="-1.9" y="0" z="-1.1" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="tableLeg" />
+            </children>
+        </component>
+
+        <component id="tableLegBottomRight">
+            <transformation>
+                <translate x="1.9" y="0" z="-1.1" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="tableLeg" />
+            </children>
+        </component>
+
+        <component id="tableLegTopLeft">
+            <transformation>
+                <translate x="-1.9" y="0" z="1.1" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="tableLeg" />
+            </children>
+        </component>
+
+        <component id="tableLegTopRight">
+            <transformation>
+                <translate x="1.9" y="0" z="1.1" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="tableLeg" />
+            </children>
+        </component>
+
     </components>
 </lxs>

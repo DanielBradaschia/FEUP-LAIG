@@ -843,6 +843,8 @@ class MySceneGraph {
             else {
                 console.warn("To do: Parse other primitives.");
             }
+            this.nodes[primitiveId] = new Node(primitiveId, 'primitive');
+            this.nodes[primitiveId].primitive = this.primitives[primitiveId];
         }
 
         this.log("Parsed primitives");
@@ -952,9 +954,9 @@ class MySceneGraph {
                             }
                             else
                             {
-                                for(let k = 0; k < node.parentNode.materials.length; k++)
+                                for(let k = 0; k < node.parent.materials.length; k++)
                                 {
-                                    node.materials.push(node.parentNode.materials[k]);
+                                    node.materials.push(node.parent.materials[k]);
                                 }
                             }
                         }
@@ -1028,7 +1030,7 @@ class MySceneGraph {
                                 continue;
                             }
                             else {
-                                //this.nodes[refId].parentNode.push(node);
+                                this.nodes[refId].parents.push(node);
                                 node.children.push(this.nodes[refId]);
                             }
                         }
@@ -1227,13 +1229,54 @@ class MySceneGraph {
     }
 
     /**
+    * Run the graph and display the elements, applying textures, materials, and
+    * animations
+    *
+    * @param CGFScene scene
+    * @param Node node
+    */
+    renderScene(scene, node) {
+        scene.multMatrix(node.transformMatrix);
+
+        for(let i = 0; i < node.children.length; i++)
+        {
+            
+            console.log(node.children[i].id);
+            if(node.children[i].type == 'primitive')
+            {
+                node.children[i].primitive.display();
+            }
+        }
+
+        for (let i = 0; i < node.children.length; i++) 
+        {
+            if (node.children[i].type == 'component') 
+            {
+                scene.pushMatrix();
+                this.renderScene(scene, node.children[i]);
+                scene.popMatrix();
+            }
+        }
+    }
+
+    /**
      * Displays the scene, processing each node, starting in the root node.
      */
     displayScene() {
+        /*
         for (const primitive in this.primitives) {
             this.primitives[primitive].display();
         }
+        */
+
         //To test the parsing/creation of the primitives, call the display function directly
         //this.primitives['demoRectangle'].display();
+
+        this.scene.pushMatrix();
+        this.renderScene(this.scene, this.nodeAux);
+        this.scene.popMatrix();
     }
+
 }
+
+
