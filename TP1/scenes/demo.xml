@@ -73,20 +73,52 @@
     <components>
         <component id="demoRoot">
             <transformation>
-                <translate x="0" y="0" z="1" />
-                <scale x="2" y="1" z="1" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
             </materials>
             <texture id="demoTexture"/>
             <children>
-              <!--  <primitiveref id="demoRectangle" />
+            <!--
+                <primitiveref id="demoRectangle" />
                 <primitiveref id="demoTriangle" />
                 <primitiveref id="demoCylinder" />
                 <primitiveref id="demoSphere" />
                 <primitiveref id="demoTorus" />
-                --><componentref id="table" />
+            -->
+                <componentref id="table" />
+                <componentref id="ball" />
+                <componentref id="floater" />
+            </children>
+        </component>
+
+        <component id="floater">
+            <transformation>
+                <translate x="1.75" y="1" z="1.5" />
+                <rotate axis="x" angle="-17" />
+                <scale x="0.175" y="0.175" z="0.175" />
+
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <primitiveref id="demoTorus" />
+            </children>
+        </component>
+
+        <component id="ball">
+            <transformation>
+                <translate x="0" y="2.75" z="0" />
+                <scale x="0.3" y="0.3" z="0.3" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <primitiveref id="demoSphere" />
             </children>
         </component>
 
@@ -102,7 +134,7 @@
                 <componentref id="tableLegBottomRight" />
                 <componentref id="tableLegTopLeft" />
                 <componentref id="tableLegTopRight" />
-                <!-- <componentref id="table_top" /> -->
+                <componentref id="tableTop" />
             </children>
         </component>
 
@@ -159,6 +191,22 @@
             <texture id="none" />
             <children>
                 <primitiveref id="tableLeg" />
+            </children>
+        </component>
+        
+        <component id="tableTop">
+            <transformation>
+                <translate x="0" y="2.2" z="0" />
+                <scale x="2.35" y="2.35" z="2.35"/>
+                <rotate axis="x" angle="-90" />
+                <rotate axis="z" angle="-90" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="demoRectangle" />
             </children>
         </component>
 

@@ -1240,8 +1240,6 @@ class MySceneGraph {
 
         for(let i = 0; i < node.children.length; i++)
         {
-            
-            console.log(node.children[i].id);
             if(node.children[i].type == 'primitive')
             {
                 node.children[i].primitive.display();
