@@ -40,5 +40,10 @@ class MySphere extends CGFobject {
         this.scene.popMatrix();
     };
 
+    updateTexCoords (s, t) {
+        this.SemiSphere_1.updateTexCoords(s, t);
+        this.SemiSphere_2.updateTexCoords(s, t);
+    };
+
     
 };
