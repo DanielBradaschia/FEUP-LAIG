@@ -1247,8 +1247,12 @@ class MySceneGraph {
             {
                 if(node.children[i].texture != 'none')
                 {
+                    /*Precisa criar essa funçao em cada primitiva
+                    
                     node.children[i].primitive.updateTexCoords(node.texture.length_s, node.texture.length_s);
                     node.texture.texture.bind();
+                    
+                    */
                 }
                 node.children[i].primitive.display();
             }
