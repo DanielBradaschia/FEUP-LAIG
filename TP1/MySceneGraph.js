@@ -461,6 +461,7 @@ class MySceneGraph {
         this.log("Parsed textures");
 
         return null;
+
     }
 
     /**

@@ -24,6 +24,8 @@
 
     <textures>
         <texture id="demoTexture" file="scenes/images/vidral.jpg" />
+        <texture id="floaterTexture" file="scenes/images/floater.jpg" />
+        <texture id="tableLegTexture" file="images/metal.jpg" />
     </textures>
 
     <materials>
@@ -83,7 +85,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="demoTexture"/>
+            <texture id="none"/>
             <children>
             <!--
                 <primitiveref id="demoRectangle" />
@@ -100,14 +102,14 @@
 
         <component id="floater">
             <transformation>
-                <translate x="1.75" y="1" z="1.5" />
+                <translate x="1.75" y="1" z="1.6" />
                 <rotate axis="x" angle="-17" />
                 <scale x="0.175" y="0.175" z="0.175" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="none"/>
+            <texture id="floaterTexture" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="demoTorus" />
             </children>
@@ -151,7 +153,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" />
+            <texture id="tableLegTexture" />
             <children>
                 <primitiveref id="tableLeg" />
             </children>
