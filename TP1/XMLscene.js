@@ -12,6 +12,7 @@ class XMLscene extends CGFscene {
         super();
 
         this.interface = myinterface;
+        this.lightGroup = {};
     }
 
     /**
@@ -99,6 +100,8 @@ class XMLscene extends CGFscene {
 
         this.initLights();
 
+        this.interface.addLights(this.lights);
+
         this.sceneInited = true;
     }
 
@@ -122,9 +125,24 @@ class XMLscene extends CGFscene {
         this.pushMatrix();
         this.axis.display();
 
-        for (var i = 0; i < this.lights.length; i++) {
-            this.lights[i].setVisible(true);
-            this.lights[i].enable();
+        let i = 0;
+        for (var j in this.lightGroup)
+        {
+            if(this.lightGroup.hasOwnProperty(j))
+            {
+                if(this.lightGroup[j])
+                {
+                    this.lights[i].setVisible(true);
+                    this.lights[i].enable();
+                }
+                else
+                {
+                    this.lights[i].setVisible(false);
+                    this.lights[i].disable();
+                }
+                this.lights[i].update();
+                i++;
+            }
         }
 
         if (this.sceneInited) {
