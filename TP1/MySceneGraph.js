@@ -971,6 +971,9 @@ class MySceneGraph {
 
                 case 'texture':
                     var textId = this.reader.getString(children[i], 'id');
+                    var lengthS = this.reader.getFloat(children[i], 'length_s', false) || "1.0";
+                    var lengthT = this.reader.getFloat(children[i], 'length_t', false) || "1.0";
+
                     if(textId == 'none')
                     {
                         node.texture = {
@@ -978,8 +981,8 @@ class MySceneGraph {
                         }
                     }
                     else if (textId == 'inherit') {
-                        var lengthS = this.reader.getFloat(children[i], 'lengthS', false);
-                        var lengthT = this.reader.getFloat(children[i], 'lengthT', false)
+                        var lengthS = this.reader.getFloat(children[i], 'length_s', false);
+                        var lengthT = this.reader.getFloat(children[i], 'length_t', false)
 
                         if (lengthS != null && lengthT != null) {
                             node.texture = {
@@ -999,8 +1002,8 @@ class MySceneGraph {
                     else {
                         node.texture = {
                             texture: this.textures[textId],
-                            lengthS: this.reader.getFloat(children[i], 'lengthS'),
-                            lengthT: this.reader.getFloat(children[i], 'lengthT')
+                            lengthS: this.reader.getFloat(children[i], 'length_s'),
+                            lengthT: this.reader.getFloat(children[i], 'length_t')
                         }
                     }
                     break;
@@ -1242,6 +1245,11 @@ class MySceneGraph {
         {
             if(node.children[i].type == 'primitive')
             {
+                if(node.children[i].texture != 'none')
+                {
+                    node.children[i].primitive.updateTexCoords(node.texture.length_s, node.texture.length_s);
+                    node.texture.texture.bind();
+                }
                 node.children[i].primitive.display();
             }
         }

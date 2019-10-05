@@ -23,9 +23,9 @@
     </lights>
 
     <textures>
-        <texture id="demoTexture" file="scenes/images/vidral.jpg" />
-        <texture id="floaterTexture" file="scenes/images/floater.jpg" />
-        <texture id="tableLegTexture" file="images/metal.jpg" />
+        <texture id="demoTexture" file="./scenes/images/vidral.jpg" />
+        <texture id="floaterTexture" file="./scenes/images/floater.jpg" />
+        <texture id="tableLegTexture" file="./images/metal.jpg" />
     </textures>
 
     <materials>
@@ -109,7 +109,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="floaterTexture" length_s="1" length_t="1" />
+            <texture id="floaterTexture" length_s="1.0" length_t="1.0" />
             <children>
                 <primitiveref id="demoTorus" />
             </children>
@@ -153,7 +153,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="tableLegTexture" />
+            <texture id="tableLegTexture" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="tableLeg" />
             </children>
