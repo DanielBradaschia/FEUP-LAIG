@@ -57,9 +57,11 @@ class MyTorus extends CGFobject {
                 let x_coord = Math.acos(x / this.innerRadius) / (2 * Math.PI);
                 let y_coord = 2 * Math.PI * Math.acos(z / (this.innerRadius + this.outerRadius * Math.cos(2 * Math.PI * x_coord)));
 
+                /*
                 y_coord = i / this.slices;
                 x_coord = (j % (this.loops + 1)) / this.slices;
-
+                */
+               
                 this.texCoords.push(x_coord, y_coord);
 
                 vertcount++;

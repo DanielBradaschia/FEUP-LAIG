@@ -62,7 +62,7 @@
         </primitive>
         
         <primitive id="demoTorus">
-          <torus innerRadius="1" outerRadius="5" slices="20" loops="10"/>
+          <torus innerRadius="1" outerRadius="5" slices="20" loops="20"/>
         </primitive>
     
         <primitive id="tableLeg">
