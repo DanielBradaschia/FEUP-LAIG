@@ -886,11 +886,11 @@ class MySceneGraph {
                             }
                             if(this.transformations[transId] == null)
                             {
-                                this.onXMLMinorError("graphBuilder: transformation '" + transfId + "' does not exist");
+                                this.onXMLMinorError("graphBuilder: transformation '" + transId + "' does not exist");
                                 continue;
                             }
                             
-                            mat4.multiply(node.transformMatrix, node.transformMatrix, this.transformations[transfId]);
+                            mat4.multiply(node.transformMatrix, node.transformMatrix, this.transformations[transId]);
                         }
                         else if(grandChildren[j].nodeName == "translate")
                         {

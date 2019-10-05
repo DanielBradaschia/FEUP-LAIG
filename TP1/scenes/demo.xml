@@ -36,11 +36,17 @@
     </materials>
 
     <transformations>
+
         <transformation id="demoTransform">
             <scale x="5" y="1" z="5" />
             <rotate axis="x" angle="-45" />
             <rotate axis="z" angle="-45" />
         </transformation>
+
+        <transformation id="tableLegRotation">
+            <rotate axis="x" angle="-90" />
+        </transformation>
+
     </transformations>
 
     <primitives>
@@ -140,7 +146,7 @@
         <component id="tableLegBottomLeft">
             <transformation>
                 <translate x="-1.9" y="0" z="-1.1" />
-                <rotate axis="x" angle="-90" />
+                <transformationref id="tableLegRotation" />
             </transformation>
             <materials>
                 <material id="inherit" />
@@ -154,7 +160,7 @@
         <component id="tableLegBottomRight">
             <transformation>
                 <translate x="1.9" y="0" z="-1.1" />
-                <rotate axis="x" angle="-90" />
+                <transformationref id="tableLegRotation" />
             </transformation>
             <materials>
                 <material id="inherit" />
@@ -168,7 +174,7 @@
         <component id="tableLegTopLeft">
             <transformation>
                 <translate x="-1.9" y="0" z="1.1" />
-                <rotate axis="x" angle="-90" />
+                <transformationref id="tableLegRotation" />
             </transformation>
             <materials>
                 <material id="inherit" />
@@ -182,7 +188,7 @@
         <component id="tableLegTopRight">
             <transformation>
                 <translate x="1.9" y="0" z="1.1" />
-                <rotate axis="x" angle="-90" />
+                <transformationref id="tableLegRotation" />
             </transformation>
             <materials>
                 <material id="inherit" />
