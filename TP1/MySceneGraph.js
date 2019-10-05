@@ -1229,8 +1229,7 @@ class MySceneGraph {
     }
 
     /**
-    * Run the graph and display the elements, applying textures, materials, and
-    * animations
+    * Run the graph and display the elements, applying textures, materials.
     *
     * @param CGFScene scene
     * @param Node node
