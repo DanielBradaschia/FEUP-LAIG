@@ -123,7 +123,7 @@ class XMLscene extends CGFscene {
         this.applyViewMatrix();
 
         this.pushMatrix();
-        this.axis.display();
+        //this.axis.display();
 
         let i = 0;
         for (var j in this.lightGroup)
