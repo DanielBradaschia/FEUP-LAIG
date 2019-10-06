@@ -76,6 +76,10 @@
         <primitive id="tableLeg">
             <cylinder slices="10" stacks="30" baseRadius="0.1" topRadius="0.1" height="2.2"/>
         </primitive>
+
+        <primitive id="poolBoarder">
+            <cylinder slices="10" stacks="30" baseRadius="0.3" topRadius="0.3" height="10"/>
+        </primitive>
     </primitives>
 
     <components>
@@ -97,6 +101,93 @@
                 <componentref id="table" />
                 <componentref id="ball" />
                 <componentref id="floater" />
+                <componentref id="pool" />
+            </children>
+        </component>
+
+        <component id="poolTop">
+            <transformation>
+                <rotate axis="x" angle="-90" />
+                <scale x="5" y="5" z="5" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="demoRectangle" />
+            </children>
+        </component>
+
+        <component id="poolBoarder_1">
+            <transformation>
+                <translate x="-2.5" y="0" z="-5" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="poolBoarder" />
+            </children>
+        </component>
+
+        <component id="poolBoarder_2">
+            <transformation>
+                <translate x="2.5" y="0" z="-5" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="poolBoarder" />
+            </children>
+        </component>
+
+        <component id="poolBoarder_3">
+            <transformation>
+                <translate x="2.5" y="0" z="-5" />
+                <rotate axis="y" angle="-90" />
+                <scale x="1" y="1" z="0.5" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="poolBoarder" />
+            </children>
+        </component>
+
+        <component id="poolBoarder_4">
+            <transformation>
+                <translate x="2.5" y="0" z="5" />
+                <rotate axis="y" angle="-90" />
+                <scale x="1" y="1" z="0.5" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="poolBoarder" />
+            </children>
+        </component>
+
+        <component id="pool">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="poolTop" />
+                <componentref id="poolBoarder_1" />
+                <componentref id="poolBoarder_2" />
+                <componentref id="poolBoarder_3" />
+                <componentref id="poolBoarder_4" />
             </children>
         </component>
 
