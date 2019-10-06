@@ -80,6 +80,16 @@
         <primitive id="poolBoarder">
             <cylinder slices="10" stacks="30" baseRadius="0.3" topRadius="0.3" height="10"/>
         </primitive>
+        
+        <primitive id="parasolArm">
+            <cylinder slices="10" stacks="30" baseRadius="0.1" topRadius="0.1" height="6"/>
+        </primitive>
+
+        <primitive id="parasolTop">
+            <cylinder slices="6" stacks="30" baseRadius="4" topRadius="0" height="1.5"/>
+        </primitive>
+
+
     </primitives>
 
     <components>
@@ -102,6 +112,49 @@
                 <componentref id="ball" />
                 <componentref id="floater" />
                 <componentref id="pool" />
+                <componentref id="parasol" />
+
+            </children>
+        </component>
+
+
+       <component id="parasol">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="floaterTexture" length_s="1.0" length_t="1.0" />
+            <children>
+                <componentref id="parasolArm" />
+                <componentref id="parasolTop" />
+            </children>
+        </component>
+
+        <component id="parasolTop">
+            <transformation>
+                <translate x="0" y="5.5" z="0" />
+                <transformationref id="tableLegRotation" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="parasolTop" />
+            </children>
+        </component>
+
+        <component id="parasolArm">
+            <transformation>
+                <transformationref id="tableLegRotation" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="parasolArm" />
             </children>
         </component>
 
