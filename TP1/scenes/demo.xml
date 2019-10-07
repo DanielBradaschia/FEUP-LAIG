@@ -26,6 +26,10 @@
         <texture id="demoTexture" file="./scenes/images/vidral.jpg" />
         <texture id="floaterTexture" file="./scenes/images/floater.jpg" />
         <texture id="tableLegTexture" file="./images/metal.jpg" />
+        <texture id="ballTexture" file="./images/ball.jpg" />
+        <texture id="chairTexture" file="./images/chair.jpg" />
+        <texture id="tableTexture" file="./images/table.jpg" />
+        <texture id="boarderTexture" file="./images/boarder.jpg" />
     </textures>
 
     <materials>
@@ -34,6 +38,13 @@
             <ambient r="1.0" g="0.0" b="0.0" a="1.0" />
             <diffuse r="0.6" g="0.0" b="0.0" a="1.0" />
             <specular r="0.6" g="0.0" b="0.0" a="1.0" />
+        </material>
+    
+        <material id="emeraldMaterial" shininess="76.8">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.0215" g="0.1745" b="0.0215" a="0.55" />
+            <diffuse r="0.07568" g="0.61424" b="0.07568" a="0.55" />
+            <specular r="0.633" g="0.727811" b="0.633" a="0.55" />
         </material>
     </materials>
 
