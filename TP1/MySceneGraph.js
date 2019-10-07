@@ -35,6 +35,7 @@ class MySceneGraph {
         this.axisCoords['y'] = [0, 1, 0];
         this.axisCoords['z'] = [0, 0, 1];
 
+        this.currMat = [];
         // File reading 
         this.reader = new CGFXMLreader();
 
@@ -966,14 +967,17 @@ class MySceneGraph {
                             node.materials.push(this.materials[matId]);
                         } 
                     }
-                   
+                    this.currMat[node.id] = {
+                        current: 0,
+                        total: node.materials.length
+                    };
                     break;
 
                 case 'texture':
                     var textId = this.reader.getString(children[i], 'id');
                     var lengthS = this.reader.getFloat(children[i], 'length_s', false) || "1.0";
                     var lengthT = this.reader.getFloat(children[i], 'length_t', false) || "1.0";
-
+                    
                     if(textId == 'none')
                     {
                         node.texture = {
@@ -981,9 +985,6 @@ class MySceneGraph {
                         }
                     }
                     else if (textId == 'inherit') {
-                        var lengthS = this.reader.getFloat(children[i], 'length_s', false);
-                        var lengthT = this.reader.getFloat(children[i], 'length_t', false)
-
                         if (lengthS != null && lengthT != null) {
                             node.texture = {
                                 texture: node.parent.texture.texture,
@@ -1002,8 +1003,8 @@ class MySceneGraph {
                     else {
                         node.texture = {
                             texture: this.textures[textId],
-                            lengthS: this.reader.getFloat(children[i], 'length_s'),
-                            lengthT: this.reader.getFloat(children[i], 'length_t')
+                            lengthS: lengthS,
+                            lengthT: lengthT
                         }
                     }
                     break;
@@ -1240,6 +1241,12 @@ class MySceneGraph {
     */
     renderScene(scene, node) {
         scene.multMatrix(node.transformMatrix);
+/*
+        if (this.currMat[node.id].current >= this.currMat[node.id].total) {
+            this.currMat[node.id].current = 0;
+        }
+        node.materials[this.currMat[node.id].current].apply();
+        */
 
         for(let i = 0; i < node.children.length; i++)
         {
@@ -1250,7 +1257,8 @@ class MySceneGraph {
                     node.children[i].primitive.updateTexCoords(node.texture.length_s, node.texture.length_s);
                     node.texture.texture.bind();
                 }
-                node.children[i].primitive.display();
+                else
+                    node.children[i].primitive.display();
             }
         }
 

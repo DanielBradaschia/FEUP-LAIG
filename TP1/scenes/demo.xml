@@ -349,7 +349,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="floaterTexture" length_s="1.0" length_t="1.0" />
+            <texture id="none" />
             <children>
                 <primitiveref id="demoTorus" />
             </children>
@@ -364,7 +364,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="floaterTexture" length_s="1.0" length_t="1.0" />
+            <texture id="none" />
             <children>
                 <primitiveref id="demoTorus" />
             </children>
@@ -408,9 +408,9 @@
                 <transformationref id="tableLegRotation" />
             </transformation>
             <materials>
-                <material id="inherit" />
+                <material id="demoMaterial" />
             </materials>
-            <texture id="tableLegTexture" length_s="1.0" length_t="1.0"/>
+            <texture id="floaterTexture" />
             <children>
                 <primitiveref id="tableLeg" />
             </children>
@@ -422,7 +422,7 @@
                 <transformationref id="tableLegRotation" />
             </transformation>
             <materials>
-                <material id="inherit" />
+                <material id="demoMaterial" />
             </materials>
             <texture id="none" />
             <children>
@@ -436,7 +436,7 @@
                 <transformationref id="tableLegRotation" />
             </transformation>
             <materials>
-                <material id="inherit" />
+                <material id="demoMaterial" />
             </materials>
             <texture id="none" />
             <children>
@@ -450,7 +450,7 @@
                 <transformationref id="tableLegRotation" />
             </transformation>
             <materials>
-                <material id="inherit" />
+                <material id="demoMaterial" />
             </materials>
             <texture id="none" />
             <children>
@@ -466,7 +466,7 @@
                 <rotate axis="z" angle="-90" />
             </transformation>
             <materials>
-                <material id="inherit" />
+                <material id="demoMaterial" />
             </materials>
             <texture id="none" />
             <children>
