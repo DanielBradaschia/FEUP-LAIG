@@ -1241,38 +1241,26 @@ class MySceneGraph {
     */
     renderScene(scene, node) {
         scene.multMatrix(node.transformMatrix);
-/*
-        if (this.currMat[node.id].current >= this.currMat[node.id].total) {
-            this.currMat[node.id].current = 0;
-        }
-        node.materials[this.currMat[node.id].current].apply();
-        */
 
-        for(let i = 0; i < node.children.length; i++)
-        {
-            if(node.children[i].type == 'primitive')
-            {
-                if(node.texture.texture != 'none')
-                {
+        for (let i = 0; i < node.children.length; i++) {
+            if (node.children[i].type == 'primitive') {
+                node.materials[0].apply();
+                if (node.texture.texture != "none") {
                     node.children[i].primitive.updateTexCoords(node.texture.length_s, node.texture.length_s);
                     node.texture.texture.bind();
                 }
-                else
-                    node.children[i].primitive.display();
+                node.children[i].primitive.display();
             }
         }
-
-        for (let i = 0; i < node.children.length; i++) 
-        {
-            if (node.children[i].type == 'component') 
-            {
+        for (let i = 0; i < node.children.length; i++) {
+            if (node.children[i].type == 'component') {
                 scene.pushMatrix();
                 this.renderScene(scene, node.children[i]);
                 scene.popMatrix();
             }
         }
     }
-
+    
     /**
      * Displays the scene, processing each node, starting in the root node.
      */
