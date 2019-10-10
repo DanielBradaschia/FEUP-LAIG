@@ -271,7 +271,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="none" />
+            <texture id="ballTexture" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="demoRectangle" />
             </children>
@@ -360,7 +360,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="none" />
+            <texture id="ballTexture" />
             <children>
                 <primitiveref id="demoTorus" />
             </children>
@@ -375,7 +375,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="none" />
+            <texture id="floaterTexture" />
             <children>
                 <primitiveref id="demoTorus" />
             </children>
@@ -389,7 +389,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="none"/>
+            <texture id="ballTexture"/>
             <children>
                 <primitiveref id="demoSphere" />
             </children>
