@@ -866,7 +866,7 @@ class MySceneGraph {
         node.parent = parent;
 
         if (children.length == 0) {
-            this.onXMLMinorError("parseGraph: at least one component must be defined");
+            this.onXMLMinorError("graphBuilder: at least one component must be defined");
             return null;
         }
 
@@ -878,11 +878,11 @@ class MySceneGraph {
                         if (grandChildren[k].nodeName == "transformationref") {
                             var transfId = this.reader.getString(grandChildren[k], 'id');
                             if (transfId.length == 0) {
-                                this.onXMLMinorError("parseGraph: an transformation id must be defined in order to reference it");
+                                this.onXMLMinorError("graphBuilder: an transformation id must be defined in order to reference it");
                                 continue;
                             }
                             if (this.transformations[transfId] == null) {
-                                this.onXMLMinorError("parseGraph: transformation '" + transfId + "' does not exist");
+                                this.onXMLMinorError("graphBuilder: transformation '" + transfId + "' does not exist");
                                 continue;
                             }
                             mat4.multiply(node.transformMatrix, node.transformMatrix, this.transformations[transfId]);
@@ -910,42 +910,20 @@ class MySceneGraph {
                         }
                     }
                     break;
-                case "animations":
-                    grandChildren = children[j].children;
-                    for (var k = 0; k < grandChildren.length; k++) {
-                        if (grandChildren[k].nodeName == "animationref") {
-                            var animationId = this.reader.getString(grandChildren[k], 'id');
-                            if (animationId.length == 0) {
-                                this.onXMLMinorError("parseGraph: an animation id must be defined in order to reference it");
-                                continue;
-                            }
-                            if (this.animations[animationId] == null) {
-                                this.onXMLMinorError("parseGraph: animation '" + animationId + "' does not exist");
-                                continue;
-                            }
-
-                            node.animations.push(this.animations[animationId]);
-                        }
-                        else {
-                            this.onXMLMinorError("unknown tag <" + grandChildren[k].nodeName + ">");
-                            continue;
-                        }
-                    }
-                    break;
                 case "materials":
                     grandChildren = children[j].children;
                     if (grandChildren.length == 0) {
-                        this.onXMLMinorError("parseGraph: at least one material must be assigned to component '" + node.id + "'");
+                        this.onXMLMinorError("graphBuilder: at least one material must be assigned to component '" + node.id + "'");
                         return null;
                     }
                     for (var k = 0; k < grandChildren.length; k++) {
                         var materialId = this.reader.getString(grandChildren[k], 'id');
                         if (materialId.length == 0) {
-                            this.onXMLMinorError("parseGraph: an existing material id must be defined in order to be referenced");
+                            this.onXMLMinorError("graphBuilder: an existing material id must be defined in order to be referenced");
                             continue;
                         }
                         if (materialId != "inherit" && this.materials[materialId] == null) {
-                            this.onXMLMinorError("parseGraph: material '" + materialId + "' does not exist");
+                            this.onXMLMinorError("graphBuilder: material '" + materialId + "' does not exist");
                             continue;
                         }
                         if (materialId == "inherit") {
@@ -1007,7 +985,7 @@ class MySceneGraph {
                 case "children":
                     grandChildren = children[j].children;
                     if (grandChildren.length == 0) {
-                        this.onXMLMinorError("parseGraph: at least one reference to a primitive or a component must be assigned to component '" + node.id + "'");
+                        this.onXMLMinorError("graphBuilder: at least one reference to a primitive or a component must be assigned to component '" + node.id + "'");
                         return null;
                     }
 
@@ -1015,7 +993,7 @@ class MySceneGraph {
                         if (grandChildren[k].nodeName == "componentref") {
                             var refId = this.reader.getString(grandChildren[k], 'id');
                             if (nodeList[refId] == null) {
-                                this.onXMLMinorError("parseGraph: component '" + refId + "' not defined");
+                                this.onXMLMinorError("graphBuilder: component '" + refId + "' not defined");
                                 continue;
                             }
                             var child = this.graphBuilder(refId, node, nodeList);
@@ -1024,7 +1002,7 @@ class MySceneGraph {
                         else if (grandChildren[k].nodeName == "primitiveref") {
                             var refId = this.reader.getString(grandChildren[k], 'id');
                             if (this.primitives[refId] == null) {
-                                this.onXMLMinorError("parseGraph: primitive " + refId + " not defined.");
+                                this.onXMLMinorError("graphBuilder: primitive " + refId + " not defined.");
                                 continue;
                             }
                             else {
@@ -1033,13 +1011,13 @@ class MySceneGraph {
                             }
                         }
                         else {
-                            this.onXMLMinorError("parseGraph: unknown tag <" + grandChildren[k].nodeName + "> in children of " + node.id);
+                            this.onXMLMinorError("graphBuilder: unknown tag <" + grandChildren[k].nodeName + "> in children of " + node.id);
                             continue;
                         }
                     }
                     break;
                 default:
-                    this.onXMLMinorError("parseGraph: unknow tag <" + children[j].nodeName + "> for component " + node.id);
+                    this.onXMLMinorError("graphBuilder: unknow tag <" + children[j].nodeName + "> for component " + node.id);
                     continue;
             }
         }
