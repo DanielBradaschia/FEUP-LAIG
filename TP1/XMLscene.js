@@ -105,6 +105,16 @@ class XMLscene extends CGFscene {
         this.sceneInited = true;
     }
 
+
+    /**
+     * Change Material in the scene.
+     */
+    changeMaterial(){
+        for(var node in this.graph.currMat){
+            if(this.graph.currMat.hasOwnProperty(node))
+                this.graph.currMat[node].current++;
+        }
+    }
     /**
      * Displays the scene.
      */

@@ -48,6 +48,16 @@ class MyInterface extends CGFinterface {
         return this.activeKeys[keyCode] || false;
     }
 
+    processKeyboard(event){
+        //CGFinterface.prototype.processKeyboard.call(this,event);
+
+        if(this.gui.isKeyPressed("KeyM"))
+        {
+            console.log("entrei");
+            this.scene.changeMaterial();
+        }
+
+    }
     //Create lights
     addLights(lights){
         var lightsGroup = this.gui.addFolder("Lights");

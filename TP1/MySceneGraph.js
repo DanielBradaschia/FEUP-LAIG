@@ -26,6 +26,7 @@ class MySceneGraph {
         scene.graph = this;
 
         this.nodes = [];
+        this.viewsId = [];
 
         this.idRoot = null;                    // The id of the root element.
         
@@ -223,40 +224,190 @@ class MySceneGraph {
 
         return null;
     }
+    createPers(elements){
+        if (isNaN(elements.near)) {
+            this.onXMLError('Perspective Views expected a float number on near.');
+        }
+        if (isNaN(elements.far)) {
+            this.onXMLError('Perspective Views expected a float number on far.');
+        }
+        if (isNaN(elements.angle)) {
+            this.onXMLError('Perspective Views expected a float number on angle.');
+        }
+        if (isNaN(elements.from.x)) {
+            this.onXMLError('Perspective Views expected a float number o from(x)');
+        }
+        if (isNaN(elements.from.y)) {
+            this.onXMLError('Perspective Views expected a float number o from(y)');
+        }
+        if (isNaN(elements.from.z)) {
+            this.onXMLError('Perspective Views expected a float number o from(z)');
+        }
+        if (isNaN(elements.to.x)) {
+            this.onXMLError('Perspective Views expected a float number o to(x)');
+        }
+        if (isNaN(elements.to.y)) {
+            this.onXMLError('Perspective Views expected a float number o to(y)');
+        }
+        if (isNaN(elements.to.z)) {
+            this.onXMLError('Perspective Views expected a float number o to(z)');
+        }
+        var aux = new CGFcamera(elements.angle * DEGREE_TO_RAD, elements.near, elements.far, vec3.fromValues(elements.from.x, elements.from.y, elements.from.z), vec3.fromValues(elements.to.x, elements.to.y, elements.to.y));
 
+        return aux;
+    }
+
+    createOrto(elements){
+        if (isNaN(elements.near)) {
+            this.onXMLError('Perspective Views expected a float number on near.');
+        }
+        if (isNaN(elements.far)) {
+            this.onXMLError('Perspective Views expected a float number on far.');
+        }
+        if (isNaN(elements.from.x)) {
+            this.onXMLError('Perspective Views expected a float number o from(x)');
+        }
+        if (isNaN(elements.from.y)) {
+            this.onXMLError('Perspective Views expected a float number o from(y)');
+        }
+        if (isNaN(elements.from.z)) {
+            this.onXMLError('Perspective Views expected a float number o from(z)');
+        }
+        if (isNaN(elements.to.x)) {
+            this.onXMLError('Perspective Views expected a float number o to(x)');
+        }
+        if (isNaN(elements.to.y)) {
+            this.onXMLError('Perspective Views expected a float number o to(y)');
+        }
+        if (isNaN(elements.to.z)) {
+            this.onXMLError('Perspective Views expected a float number o to(z)');
+        }
+        if (isNaN(elements.left)) {
+            this.onXMLError('Perspective Views expected a float number on left.');
+        }
+        if (isNaN(elements.right)) {
+            this.onXMLError('Perspective Views expected a float number on right.');
+        }
+        if (isNaN(elements.bottom)) {
+            this.onXMLError('Perspective Views expected a float number on bottom.');
+        }
+        if (isNaN(elements.top)) {
+            this.onXMLError('Perspective Views expected a float number on top.');
+        }
+        var aux = new CGFcameraOrtho(elements.left, elements.right, elements.bottom, elements.top, elements.near, elements.far, vec3.fromValues(elements.from.x, elements.from.y, elements.from.z), vec3.fromValues(elements.to.x, elements.to.y, elements.to.y), vec3.fromValues(0, 1, 0));
+
+        return aux;
+    }
     /**
      * Parses the <views> block.
      * @param {view block element} viewsNode
      */
     parseView(viewsNode) {
-        //this.onXMLMinorError("To do: Parse views and create cameras.");
+        // get default view
+        this.default_view = this.reader.getString(viewsNode, 'default');
+        this.views = [];
 
-        //var defaultCamera = this.reader.getString(viewsNode, 'defaultCamera');
-        this.cameras = [];
+        var children = viewsNode.children;
+        var grandChildren = [];
+        var nodeNames = [];
 
-        for(let i = 0; i < viewsNode.children.length; i++)
-        {
-            var fromX, fromY, fromZ, toX, toY, toZ, near, far, angle;
-            
-            let camera = viewsNode.children[i];
-            near = this.reader.getFloat(camera, 'near');
-            far = this.reader.getFloat(camera, 'far');
-            angle = this.reader.getFloat(camera, 'angle');
-            
-            let from = camera.children[0];
-            fromX = this.reader.getFloat(from, 'x');
-            fromY = this.reader.getFloat(from, 'y');
-            fromZ = this.reader.getFloat(from, 'z');
-            
-            let to = camera.children[1];
-            toX = this.reader.getFloat(to, 'x');
-            toY = this.reader.getFloat(to, 'y');
-            toZ = this.reader.getFloat(to, 'z');
-            
-            this.cameras[viewsNode.children[i].id] = new CGFcamera(DEGREE_TO_RAD*angle, near, far, vec3.fromValues(fromX, fromY, fromZ), vec3.fromValues(toX, toY, toZ));
+
+        for (var i = 0; i < children.length; i++) {
+            if (children[i].nodeName != "perspective" && children[i].nodeName != "ortho") {
+                this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
+                continue;
+            }
+
+            // get ID of current view
+            var viewId = this.reader.getString(children[i], 'id');
+            if (viewId == null) {
+                return "no ID defined for <" + children[i] + ">"
+            }
+
+            if (this.views[viewId] != null) {
+                return "ID must be unique for each view (conflict: ID = " + viewId + ")";
+            }
+
+            // Perspective view
+            if (children[i].nodeName == "perspective") {
+                grandChildren = children[i].children;
+
+                for (var j = 0; j < grandChildren.length; j++) {
+                    if (grandChildren[j].nodeName != "from" && grandChildren[j].nodeName != "to") {
+                        this.onXMLMinorError("unknown tag <" + grandChildren[j].nodeName + ">");
+                        continue;
+                    }
+
+                    if (grandChildren[j].nodeName == "from") {
+                        var from = {
+                            x: this.reader.getFloat(grandChildren[j], 'x'),
+                            y: this.reader.getFloat(grandChildren[j], 'y'),
+                            z: this.reader.getFloat(grandChildren[j], 'z')
+                        };
+                    }
+                    else {
+                        var to = {
+                            x: this.reader.getFloat(grandChildren[j], 'x'),
+                            y: this.reader.getFloat(grandChildren[j], 'y'),
+                            z: this.reader.getFloat(grandChildren[j], 'z')
+                        };
+                    }
+                }
+                var aux = {
+                    near: this.reader.getFloat(children[i], 'near'),
+                    far: this.reader.getFloat(children[i], 'far'),
+                    angle: this.reader.getFloat(children[i], 'angle'),
+                    from: from,
+                    to: to
+                };
+
+                var auxCamera = this.createPers(aux);
+                this.views[viewId] = auxCamera;
+                this.viewsId.push(viewId);
+            }
+            // Ortho view
+            else if (children[i].nodeName == "ortho") {
+                grandChildren = children[i].children;
+                for (var j = 0; j < grandChildren.length; j++) {
+                    if (grandChildren[j].nodeName != "from" && grandChildren[j].nodeName != "to") {
+                        this.onXMLMinorError("unknown tag <" + grandChildren[j].nodeName + ">");
+                        continue;
+                    }
+
+                    if (grandChildren[j].nodeName == "from") {
+                        var from = {
+                            x: this.reader.getFloat(grandChildren[j], 'x'),
+                            y: this.reader.getFloat(grandChildren[j], 'y'),
+                            z: this.reader.getFloat(grandChildren[j], 'z')
+                        }
+                    }
+                    else {
+                        var to = {
+                            x: this.reader.getFloat(grandChildren[j], 'x'),
+                            y: this.reader.getFloat(grandChildren[j], 'y'),
+                            z: this.reader.getFloat(grandChildren[j], 'z')
+                        }
+                    }
+                }
+                var aux = {
+                    near: this.reader.getFloat(children[i], 'near'),
+                    far: this.reader.getFloat(children[i], 'far'),
+                    left: this.reader.getFloat(children[i], 'left'),
+                    right: this.reader.getFloat(children[i], 'right'),
+                    top: this.reader.getFloat(children[i], 'top'),
+                    bottom: this.reader.getFloat(children[i], 'bottom'),
+                    from: from,
+                    to: to
+                };
+
+                var auxCamera = this.createOrto(aux);
+                this.views[viewId] = auxCamera;
+                this.viewsId.push(viewId);
+            }
         }
 
-        this.log("Parsed cameras");
+        this.log("Parsed views");
+        //  this.log(this.views["v1"].near);
 
         return null;
     }
@@ -947,6 +1098,11 @@ class MySceneGraph {
                             node.materials.push(this.materials[materialId]);
                         }
                     }
+
+                    this.currMat[node.id] = {
+                        current: 0,
+                        total: node.materials.length
+                    };
                     break;
                 case "texture":
                     var textId = this.reader.getString(children[j], 'id');
@@ -1212,9 +1368,15 @@ class MySceneGraph {
     renderScene(scene, node) {
         scene.multMatrix(node.transformMatrix);
 
+        if (this.currMat[node.id].current >= this.currMat[node.id].total) {
+            this.currMat[node.id].current = 0;
+        }
+
+        node.materials[this.currMat[node.id].current].apply();
+
         for (let i = 0; i < node.children.length; i++) {
             if (node.children[i].type == 'primitive') {
-                node.materials[0].apply();
+                //node.materials[0].apply();
                 if (node.texture.texture != "none") {
                     node.children[i].primitive.updateTexCoords(node.texture.length_s, node.texture.length_s);
                     node.texture.texture.bind();
