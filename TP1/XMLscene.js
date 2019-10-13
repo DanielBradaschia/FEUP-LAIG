@@ -13,6 +13,7 @@ class XMLscene extends CGFscene {
 
         this.interface = myinterface;
         this.lightGroup = {};
+        this.changeViews = 0;
     }
 
     /**
@@ -103,6 +104,20 @@ class XMLscene extends CGFscene {
         this.interface.addLights(this.lights);
 
         this.sceneInited = true;
+    }
+
+    /**
+     * Change View in the scene.
+     */
+    changeView() {
+        if (this.changeViews == this.graph.viewsId.length - 1) {
+            this.changeViews = 0;
+        }
+        else {
+            this.changeViews++;
+        }
+        this.camera = this.graph.views[this.graph.viewsId[this.changeViews]];
+        this.interface.setActiveCamera(this.camera);
     }
 
 
