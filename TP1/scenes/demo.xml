@@ -476,9 +476,9 @@
                 <scale x="0.175" y="0.175" z="0.175" />
             </transformation>
             <materials>
-                <material id="bluePlastic" />
+                <material id="demoMaterial" />
             </materials>
-            <texture id="none"/>
+            <texture id="floaterTexture" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="demoTorus" />
             </children>
