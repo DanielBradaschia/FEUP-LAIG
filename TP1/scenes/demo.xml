@@ -64,6 +64,29 @@
             <diffuse r="0.0" g="0.50980392" b="0.50980392" a="1.0" />
             <specular r="0.50196078" g="0.50196078" b="0.50196078" a="1.0" />
         </material>
+        
+        <material id="bluePlastic" shininess="10">
+            <emission r="0.0" g="0.0" b="0.5" a="0" />
+            <ambient r="0.0" g="0.0" b="0.5" a="0" />
+            <diffuse r="0.01" g="0.01" b="0.01" a="0" />
+            <specular r="0.4" g="0.4" b="0.4" a="0" />
+        </material>
+
+        <material id="pinkPlastic" shininess="10">
+            <emission r="1.0" g="0.2" b="1.0" a="0" />
+            <ambient r="0.0" g="0.0" b="0.0" a="0" />
+            <diffuse r="0.01" g="0.01" b="0.01" a="0" />
+            <specular r="0.4" g="0.4" b="0.4" a="0" />
+        </material>
+
+        <material id="silverMaterial" shininess="76.8">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.25" g="0.25" b="0.25" a="1.0" />
+            <diffuse r="0.4" g="0.4" b="0.4" a="1.0" />
+            <specular r="0.774597" g="0.774597" b="0.774597" a="1.0" />
+        </material>
+
+
     </materials>
 
     <transformations>
@@ -265,7 +288,7 @@
                 <scale x="0.1" y="0.05" z="0.1" />
             </transformation>
             <materials>
-                <material id="emeraldMaterial" />
+                <material id="silverMaterial" />
             </materials>
             <texture id="none" />
             <children>
@@ -279,7 +302,7 @@
                 <scale x="0.1" y="0.05" z="0.1" />
             </transformation>
             <materials>
-                <material id="emeraldMaterial" />
+                <material id="silverMaterial" />
             </materials>
             <texture id="none" />
             <children>
@@ -453,9 +476,9 @@
                 <scale x="0.175" y="0.175" z="0.175" />
             </transformation>
             <materials>
-                <material id="demoMaterial" />
+                <material id="bluePlastic" />
             </materials>
-            <texture id="floaterTexture" length_s="1.0" length_t="1.0"/>
+            <texture id="none"/>
             <children>
                 <primitiveref id="demoTorus" />
             </children>
@@ -468,9 +491,9 @@
                 <scale x="0.2" y="0.2" z="0.2" />
             </transformation>
             <materials>
-                <material id="demoMaterial" />
+                <material id="pinkPlastic" />
             </materials>
-            <texture id="floaterTexture" length_s="1.0" length_t="1.0"/>
+            <texture id="none"/>
             <children>
                 <primitiveref id="demoTorus" />
             </children>
