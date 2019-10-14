@@ -30,6 +30,9 @@
         <texture id="chairTexture" file="./images/chair.jpg" />
         <texture id="tableTexture" file="./images/table.jpg" />
         <texture id="boarderTexture" file="./images/boarder.jpg" />
+        <texture id="parasolTexture" file="./images/parasol.jpg" />
+        <texture id="floorTexture" file="./images/floor.jpg" />
+        <texture id="skyTexture" file="./images/sky.jpg" />
     </textures>
 
     <materials>
@@ -45,6 +48,20 @@
             <ambient r="0.0215" g="0.1745" b="0.0215" a="0.55" />
             <diffuse r="0.07568" g="0.61424" b="0.07568" a="0.55" />
             <specular r="0.633" g="0.727811" b="0.633" a="0.55" />
+        </material>
+
+        <material id="yellowMaterial" shininess="27.8974">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.329412" g="0.223529" b="0.027451" a="1.0" />
+            <diffuse r="0.780392" g="0.568627" b="0.113725" a="1.0" />
+            <specular r="0.992157" g="0.941176" b="0.807843" a="1.0" />
+        </material>
+
+        <material id="cyanMaterial" shininess="32.0">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.0" g="0.1" b="0.06" a="1.0" />
+            <diffuse r="0.0" g="0.50980392" b="0.50980392" a="1.0" />
+            <specular r="0.50196078" g="0.50196078" b="0.50196078" a="1.0" />
         </material>
     </materials>
 
@@ -145,20 +162,19 @@
             <children>
                 <componentref id="face1" />
                 <componentref id="face2" />
-                <componentref id="face3" />
-                <componentref id="face4" />
-                <componentref id="face5" />
-                <componentref id="face6" />
             </children>
         </component>
 
         <component id="face1">
             <transformation>
+                <translate x="-13.2" y="5.7" z="0" />
+                <rotate axis="y" angle="90" />
+                <scale x="24" y="6" z="1" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="none" />
+            <texture id="skyTexture" length_s="2.0" length_t="1.0"/>
             <children>
                 <primitiveref id="demoRectangle" />
             </children>
@@ -166,64 +182,14 @@
 
         <component id="face2">
             <transformation>
-                <translate x="0" y="1" z="0" />
+                <translate x="0" y="5.7" z="-12" />
+                <rotate axis="y" angle="180" />
+                <scale x="26.5" y="6" z="1" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="none" />
-            <children>
-                <primitiveref id="demoRectangle" />
-            </children>
-        </component>
-
-        <component id="face3">
-            <transformation>
-                <translate x="0" y="-0.5" z="-0.5" />
-            </transformation>
-            <materials>
-                <material id="demoMaterial" />
-            </materials>
-            <texture id="none" />
-            <children>
-                <primitiveref id="demoRectangle" />
-            </children>
-        </component>
-
-        <component id="face4">
-            <transformation>
-                <translate x="0" y="-0.5" z="0.5" />
-            </transformation>
-            <materials>
-                <material id="demoMaterial" />
-            </materials>
-            <texture id="none" />
-            <children>
-                <primitiveref id="demoRectangle" />
-            </children>
-        </component>
-
-        <component id="face5">
-            <transformation>
-                <translate x="0.5" y="-0.5" z="0" />
-            </transformation>
-            <materials>
-                <material id="demoMaterial" />
-            </materials>
-            <texture id="none" />
-            <children>
-                <primitiveref id="demoRectangle" />
-            </children>
-        </component>
-
-        <component id="face6">
-            <transformation>
-                <translate x="-0.5" y="-0.5" z="0" />
-            </transformation>
-            <materials>
-                <material id="demoMaterial" />
-            </materials>
-            <texture id="none" />
+            <texture id="skyTexture" length_s="2.0" length_t="1.0"/>
             <children>
                 <primitiveref id="demoRectangle" />
             </children>
@@ -233,12 +199,12 @@
             <transformation>
                 <translate x="0" y="-0.3" z="0" />
                 <rotate axis="x" angle="-90" />
-                <scale x="20" y="12" z="1" />
+                <scale x="26.5" y="12" z="1" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="none" />
+            <texture id="floorTexture" length_s="2.0" length_t="1.0"/>
             <children>
                 <primitiveref id="demoRectangle" />
             </children>
@@ -250,7 +216,7 @@
                 <scale x="0.7" y="0.7" z="0.7" />
             </transformation>
             <materials>
-                <material id="demoMaterial" />
+                <material id="yellowMaterial" />
             </materials>
             <texture id="none" />
             <children>
@@ -372,7 +338,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="none" />
+            <texture id="parasolTexture" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="parasolTop" />
             </children>
@@ -383,7 +349,7 @@
                 <transformationref id="tableLegRotation" />
             </transformation>
             <materials>
-                <material id="demoMaterial" />
+                <material id="cyanMaterial" />
             </materials>
             <texture id="none" />
             <children>
@@ -412,7 +378,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="boarderTexture" />
+            <texture id="boarderTexture" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="poolBoarder" />
             </children>
@@ -425,7 +391,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="boarderTexture" />
+            <texture id="boarderTexture" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="poolBoarder" />
             </children>
@@ -440,7 +406,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="boarderTexture" />
+            <texture id="boarderTexture" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="poolBoarder" />
             </children>
@@ -455,7 +421,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="boarderTexture" />
+            <texture id="boarderTexture" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="poolBoarder" />
             </children>
@@ -488,7 +454,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="floaterTexture"/>
+            <texture id="floaterTexture" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="demoTorus" />
             </children>
@@ -503,7 +469,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="floaterTexture"/>
+            <texture id="floaterTexture" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="demoTorus" />
             </children>
@@ -549,7 +515,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="tableLegTexture" />
+            <texture id="tableLegTexture" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="tableLeg" />
             </children>
@@ -563,7 +529,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="tableLegTexture" />
+            <texture id="tableLegTexture" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="tableLeg" />
             </children>
@@ -577,7 +543,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="tableLegTexture" />
+            <texture id="tableLegTexture" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="tableLeg" />
             </children>
@@ -591,7 +557,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="tableLegTexture" />
+            <texture id="tableLegTexture" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="tableLeg" />
             </children>
