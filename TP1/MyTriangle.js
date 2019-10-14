@@ -16,6 +16,10 @@ class MyTriangle extends CGFobject {
         this.z2 = z2;
         this.z3 = z3;
 
+        this.point_1 = [x1,y1,z1];
+        this.point_2 = [x2,y2,z2];
+        this.point_3 = [x3,y3,z3];
+
         this.initBuffers();
     }
     initBuffers() {
@@ -33,4 +37,28 @@ class MyTriangle extends CGFobject {
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
     }
+    updateTexCoords(s, t) {
+        this.disp1_p2 = Math.sqrt(Math.pow((this.point_2[0] - this.point_1[0]), 2) +
+            Math.pow((this.point_2[1] - this.point_1[1]), 2) +
+            Math.pow((this.point_2[2] - this.point_1[2]), 2));
+
+        this.disp3_p1 = Math.sqrt(Math.pow((this.point_1[0] - this.point_3[0]), 2) +
+            Math.pow((this.point_1[1] - this.point_3[1]), 2) +
+            Math.pow((this.point_1[2] - this.point_3[2]), 2));
+
+        this.disp2_p3 = Math.sqrt(Math.pow((this.point_2[0] - this.point_3[0]), 2) +
+            Math.pow((this.point_2[1] - this.point_3[1]), 2) +
+            Math.pow((this.point_2[2] - this.point_3[2]), 2));
+
+        var angBt = Math.acos((Math.pow(this.disp2_p3, 2) - Math.pow(this.disp3_p1, 2) + Math.pow(this.disp1_p2, 2)) / (2 * this.disp2_p3 * this.disp1_p2));
+
+        var aux = this.disp2_p3 * Math.sin(angBt);
+
+        this.texCoords = [0, aux / t,
+            this.disp1_p2 / s, aux / t,
+            (this.disp1_p2 - this.disp2_p3 * Math.cos(angBt)) / s, (aux - this.disp2_p3 * Math.sin(angBt)) / t
+        ];
+
+        this.updateTexCoordsGLBuffers();
+    };
 }

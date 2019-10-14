@@ -29,7 +29,7 @@ class MySceneGraph {
         this.viewsId = [];
 
         this.idRoot = null;                    // The id of the root element.
-        
+
 
         this.axisCoords = [];
         this.axisCoords['x'] = [1, 0, 0];
@@ -224,7 +224,7 @@ class MySceneGraph {
 
         return null;
     }
-    createPers(elements){
+    createPers(elements) {
         if (isNaN(elements.near)) {
             this.onXMLError('Perspective Views expected a float number on near.');
         }
@@ -257,7 +257,7 @@ class MySceneGraph {
         return aux;
     }
 
-    createOrto(elements){
+    createOrto(elements) {
         if (isNaN(elements.near)) {
             this.onXMLError('Perspective Views expected a float number on near.');
         }
@@ -650,8 +650,7 @@ class MySceneGraph {
             grandChildren = children[i].children;
 
             //Add tags to auxiliary variable
-            for(let j = 0; j < grandChildren.length; j++)
-            {
+            for (let j = 0; j < grandChildren.length; j++) {
                 nodeNames.push(grandChildren[j].nodeName);
             }
 
@@ -668,7 +667,7 @@ class MySceneGraph {
             else if (nodeNames.indexOf("specular") == -1) {
                 return "missing <specular> tag";
             }
-        
+
             for (var j = 0; j < grandChildren.length; j++) {
                 if (grandChildren[j].nodeName == "emission") {
                     var emission = {
@@ -773,7 +772,7 @@ class MySceneGraph {
 
                         transfMatrix = mat4.translate(transfMatrix, transfMatrix, coordinates);
                         break;
-                    case 'scale':                        
+                    case 'scale':
                         //this.onXMLMinorError("To do: Parse scale transformations.");
                         var coordinates = this.parseCoordinates3D(grandChildren[j], "translate transformation for ID " + transformationID);
                         if (!Array.isArray(coordinates))
@@ -909,7 +908,7 @@ class MySceneGraph {
                 var z3 = this.reader.getFloat(grandChildren[0], 'z3');
                 if (!(z3 != null && !isNaN(z3)))
                     return "unable to parse z3 of the primitive coordinates for ID = " + primitiveId;
-                    
+
                 var trian = new MyTriangle(this.scene, primitiveId, x1, x2, x3, y1, y2, y3, z1, z2, z3);
 
                 this.primitives[primitiveId] = trian;
@@ -927,12 +926,12 @@ class MySceneGraph {
                     return "unable to parse stacks of the primitive coordinates for ID = " + primitiveId;
 
                 // baseRadius
-                var baseRadius = this.reader.getFloat(grandChildren[0], 'baseRadius');
+                var baseRadius = this.reader.getFloat(grandChildren[0], 'base');
                 if (!(baseRadius != null && !isNaN(baseRadius)))
                     return "unable to parse baseRadius of the primitive coordinates for ID = " + primitiveId;
 
                 // topRadius
-                var topRadius = this.reader.getFloat(grandChildren[0], 'topRadius');
+                var topRadius = this.reader.getFloat(grandChildren[0], 'top');
                 if (!(topRadius != null && !isNaN(topRadius)))
                     return "unable to parse topRadius of the primitive coordinates for ID = " + primitiveId;
 
@@ -969,12 +968,12 @@ class MySceneGraph {
 
             else if (primitiveType == 'torus') {
                 // innerRadius
-                var innerRadius = this.reader.getFloat(grandChildren[0], 'innerRadius');
+                var innerRadius = this.reader.getFloat(grandChildren[0], 'inner');
                 if (!(innerRadius != null && !isNaN(innerRadius)))
                     return "unable to parse innerRadius of the primitive coordinates for ID = " + primitiveId;
 
                 // outerRadius
-                var outerRadius = this.reader.getFloat(grandChildren[0], 'outerRadius');
+                var outerRadius = this.reader.getFloat(grandChildren[0], 'outer');
                 if (!(outerRadius != null && !isNaN(outerRadius)))
                     return "unable to parse outerRadius of the primitive coordinates for ID = " + primitiveId;
 
@@ -1211,38 +1210,36 @@ class MySceneGraph {
             if (this.components[componentID] != null)
                 return "ID must be unique for each component (conflict: ID = " + componentID + ")";
 
-        /*
-            grandChildren = children[i].children;
-
-            nodeNames = [];
-            for (var j = 0; j < grandChildren.length; j++) {
-                nodeNames.push(grandChildren[j].nodeName);
-            }
-
-            var transformationIndex = nodeNames.indexOf("transformation");
-            var materialsIndex = nodeNames.indexOf("materials");
-            var textureIndex = nodeNames.indexOf("texture");
-            var childrenIndex = nodeNames.indexOf("children");
-
-            this.onXMLMinorError("To do: Parse components.");
-            // Transformations
-
-            // Materials
-
-            // Texture
-
-            // Children
-        */
+            /*
+                grandChildren = children[i].children;
+    
+                nodeNames = [];
+                for (var j = 0; j < grandChildren.length; j++) {
+                    nodeNames.push(grandChildren[j].nodeName);
+                }
+    
+                var transformationIndex = nodeNames.indexOf("transformation");
+                var materialsIndex = nodeNames.indexOf("materials");
+                var textureIndex = nodeNames.indexOf("texture");
+                var childrenIndex = nodeNames.indexOf("children");
+    
+                this.onXMLMinorError("To do: Parse components.");
+                // Transformations
+    
+                // Materials
+    
+                // Texture
+    
+                // Children
+            */
             this.components[componentID] = children[i];
         }
         this.nodeAux = this.graphBuilder(this.idRoot, null, this.components);
 
-        if(this.nodeAux == null)
-        {
+        if (this.nodeAux == null) {
             return "Error parsing components"
         }
-        else
-        {
+        else {
             this.log("Parsed components");
         }
     }
@@ -1392,7 +1389,7 @@ class MySceneGraph {
             }
         }
     }
-    
+
     /**
      * Displays the scene, processing each node, starting in the root node.
      */

@@ -33,6 +33,7 @@
         <texture id="parasolTexture" file="./images/parasol.jpg" />
         <texture id="floorTexture" file="./images/floor.jpg" />
         <texture id="skyTexture" file="./images/sky.jpg" />
+        <texture id="waterTexture" file="./images/waterTex.jpg" />
     </textures>
 
     <materials>
@@ -90,7 +91,7 @@
         </primitive>
       
         <primitive id="demoCylinder">
-          <cylinder slices="20" stacks="20" baseRadius="2" topRadius="0" height="4"/>
+          <cylinder slices="20" stacks="20" base="2" top="0" height="4"/>
         </primitive>
 
         <primitive id="demoSphere">
@@ -98,29 +99,29 @@
         </primitive>
         
         <primitive id="demoTorus">
-          <torus innerRadius="1" outerRadius="5" slices="20" loops="20"/>
+          <torus inner="1" outer="5" slices="20" loops="20"/>
         </primitive>
     
         <primitive id="tableLeg">
-            <cylinder slices="10" stacks="30" baseRadius="0.1" topRadius="0.1" height="2.2"/>
+            <cylinder slices="10" stacks="30" base="0.1" top="0.1" height="2.2"/>
         </primitive>
 
         <primitive id="poolBoarder">
-            <cylinder slices="10" stacks="30" baseRadius="0.3" topRadius="0.3" height="10"/>
+            <cylinder slices="10" stacks="30" base="0.3" top="0.3" height="10"/>
         </primitive>
         
         <primitive id="parasolArm">
-            <cylinder slices="10" stacks="30" baseRadius="0.1" topRadius="0.1" height="6"/>
+            <cylinder slices="10" stacks="30" base="0.1" top="0.1" height="6"/>
         </primitive>
 
         <primitive id="parasolTop">
-            <cylinder slices="6" stacks="30" baseRadius="4" topRadius="0" height="1.5"/>
+            <cylinder slices="6" stacks="30" base="4" top="0" height="1.5"/>
         </primitive>
 
 
     </primitives>
 
-    <components>
+<components>
         <component id="demoRoot">
             <transformation>
                 <scale x="0.5" y="0.5" z="0.5" />
@@ -365,7 +366,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="none"/>
+            <texture id="waterTexture" length_s="2.0" length_t="1.0"/>
             <children>
                 <primitiveref id="demoRectangle" />
             </children>
