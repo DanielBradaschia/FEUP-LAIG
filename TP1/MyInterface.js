@@ -32,7 +32,7 @@ class MyInterface extends CGFinterface {
      */
     initKeys() {
         this.scene.gui=this;
-        this.processKeyboard=function(){};
+        this.processKeyboard(event);
         this.activeKeys={};
     }
 
@@ -49,11 +49,9 @@ class MyInterface extends CGFinterface {
     }
 
     processKeyboard(event){
-        //CGFinterface.prototype.processKeyboard.call(this,event);
 
-        if(this.gui.isKeyPressed("KeyM"))
+        if(event.code == "KeyM")
         {
-            console.log("entrei");
             this.scene.changeMaterial();
         }
 
@@ -72,4 +70,21 @@ class MyInterface extends CGFinterface {
             }
         }
     }
+
+    addViewsGroup(views) {
+
+        var group = this.gui.addFolder("Views");
+        group.open();
+
+        // add two check boxes to the group. The identifiers must be members variables of the scene initialized in scene.init as boolean
+        // e.g. this.option1=true; this.option2=false;
+
+        for (var key in views) {
+            if (views.hasOwnProperty(key)) {
+                this.scene.graph.viewsId[key] = views[key].enabled;
+
+            }
+        }
+    }
+
 }

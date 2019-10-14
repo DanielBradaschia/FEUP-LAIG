@@ -36,7 +36,8 @@ class MySceneGraph {
         this.axisCoords['y'] = [0, 1, 0];
         this.axisCoords['z'] = [0, 0, 1];
 
-        this.currMat = [];
+        this.currMatId = [];
+        this.currMat = 0;
         // File reading 
         this.reader = new CGFXMLreader();
 
@@ -723,6 +724,7 @@ class MySceneGraph {
             this.materials[materialID].setAmbient(ambient.red, ambient.green, ambient.blue, ambient.alpha);
             this.materials[materialID].setDiffuse(diffuse.red, diffuse.green, diffuse.blue, diffuse.alpha);
             this.materials[materialID].setSpecular(specular.red, specular.green, specular.blue, specular.alpha);
+            this.currMatId.push(materialID);
         }
 
 
@@ -1098,7 +1100,7 @@ class MySceneGraph {
                         }
                     }
 
-                    this.currMat[node.id] = {
+                    this.currMatId[node.id] = {
                         current: 0,
                         total: node.materials.length
                     };
@@ -1364,16 +1366,11 @@ class MySceneGraph {
     */
     renderScene(scene, node) {
         scene.multMatrix(node.transformMatrix);
-
-        if (this.currMat[node.id].current >= this.currMat[node.id].total) {
-            this.currMat[node.id].current = 0;
-        }
-
-        node.materials[this.currMat[node.id].current].apply();
+        this.nodeMaterial = node.materials;
 
         for (let i = 0; i < node.children.length; i++) {
             if (node.children[i].type == 'primitive') {
-                //node.materials[0].apply();
+                this.materials[this.currMatId[this.currMat]].apply();
                 if (node.texture.texture != "none") {
                     node.children[i].primitive.updateTexCoords(node.texture.length_s, node.texture.length_s);
                     node.texture.texture.bind();

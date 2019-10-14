@@ -93,6 +93,10 @@ class XMLscene extends CGFscene {
      * As loading is asynchronous, this may be called already after the application has started the run loop
      */
     onGraphLoaded() {
+        
+        this.camera = this.graph.views[this.graph.default_view];
+        this.interface.setActiveCamera(this.camera);
+
         this.axis = new CGFaxis(this, this.graph.referenceLength);
 
         this.gl.clearColor(this.graph.background[0], this.graph.background[1], this.graph.background[2], this.graph.background[3]);
@@ -102,33 +106,20 @@ class XMLscene extends CGFscene {
         this.initLights();
 
         this.interface.addLights(this.lights);
+        this.interface.addViewsGroup(this.graph.viewsId);
 
         this.sceneInited = true;
     }
 
     /**
-     * Change View in the scene.
-     */
-    changeView() {
-        if (this.changeViews == this.graph.viewsId.length - 1) {
-            this.changeViews = 0;
-        }
-        else {
-            this.changeViews++;
-        }
-        this.camera = this.graph.views[this.graph.viewsId[this.changeViews]];
-        this.interface.setActiveCamera(this.camera);
-    }
-
-
-    /**
      * Change Material in the scene.
      */
     changeMaterial(){
-        for(var node in this.graph.currMat){
-            if(this.graph.currMat.hasOwnProperty(node))
-                this.graph.currMat[node].current++;
+        if (this.graph.currMat < this.graph.currMatId.length-1) {
+            this.graph.currMat++;
         }
+        else
+            this.graph.currMat = 0;
     }
     /**
      * Displays the scene.
@@ -169,7 +160,6 @@ class XMLscene extends CGFscene {
                 i++;
             }
         }
-
         if (this.sceneInited) {
             // Draw axis
             this.setDefaultAppearance();
