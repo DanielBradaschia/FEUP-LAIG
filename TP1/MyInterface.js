@@ -54,20 +54,28 @@ class MyInterface extends CGFinterface {
         {
             this.scene.changeMaterial();
         }
-
+        else if (event.code == "KeyC") 
+        {
+            this.scene.changeView();
+        }
     }
     //Create lights
-    addLights(lights){
+    addLights(lights, numLights){
         var lightsGroup = this.gui.addFolder("Lights");
         lightsGroup.open();
 
+        var j = 0;
+
         for(let i in lights)
         {
+            if(j >= numLights)
+                break;
             if(lights.hasOwnProperty(i))
             {
                 this.scene.lightGroup[i] = lights[i].enabled;
                 lightsGroup.add(this.scene.lightGroup, i);
             }
+            j++;
         }
     }
 

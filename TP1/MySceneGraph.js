@@ -27,6 +27,7 @@ class MySceneGraph {
 
         this.nodes = [];
         this.viewsId = [];
+        this.currView = 0;
 
         this.idRoot = null;                    // The id of the root element.
 
@@ -302,7 +303,7 @@ class MySceneGraph {
     /**
      * Parses the <views> block.
      * @param {view block element} viewsNode
-     */
+     
     parseView(viewsNode) {
         // get default view
         this.default_view = this.reader.getString(viewsNode, 'default');
@@ -408,11 +409,42 @@ class MySceneGraph {
         }
 
         this.log("Parsed views");
-        //  this.log(this.views["v1"].near);
 
         return null;
     }
+    */
+   parseView(viewsNode) {
+        //this.onXMLMinorError("To do: Parse views and create cameras.");
 
+        //var defaultCamera = this.reader.getString(viewsNode, 'defaultCamera');
+        this.cameras = [];
+
+        for(let i = 0; i < viewsNode.children.length; i++)
+        {
+            var fromX, fromY, fromZ, toX, toY, toZ, near, far, angle;
+            
+            let camera = viewsNode.children[i];
+            near = this.reader.getFloat(camera, 'near');
+            far = this.reader.getFloat(camera, 'far');
+            angle = this.reader.getFloat(camera, 'angle');
+            
+            let from = camera.children[0];
+            fromX = this.reader.getFloat(from, 'x');
+            fromY = this.reader.getFloat(from, 'y');
+            fromZ = this.reader.getFloat(from, 'z');
+            
+            let to = camera.children[1];
+            toX = this.reader.getFloat(to, 'x');
+            toY = this.reader.getFloat(to, 'y');
+            toZ = this.reader.getFloat(to, 'z');
+            
+            this.cameras[i] = new CGFcamera(DEGREE_TO_RAD*angle, near, far, vec3.fromValues(fromX, fromY, fromZ), vec3.fromValues(toX, toY, toZ));
+        }
+
+        this.log("Parsed cameras");
+
+        return null;
+    }
     /**
      * Parses the <ambient> node.
      * @param {ambient block element} ambientsNode
@@ -457,7 +489,7 @@ class MySceneGraph {
         var children = lightsNode.children;
 
         this.lights = [];
-        var numLights = 0;
+        this.numLights = 0;
 
         var grandChildren = [];
         var nodeNames = [];
@@ -555,12 +587,12 @@ class MySceneGraph {
             }
 
             this.lights[lightId] = global;
-            numLights++;
+            this.numLights++;
         }
 
-        if (numLights == 0)
+        if (this.numLights == 0)
             return "at least one light must be defined";
-        else if (numLights > 8)
+        else if (this.numLights > 8)
             this.onXMLMinorError("too many lights defined; WebGL imposes a limit of 8 lights");
 
         this.log("Parsed lights");

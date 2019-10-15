@@ -94,7 +94,7 @@ class XMLscene extends CGFscene {
      */
     onGraphLoaded() {
         
-        this.camera = this.graph.views[this.graph.default_view];
+        this.camera = this.graph.cameras[this.graph.currView];
         this.interface.setActiveCamera(this.camera);
 
         this.axis = new CGFaxis(this, this.graph.referenceLength);
@@ -105,12 +105,28 @@ class XMLscene extends CGFscene {
 
         this.initLights();
 
-        this.interface.addLights(this.lights);
+        this.interface.addLights(this.lights, this.graph.numLights);
         this.interface.addViewsGroup(this.graph.viewsId);
 
         this.sceneInited = true;
     }
 
+
+    /**
+     * Change Views in the scene.
+     */
+    changeView() {
+        if (this.graph.currView < this.graph.cameras.length - 1) {
+            this.graph.currView++;
+        }
+        else {
+            this.graph.currView = 0;
+        }
+
+        this.camera = this.graph.cameras[this.graph.currView];
+        this.interface.setActiveCamera(this.camera);
+    }
+    
     /**
      * Change Material in the scene.
      */
@@ -119,8 +135,9 @@ class XMLscene extends CGFscene {
             this.graph.currMat++;
         }
         else
-            this.graph.currMat = 0;
-    }
+        this.graph.currMat = 0;
+    };
+
     /**
      * Displays the scene.
      */
