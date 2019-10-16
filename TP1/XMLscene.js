@@ -114,7 +114,7 @@ class XMLscene extends CGFscene {
 
     setCurrentCamera(camera_id) {
         const selected_camera = this.graph.viewMap.get(camera_id);
-        console.log(selected_camera);
+        //console.log(selected_camera);
 
         if (!selected_camera) {
             console.warn(`Camera with id '${camera_id}' was not found, falling back to default camera`);
