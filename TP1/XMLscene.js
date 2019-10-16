@@ -112,6 +112,21 @@ class XMLscene extends CGFscene {
     }
 
 
+    setCurrentCamera(camera_id) {
+        const selected_camera = this.graph.viewMap.get(camera_id);
+        console.log(selected_camera);
+
+        if (!selected_camera) {
+            console.warn(`Camera with id '${camera_id}' was not found, falling back to default camera`);
+        }
+
+        for (let i = 0; i < this.graph.cameras.length; i++)
+            if (this.graph.cameras[i] == selected_camera)
+                this.camera = this.graph.cameras[i];
+
+                
+        this.interface.setActiveCamera(this.camera);
+    }
     /**
      * Change Views in the scene.
      */

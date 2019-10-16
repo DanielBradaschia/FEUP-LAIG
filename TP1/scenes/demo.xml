@@ -7,7 +7,7 @@
             <to x="0" y="1" z="0" />
         </perspective>
 
-        <perspective id="main" near="0.1" far="90" angle="90">
+        <perspective id="not_main" near="0.1" far="90" angle="90">
             <from x="10" y="5" z="12" />
             <to x="0" y="1" z="0" />
         </perspective>

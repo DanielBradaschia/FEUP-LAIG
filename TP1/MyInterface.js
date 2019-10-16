@@ -20,6 +20,7 @@ class MyInterface extends CGFinterface {
 
         this.gui = new dat.GUI();
 
+        this.model = {};
         // add a group of controls (and open/expand by defult)
 
         this.initKeys();
@@ -79,20 +80,19 @@ class MyInterface extends CGFinterface {
         }
     }
 
-    addViewsGroup(views) {
+    addViewsGroup() {
+        const cameras = this.scene.graph.viewMap;
 
-        var group = this.gui.addFolder("Views");
-        group.open();
+        const cameraDropdownModel = [
+            ...cameras.keys()
+        ];
 
-        // add two check boxes to the group. The identifiers must be members variables of the scene initialized in scene.init as boolean
-        // e.g. this.option1=true; this.option2=false;
+        this.model.cameraIndex = this.scene.graph.defaultViewId;
 
-        for (var key in views) {
-            if (views.hasOwnProperty(key)) {
-                this.scene.graph.viewsId[key] = views[key].enabled;
-
-            }
-        }
+        this.gui.add(this.model, "cameraIndex", cameraDropdownModel)
+            .name("Current camera")
+            .onChange(val => this.scene.setCurrentCamera(val));
     }
+
 
 }
