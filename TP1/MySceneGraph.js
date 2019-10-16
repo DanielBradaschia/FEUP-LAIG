@@ -421,13 +421,11 @@ class MySceneGraph {
 
         for(let i = 0; i < viewsNode.children.length; i++)
         {
-            var fromX, fromY, fromZ, toX, toY, toZ, near, far, angle;
-            
             let camera = viewsNode.children[i];
+            var fromX, fromY, fromZ, toX, toY, toZ, near, far;
             near = this.reader.getFloat(camera, 'near');
             far = this.reader.getFloat(camera, 'far');
-            angle = this.reader.getFloat(camera, 'angle');
-            
+
             let from = camera.children[0];
             fromX = this.reader.getFloat(from, 'x');
             fromY = this.reader.getFloat(from, 'y');
@@ -437,8 +435,27 @@ class MySceneGraph {
             toX = this.reader.getFloat(to, 'x');
             toY = this.reader.getFloat(to, 'y');
             toZ = this.reader.getFloat(to, 'z');
-            
-            this.cameras[i] = new CGFcamera(DEGREE_TO_RAD*angle, near, far, vec3.fromValues(fromX, fromY, fromZ), vec3.fromValues(toX, toY, toZ));
+
+            if(viewsNode.children[i].nodeName == "perspective")
+            {
+                var angle;
+                angle = this.reader.getFloat(camera, 'angle');
+                
+                
+                this.cameras[i] = new CGFcamera(DEGREE_TO_RAD*angle, near, far, vec3.fromValues(fromX, fromY, fromZ), vec3.fromValues(toX, toY, toZ));
+            }
+            else if (viewsNode.children[i].nodeName == "ortho")
+            {
+                var left, right, top, bottom;
+
+                let camera = viewsNode.children[i];
+                left = this.reader.getFloat(camera, 'left');
+                right = this.reader.getFloat(camera, 'right');
+                top = this.reader.getFloat(camera, 'top');
+                bottom = this.reader.getFloat(camera, 'bottom');
+
+                this.cameras[i] = new CGFcameraOrtho(left, right, bottom, top, near, far, vec3.fromValues(fromX, fromY, fromZ), vec3.fromValues(toX, toY, toZ), vec3.fromValues(0, 1, 0));
+            }
         }
 
         this.log("Parsed cameras");
