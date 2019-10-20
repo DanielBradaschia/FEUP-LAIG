@@ -1083,28 +1083,7 @@ class MySceneGraph {
             if (this.components[componentID] != null)
                 return "ID must be unique for each component (conflict: ID = " + componentID + ")";
 
-            /*
-                grandChildren = children[i].children;
-    
-                nodeNames = [];
-                for (var j = 0; j < grandChildren.length; j++) {
-                    nodeNames.push(grandChildren[j].nodeName);
-                }
-    
-                var transformationIndex = nodeNames.indexOf("transformation");
-                var materialsIndex = nodeNames.indexOf("materials");
-                var textureIndex = nodeNames.indexOf("texture");
-                var childrenIndex = nodeNames.indexOf("children");
-    
-                this.onXMLMinorError("To do: Parse components.");
-                // Transformations
-    
-                // Materials
-    
-                // Texture
-    
-                // Children
-            */
+
             this.components[componentID] = children[i];
         }
         this.nodeAux = this.graphBuilder(this.idRoot, null, this.components);
