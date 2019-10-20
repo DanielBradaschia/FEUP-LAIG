@@ -215,7 +215,7 @@
                 <componentref id="parasol1" /> <!-- parasol by the table -->
                 <componentref id="chair1" />
                 <componentref id="chair2" />
-                <componentref id="sun" />
+                <componentref id="ball2" />
                 <componentref id="floor" />
                 <componentref id="background" />
 
@@ -280,15 +280,15 @@
             </children>
         </component>
         
-       <component id="sun">
+       <component id="ball2">
             <transformation>
-                <translate x="-7" y="7" z="-7" />
-                <scale x="0.7" y="0.7" z="0.7" />
+                <translate x="-2.75" y="0" z="-2.75" />
+                <scale x="0.3" y="0.3" z="0.3" />
             </transformation>
             <materials>
                 <material id="yellowMaterial" />
             </materials>
-            <texture id="none" />
+            <texture id="floaterTexture" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="demoSphere" />
             </children>
