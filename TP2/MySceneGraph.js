@@ -915,7 +915,21 @@ class MySceneGraph {
 
                 this.primitives[primitiveId] = torus;
             }
+            else if (primitiveType == 'plane') {
+                // npartsU
+                var npartsU = this.reader.getFloat(grandChildren[0], 'npartsU');
+                if (!(npartsU != null && !isNaN(npartsU)))
+                    return "unable to parse npartsU of the primitive coordinates for ID = " + primitiveId;
 
+                // npartsV
+                var npartsV = this.reader.getFloat(grandChildren[0], 'npartsV');
+                if (!(npartsV != null && !isNaN(npartsV)))
+                    return "unable to parse npartsV of the primitive coordinates for ID = " + primitiveId;
+                
+                var plane = new MyPlane(npartsU, npartsV);
+                
+                this.primitives[primitiveId] = plane;
+            }
             else {
                 console.warn("To do: Parse other primitives.");
             }
