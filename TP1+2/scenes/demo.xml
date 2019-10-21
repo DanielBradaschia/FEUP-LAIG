@@ -274,7 +274,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="floorTexture" length_s="2.0" length_t="1.0"/>
+            <texture id="floorTexture" length_s="1.0" length_t="2.0"/>
             <children>
                 <primitiveref id="demoRectangle" />
             </children>
@@ -435,7 +435,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="waterTexture" length_s="2.0" length_t="1.0"/>
+            <texture id="waterTexture" length_s="1.0" length_t="2.0"/>
             <children>
                 <primitiveref id="demoRectangle" />
             </children>

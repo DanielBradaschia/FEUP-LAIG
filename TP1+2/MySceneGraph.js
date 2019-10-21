@@ -8,8 +8,9 @@ var LIGHTS_INDEX = 3;
 var TEXTURES_INDEX = 4;
 var MATERIALS_INDEX = 5;
 var TRANSFORMATIONS_INDEX = 6;
-var PRIMITIVES_INDEX = 7;
-var COMPONENTS_INDEX = 8;
+var ANIMATION_INDEX = 7;
+var PRIMITIVES_INDEX = 8;
+var COMPONENTS_INDEX = 9;
 
 /**
  * MySceneGraph class, representing the scene graph.
@@ -173,6 +174,19 @@ class MySceneGraph {
 
             //Parse transformations block
             if ((error = this.parseTransformations(nodes[index])) != null)
+                return error;
+        }
+
+        // <animations>
+        if ((index = nodeNames.indexOf("animations")) == -1) {
+            return "tag <animations> missing";
+        }
+        else {
+            if (index != ANIMATION_INDEX)
+                this.onXMLMinorError("tag <animations> out of order");
+
+            //Parse animations block
+            if ((error = this.parseAnimations(nodes[index])) != null)
                 return error;
         }
 
@@ -667,6 +681,72 @@ class MySceneGraph {
 
         this.log("Parsed transformations");
         return null;
+    }
+
+    /**
+    * Parses the <animations> block.
+    * @param {animations block element} animationNode
+    */
+    parseAnimations(animationNode) {
+        var children = animationNode.children;
+
+        this.animations = [];
+
+        if (children.length != 0) {
+            var grandChildren;
+            var animationId;
+
+            for (var i = 0; i < children.length; i++) {
+                if (children[i].nodeName != "animation") {
+                    this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
+                    continue;
+                }
+
+                animationId = this.reader.getString(children[i], 'id') || null;
+
+                if (animationId == null || animationId.length == 0) {
+                    return "no ID defined";
+                }
+
+                if (this.animations[animationId] != null) {
+                    return "ID must be unique for each animation (conflict: ID = " + animationId + ")";
+                }
+
+                if (children[i].nodeName == "linear") {
+                    
+                }
+                else if (children[i].nodeName == "circular") {
+                    var center = this.reader.getString(children[i], 'center');
+                    var radius = this.reader.getFloat(children[i], 'radius');
+                    var startAng = this.reader.getFloat(children[i], 'startang');
+                    var rotAng = this.reader.getFloat(children[i], 'rotang');
+
+                    if (center == null) {
+                        return "A center point must be defined (animation: ID = " + animationId + ")";
+                    }
+
+                    center = center.split(" ");
+                    center = center.map(el => parseInt(el));
+                    center = center.filter(function (el) { return !isNaN(el) });
+
+                    if (center.length != 3 || '' in center) {
+                        return "CENTER must be defined with exact 3 values separeted by white spaces (animation: ID = " + animationId + ")";
+                    }
+                    if (isNaN(radius) || radius < 0) {
+                        return "RADIUS must be a positive number (animation: ID = " + animationId + ")";
+                    }
+                    if (isNaN(startAng)) {
+                        return "STARTANG must be an angle expressed in degrees (animation: ID = " + animationId + ")";
+                    }
+                    if (isNaN(rotAng)) {
+                        return "ROTANG must be an angle expressed in degrees (animation: ID = " + animationId + ")";
+                    }
+
+                    this.animations[animationId] = new CircularAnimation(this.scene, animationId, spanTime, center, radius, startAng, rotAng);
+                }
+            }
+        }
+        this.log("Parsed Animations");
     }
 
     /**
@@ -1222,7 +1302,7 @@ class MySceneGraph {
             if (node.children[i].type == 'primitive') {
                 this.materials[this.currMatId[this.currMat]].apply();
                 if (node.texture.texture != "none") {
-                    node.children[i].primitive.updateTexCoords(node.texture.length_s, node.texture.length_s);
+                    node.children[i].primitive.updateTexCoords(node.texture.length_s, node.texture.length_t);
                     node.texture.texture.bind();
                 }
                 node.children[i].primitive.display();
