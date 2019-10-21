@@ -1,0 +1,5 @@
+-Criar construtor das animations
+	-terminar parser de animations
+-criar novas primitivas(patch e cylinder2)
+	-modificar parser de primitivas
+
