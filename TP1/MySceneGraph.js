@@ -240,20 +240,19 @@ class MySceneGraph {
 
         return null;
     }
-  
+
     /**
      * Parses the <views> block.
      * @param {view block element} viewsNode
     */
-   parseView(viewsNode) {
+    parseView(viewsNode) {
         //this.onXMLMinorError("To do: Parse views and create cameras.");
 
         //var defaultCamera = this.reader.getString(viewsNode, 'defaultCamera');
         this.cameras = [];
         this.defaultViewId = this.reader.getString(viewsNode, 'default');
         this.viewMap = new Map();
-        for(let i = 0; i < viewsNode.children.length; i++)
-        {
+        for (let i = 0; i < viewsNode.children.length; i++) {
             let camera = viewsNode.children[i];
             var fromX, fromY, fromZ, toX, toY, toZ, near, far, id;
             near = this.reader.getFloat(camera, 'near');
@@ -263,24 +262,22 @@ class MySceneGraph {
             fromX = this.reader.getFloat(from, 'x');
             fromY = this.reader.getFloat(from, 'y');
             fromZ = this.reader.getFloat(from, 'z');
-            
+
             let to = camera.children[1];
             toX = this.reader.getFloat(to, 'x');
             toY = this.reader.getFloat(to, 'y');
             toZ = this.reader.getFloat(to, 'z');
 
             id = this.reader.getString(camera, 'id');
-            if(viewsNode.children[i].nodeName == "perspective")
-            {
+            if (viewsNode.children[i].nodeName == "perspective") {
                 var angle;
                 angle = this.reader.getFloat(camera, 'angle');
-                
-                
-                this.cameras[i] = new CGFcamera(DEGREE_TO_RAD*angle, near, far, vec3.fromValues(fromX, fromY, fromZ), vec3.fromValues(toX, toY, toZ));
+
+
+                this.cameras[i] = new CGFcamera(DEGREE_TO_RAD * angle, near, far, vec3.fromValues(fromX, fromY, fromZ), vec3.fromValues(toX, toY, toZ));
                 this.viewMap.set(id, this.cameras[i]);
             }
-            else if (viewsNode.children[i].nodeName == "ortho")
-            {
+            else if (viewsNode.children[i].nodeName == "ortho") {
                 var left, right, top, bottom;
 
                 let camera = viewsNode.children[i];
@@ -686,14 +683,13 @@ class MySceneGraph {
     /**
     * Parses the <animations> block.
     * @param {animations block element} animationNode
-    */
+
     parseAnimations(animationNode) {
         var children = animationNode.children;
 
         this.animations = [];
 
         if (children.length != 0) {
-            var grandChildren;
             var animationId;
 
             for (var i = 0; i < children.length; i++) {
@@ -712,43 +708,18 @@ class MySceneGraph {
                     return "ID must be unique for each animation (conflict: ID = " + animationId + ")";
                 }
 
-                if (children[i].nodeName == "linear") {
-                    
+                if (children[i].nodeName == "keyframe") {
+                    //Construtor do keyframe?
                 }
-                else if (children[i].nodeName == "circular") {
-                    var center = this.reader.getString(children[i], 'center');
-                    var radius = this.reader.getFloat(children[i], 'radius');
-                    var startAng = this.reader.getFloat(children[i], 'startang');
-                    var rotAng = this.reader.getFloat(children[i], 'rotang');
-
-                    if (center == null) {
-                        return "A center point must be defined (animation: ID = " + animationId + ")";
-                    }
-
-                    center = center.split(" ");
-                    center = center.map(el => parseInt(el));
-                    center = center.filter(function (el) { return !isNaN(el) });
-
-                    if (center.length != 3 || '' in center) {
-                        return "CENTER must be defined with exact 3 values separeted by white spaces (animation: ID = " + animationId + ")";
-                    }
-                    if (isNaN(radius) || radius < 0) {
-                        return "RADIUS must be a positive number (animation: ID = " + animationId + ")";
-                    }
-                    if (isNaN(startAng)) {
-                        return "STARTANG must be an angle expressed in degrees (animation: ID = " + animationId + ")";
-                    }
-                    if (isNaN(rotAng)) {
-                        return "ROTANG must be an angle expressed in degrees (animation: ID = " + animationId + ")";
-                    }
-
-                    this.animations[animationId] = new CircularAnimation(this.scene, animationId, spanTime, center, radius, startAng, rotAng);
+                else
+                {
+                    return "There must be, at least, one keyframe per animation";
                 }
             }
         }
         this.log("Parsed Animations");
     }
-
+    */
     /**
      * Parses the <primitives> block.
      * @param {primitives block element} primitivesNode
