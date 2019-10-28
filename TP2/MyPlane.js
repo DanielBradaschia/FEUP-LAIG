@@ -5,38 +5,31 @@
 */
 
 class MyPlane extends CGFobject {
-    constructor(npartsU, npartsV) {
-        this.nU = npartsU;
-        this.nV = npartsV;
-        this.controlPoints = [];
-        this.buildControlPoints(this.nU, this.nV);
-        this.plane = this.createSurface(this.nU, this.nV, this.controlPoints);
+    constructor(scene, npartsU, npartsV) {
+        super(scene);
+        const control_vertexes =
+            [	// U0
+                [
+                    [-0.5, 0.0, 0.5, 1],	// V0
+                    [-0.5, 0.0, -0.5, 1]	// V1
+                ],
+                //U1
+                [
+                    [0.5, 0.0, 0.5, 1],	// V0
+                    [0.5, 0.0, -0.5, 1]		// V1
+                ]
+            ];
+
+        let nurbs_surface = new CGFnurbsSurface(1, 1, control_vertexes);
         
+        this.nurbs_object = new CGFnurbsObject(scene, npartsU, npartsV, nurbs_surface);
+    };
+
+    display() {
+        this.nurbs_object.display();
     }
 
-    display(){
-        this.plane.display();
-    }
+    setTexLengths(length_s, length_t) {
 
-    buildControlPoints(nU, nV){
-        var matrix = [];
-        const step_v = 1.0 / nV;
-        const step_u = 1.0 / nU;
-
-        for (let value_u = 0; value_u <= 1.0; value_u += step_u) {
-            for (let value_v = 0; value_v <= 1.0; value_v += step_v) {
-                matrix.push([-0.5 + value_u, 0.0, 0.5 - value_v, 1.0]);
-            }
-            this.controlPoints.push(matrix);
-            matrix = [];
-        }
-    }
-
-    createSurface(nU, nV, controlPoints){
-        var nurbsSurface = new CGFnurbsSurface(nU, nV, controlPoints);
-
-        var obj = new CGFnurbsObject(this.scene, 50, 50, nurbsSurface);
-
-        return obj;
     }
 }

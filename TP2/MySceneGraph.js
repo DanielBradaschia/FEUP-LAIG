@@ -176,7 +176,7 @@ class MySceneGraph {
             if ((error = this.parseTransformations(nodes[index])) != null)
                 return error;
         }
-
+/*
         // <animations>
         if ((index = nodeNames.indexOf("animations")) == -1) {
             return "tag <animations> missing";
@@ -189,7 +189,7 @@ class MySceneGraph {
             if ((error = this.parseAnimations(nodes[index])) != null)
                 return error;
         }
-
+*/
         // <primitives>
         if ((index = nodeNames.indexOf("primitives")) == -1)
             return "tag <primitives> missing";
@@ -754,7 +754,7 @@ class MySceneGraph {
             if (grandChildren.length != 1 ||
                 (grandChildren[0].nodeName != 'rectangle' && grandChildren[0].nodeName != 'triangle' &&
                     grandChildren[0].nodeName != 'cylinder' && grandChildren[0].nodeName != 'sphere' &&
-                    grandChildren[0].nodeName != 'torus')) {
+                grandChildren[0].nodeName != 'torus' && grandChildren[0].nodeName != 'plane')) {
                 return "There must be exactly 1 primitive type (rectangle, triangle, cylinder, sphere or torus)"
             }
 
@@ -915,6 +915,7 @@ class MySceneGraph {
 
                 this.primitives[primitiveId] = torus;
             }
+
             else if (primitiveType == 'plane') {
                 // npartsU
                 var npartsU = this.reader.getFloat(grandChildren[0], 'npartsU');
@@ -926,10 +927,52 @@ class MySceneGraph {
                 if (!(npartsV != null && !isNaN(npartsV)))
                     return "unable to parse npartsV of the primitive coordinates for ID = " + primitiveId;
                 
-                var plane = new MyPlane(npartsU, npartsV);
+                var plane = new MyPlane(this.scene, npartsU, npartsV);
                 
                 this.primitives[primitiveId] = plane;
             }
+
+            else if (primitiveType == 'cylinder2'){
+                primitive = {
+                    base: this.reader.getFloat(grandChildren[0], 'base'),
+                    top: this.reader.getFloat(grandChildren[0], 'top'),
+                    height: this.reader.getFloat(grandChildren[0], 'height'),
+                    slices: this.reader.getInteger(grandChildren[0], 'slices'),
+                    stacks: this.reader.getInteger(grandChildren[0], 'stacks')
+                };
+                var cyl2 = new Cylinder2(this.scene, primitive);
+                this.primitives[primitiveId] = cyl2;
+            }
+
+            else if (primitiveType == 'patch') {
+                var cpoints = grandChildren[0].getElementsByTagName("controlpoint");
+                var npointUaux = this.reader.getFloat(grandChildren[0], 'npointU');
+                var npointVaux = this.reader.getFloat(grandChildren[0], 'npointV');
+                var points = [];
+
+                for (var point of cpoints) {
+                    var x = this.reader.getFloat(point, 'xx');
+                    var y = this.reader.getFloat(point, 'yy');
+                    var z = this.reader.getFloat(point, 'zz');
+                    points.push([x, y, z, 1]);
+                }
+
+                if (points.length != (npointUaux + 1) * (npointVaux + 1)) {
+                    this.onXMLError("Patch can't be created because controlPoints must be (orderV)*(orderU)");
+                }
+
+                primitive = {
+                    npointU: npointUaux,
+                    npointV: npointVaux,
+                    npartsU: this.reader.getFloat(grandChildren[0], 'npartsU'),
+                    npartsV: this.reader.getFloat(grandChildren[0], 'npartsV'),
+                    controlPoints: points
+                };
+                var patch = new MyPatch(this.scene, primitive);
+                
+                this.primitives[primitiveId] = patch;            
+            }
+
             else {
                 console.warn("To do: Parse other primitives.");
             }
@@ -1306,18 +1349,18 @@ class MySceneGraph {
      * Displays the scene, processing each node, starting in the root node.
      */
     displayScene() {
-        /*
         for (const primitive in this.primitives) {
             this.primitives[primitive].display();
         }
-        */
+        
 
         //To test the parsing/creation of the primitives, call the display function directly
         //this.primitives['demoRectangle'].display();
-
+        /*
         this.scene.pushMatrix();
         this.renderScene(this.scene, this.nodeAux);
         this.scene.popMatrix();
+        */
     }
 
 }
