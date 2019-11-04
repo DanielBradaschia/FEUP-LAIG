@@ -12,5 +12,7 @@ class MySecurityCamera extends CGFobject {
 
     display() {
         this.setActiveShader(this.rectangle_shader[0]);
+
+        XMLscene.texture_rtt.bind();
     }
 }
