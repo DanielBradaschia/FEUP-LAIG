@@ -7,22 +7,15 @@
 class MyPlane extends CGFobject {
     constructor(scene, npartsU, npartsV) {
         super(scene);
-        const control_vertexes =
-            [	// U0
-                [
-                    [-0.5, 0.0, 0.5, 1],	// V0
-                    [-0.5, 0.0, -0.5, 1]	// V1
-                ],
-                //U1
-                [
-                    [0.5, 0.0, 0.5, 1],	// V0
-                    [0.5, 0.0, -0.5, 1]		// V1
-                ]
-            ];
 
-        let nurbs_surface = new CGFnurbsSurface(1, 1, control_vertexes);
+        this.npartsU = npartsU;
+        this.npartsV = npartsV;
+
+        this.createControlVertexes(this.npartsU, this.npartsV);
+
+        let nurbs_surface = new CGFnurbsSurface(this.npartsU, this.npartsV, this.controlVertexes);
         
-        this.nurbs_object = new CGFnurbsObject(scene, npartsU, npartsV, nurbs_surface);
+        this.nurbs_object = new CGFnurbsObject(scene, 50, 50, nurbs_surface);
     };
 
     display() {
@@ -32,4 +25,25 @@ class MyPlane extends CGFobject {
     setTexLengths(length_s, length_t) {
 
     }
+
+    createControlVertexes(npartsU, npartsV) {
+        var matrix = [];
+        
+        const step_U = 1.0 / npartsU;
+        const step_V = 1.0 / npartsV;
+
+        this.controlVertexes = [];
+
+        for (let U = 0; U <= 1.0; U += step_U)
+        {
+            for (let V = 0; V <= 1.0; V += step_V)
+            {
+                matrix.push([-0.5 + U, 0.0, 0.5 - V, 1.0]);
+            }
+            this.controlVertexes.push(matrix);
+            matrix = [];
+        }
+    }
+
+    updateTexCoords(length_s, length_t) {}
 }
