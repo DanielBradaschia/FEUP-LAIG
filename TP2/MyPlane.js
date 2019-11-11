@@ -3,47 +3,47 @@
 * @constructor MyPlane
 * @param {String} id    string of the id
 */
-
 class MyPlane extends CGFobject {
-    constructor(scene, npartsU, npartsV) {
+    constructor(scene, id, uDiv, vDiv) {
         super(scene);
+        this.uDiv = uDiv;
+        this.vDiv = vDiv;
+        this.controlvertexes;
+        this.createControlVertexes();
 
-        this.npartsU = npartsU;
-        this.npartsV = npartsV;
+        this.plane = this.makeSurface();
+    }
 
-        this.createControlVertexes(this.npartsU, this.npartsV);
+    createControlVertexes() {
+        this.controlvertexes =
+            [	// U = 0
+                [ // V = 0..1;
+                    [-0.5, 0.0, -0.5, 1],
+                    [0.5, 0.0, -0.5, 1]
 
-        let nurbs_surface = new CGFnurbsSurface(this.npartsU, this.npartsV, this.controlVertexes);
-        
-        this.nurbs_object = new CGFnurbsObject(scene, 50, 50, nurbs_surface);
-    };
+                ],
+                // U = 1
+                [ // V = 0..1
+                    [-0.5, 0.0, 0.5, 1],
+                    [0.5, 0.0, 0.5, 1]
+                ]
+            ];
+
+    }
+
+    updateTexCoords() { }
+
+    makeSurface() {
+        var nurbsSurface = new CGFnurbsSurface(1, 1, this.controlvertexes);
+        var obj = new CGFnurbsObject(this.scene, this.uDiv, this.vDiv, nurbsSurface);
+
+        return obj;
+    }
 
     display() {
-        this.nurbs_object.display();
+        this.scene.pushMatrix();
+        this.plane.display();
+        this.scene.popMatrix();
+
     }
-
-    setTexLengths(length_s, length_t) {
-
-    }
-
-    createControlVertexes(npartsU, npartsV) {
-        var matrix = [];
-        
-        const step_U = 1.0 / npartsU;
-        const step_V = 1.0 / npartsV;
-
-        this.controlVertexes = [];
-
-        for (let U = 0; U <= 1.0; U += step_U)
-        {
-            for (let V = 0; V <= 1.0; V += step_V)
-            {
-                matrix.push([-0.5 + U, 0.0, 0.5 - V, 1.0]);
-            }
-            this.controlVertexes.push(matrix);
-            matrix = [];
-        }
-    }
-
-    updateTexCoords(length_s, length_t) {}
 }

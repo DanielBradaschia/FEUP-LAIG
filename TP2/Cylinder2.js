@@ -1,59 +1,63 @@
-function Cylinder2(scene, reference) {
-    CGFobject.call(this, scene);
+class Cylinder2 extends CGFobject {
+    constructor(scene, id, base, top, slices, stacks, height) {
+        super(scene);
 
-    this.slices = reference.slices;
-    this.stacks = reference.stacks;
-    this.height = reference.height;
+        this.top = top;
+        this.base = base;
+        this.slices = slices;
+        this.stacks = stacks;
+        this.height = height;
 
+        this.uDiv = slices;
+        this.vDiv = stacks;
+        this.uPart = 2;
+        this.vPart = 9;
+        this.initControlPoints();
 
-    this.buildControlPoints(this.slices, this.stacks);
-
-
-    this.scene = scene;
-    primitive = {
-        npointU: 2,
-        npointV: 2,
-        npartsU: 20,
-        npartsV: 20,
-        controlPoints: this.controlPoints
-    };
-
-    this.cylinder2 = new Patch(this.scene, primitive);
-}
-
-
-
-Cylinder2.prototype = Object.create(CGFobject.prototype);
-Cylinder2.prototype.constructor = Cylinder2;
-
-Cylinder2.prototype.buildControlPoints = function (slices, stacks) {
-    var angle = (360 / slices) * Math.PI / 180;
-    var step_z = 1 / stacks;
-    this.controlPoints = [];
-
-    for (let i = 0; i <= stacks; i++) {
-        for (let j = 0; j <= slices; j++) {
-            this.controlPoints.push([
-                (0.5 * Math.cos(j * angle)),
-                (0.5 * Math.sin(j * angle)),
-                (0.5 - i * step_z)
-            ]);
-        }
-        this.controlPoints.push([
-            0.5,
-            0,
-            0.5 - i * step_z
-        ]);
+        this.cylinder2 = this.makeSurface();
     }
 
+    initControlPoints() {
 
+        this.controlPoints = [
+            [
+                [0.0, -this.base, 0.0, 1.0],
+                [-this.base, -this.base, 0.0, Math.sqrt(2) / 2.0],
+                [-this.base, 0.0, 0.0, 1.0],
+                [-this.base, this.base, 0.0, Math.sqrt(2) / 2.0],
+                [0, this.base, 0.0, 1.0],
+                [this.base, this.base, 0.0, Math.sqrt(2) / 2.0],
+                [this.base, 0.0, 0.0, 1.0],
+                [this.base, -this.base, 0.0, Math.sqrt(2) / 2.0],
+                [0.0, -this.base, 0.0, 1.0]
+            ],
+            [
+                [0.0, -this.top, this.height, 1.0],
+                [-this.top, -this.top, this.height, Math.sqrt(2) / 2.0],
+                [-this.top, 0.0, this.height, 1.0],
+                [-this.top, this.top, this.height, Math.sqrt(2) / 2.0],
+                [0, this.top, this.height, 1.0],
+                [this.top, this.top, this.height, Math.sqrt(2) / 2.0],
+                [this.top, 0.0, this.height, 1.0],
+                [this.top, -this.top, this.height, Math.sqrt(2) / 2.0],
+                [0.0, -this.top, this.height, 1.0]
+            ]
+        ];
+    }
+
+    makeSurface() {
+        var nurbsSurface = new CGFnurbsSurface(this.uPart - 1, this.vPart - 1, this.controlPoints);
+        var obj = new CGFnurbsObject(this.scene, this.uDiv, this.vDiv, nurbsSurface);
+
+        return obj;
+    }
+
+    updateTexCoords() { }
+
+    display() {
+        this.scene.pushMatrix();
+        this.cylinder2.display();
+        this.scene.popMatrix();
+
+    }
 }
-
-Cylinder2.prototype.display = function () {
-    this.scene.pushMatrix();
-    this.cylinder2.display();
-    this.scene.popMatrix();
-
-};
-
-Cylinder2.prototype.updateTexCoords = function (aS, aT) { }

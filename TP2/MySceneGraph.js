@@ -176,7 +176,7 @@ class MySceneGraph {
             if ((error = this.parseTransformations(nodes[index])) != null)
                 return error;
         }
-/*
+
         // <animations>
         if ((index = nodeNames.indexOf("animations")) == -1) {
             return "tag <animations> missing";
@@ -189,7 +189,7 @@ class MySceneGraph {
             if ((error = this.parseAnimations(nodes[index])) != null)
                 return error;
         }
-*/
+
         // <primitives>
         if ((index = nodeNames.indexOf("primitives")) == -1)
             return "tag <primitives> missing";
@@ -683,43 +683,33 @@ class MySceneGraph {
     /**
     * Parses the <animations> block.
     * @param {animations block element} animationNode
-
-    parseAnimations(animationNode) {
-        var children = animationNode.children;
-
+    */
+    parseAnimations(animationsNode) {
+        var children = animationsNode.children;
         this.animations = [];
 
-        if (children.length != 0) {
-            var animationId;
-
-            for (var i = 0; i < children.length; i++) {
-                if (children[i].nodeName != "animation") {
-                    this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
-                    continue;
-                }
-
-                animationId = this.reader.getString(children[i], 'id') || null;
-
-                if (animationId == null || animationId.length == 0) {
-                    return "no ID defined";
-                }
-
-                if (this.animations[animationId] != null) {
-                    return "ID must be unique for each animation (conflict: ID = " + animationId + ")";
-                }
-
-                if (children[i].nodeName == "keyframe") {
-                    //Construtor do keyframe?
-                }
-                else
-                {
-                    return "There must be, at least, one keyframe per animation";
-                }
+        var animationId;
+        for (var i = 0; i < children.length; i++) {
+            if (children[i].nodeName != "animation") {
+                this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
+                continue;
             }
+            animationId = this.reader.getString(children[i], 'id') || null;
+            if (animationId == null || animationId.length == 0) {
+                return "no ID defined";
+            }
+            if (this.animations[animationId] != null) {
+                return "ID must be unique for each animation (conflict: ID = " + animationId + ")";
+            }
+
+            this.animations[animationId] = children[i];
+
         }
-        this.log("Parsed Animations");
+
+        if (children.length != 0)
+            this.log("Parsed Animations");
     }
-    */
+
     /**
      * Parses the <primitives> block.
      * @param {primitives block element} primitivesNode
@@ -838,7 +828,7 @@ class MySceneGraph {
                 this.primitives[primitiveId] = trian;
             }
 
-            else if (primitiveType == 'cylinder') {
+            else if (primitiveType == 'cylinder' || primitiveType == 'cylinder2') {
                 // slices
                 var slices = this.reader.getFloat(grandChildren[0], 'slices');
                 if (!(slices != null && !isNaN(slices)))
@@ -864,7 +854,10 @@ class MySceneGraph {
                 if (!(height != null && !isNaN(height)))
                     return "unable to parse height of the primitive coordinates for ID = " + primitiveId;
 
-                var cylinder = new MyCylinder(this.scene, primitiveId, slices, stacks, baseRadius, topRadius, height);
+                if (primitiveType == 'cylinder')
+                    cylinder = new MyCylinder(this.scene, primitiveId, base, top, slices, stacks, height);
+                else if (primitiveType == 'cylinder2')
+                    cylinder = new Cylinder2(this.scene, primitiveId, base, top, slices, stacks, height);
 
                 this.primitives[primitiveId] = cylinder;
             }
@@ -917,60 +910,55 @@ class MySceneGraph {
             }
 
             else if (primitiveType == 'plane') {
-                // npartsU
-                var npartsU = this.reader.getFloat(grandChildren[0], 'npartsU');
-                if (!(npartsU != null && !isNaN(npartsU)))
-                    return "unable to parse npartsU of the primitive coordinates for ID = " + primitiveId;
+                // uDiv
+                var uDiv = this.reader.getFloat(grandChildren[0], 'uDiv');
+                if (!(uDiv != null && !isNaN(uDiv)))
+                    return "unable to parse uDiv of the primitive coordinates for ID = " + primitiveId;
 
-                // npartsV
-                var npartsV = this.reader.getFloat(grandChildren[0], 'npartsV');
-                if (!(npartsV != null && !isNaN(npartsV)))
-                    return "unable to parse npartsV of the primitive coordinates for ID = " + primitiveId;
-                
-                var plane = new MyPlane(this.scene, npartsU, npartsV);
-                
+                // vDiv
+                var vDiv = this.reader.getFloat(grandChildren[0], 'vDiv');
+                if (!(vDiv != null && !isNaN(vDiv)))
+                    return "unable to parse vDiv of the primitive coordinates for ID = " + primitiveId;
+
+                var plane = new MyPlane(this.scene, primitiveId, uDiv, vDiv);
                 this.primitives[primitiveId] = plane;
             }
 
-            else if (primitiveType == 'cylinder2'){
-                primitive = {
-                    base: this.reader.getFloat(grandChildren[0], 'base'),
-                    top: this.reader.getFloat(grandChildren[0], 'top'),
-                    height: this.reader.getFloat(grandChildren[0], 'height'),
-                    slices: this.reader.getInteger(grandChildren[0], 'slices'),
-                    stacks: this.reader.getInteger(grandChildren[0], 'stacks')
-                };
-                var cyl2 = new Cylinder2(this.scene, primitive);
-                this.primitives[primitiveId] = cyl2;
-            }
-
             else if (primitiveType == 'patch') {
-                var cpoints = grandChildren[0].getElementsByTagName("controlpoint");
-                var npointUaux = this.reader.getFloat(grandChildren[0], 'npointU');
-                var npointVaux = this.reader.getFloat(grandChildren[0], 'npointV');
-                var points = [];
+                // uDiv
+                var uDiv = this.reader.getFloat(grandChildren[0], 'uDiv');
+                if (!(uDiv != null && !isNaN(uDiv)))
+                    return "unable to parse uDiv of the primitive coordinates for ID = " + primitiveId;
 
-                for (var point of cpoints) {
-                    var x = this.reader.getFloat(point, 'xx');
-                    var y = this.reader.getFloat(point, 'yy');
-                    var z = this.reader.getFloat(point, 'zz');
-                    points.push([x, y, z, 1]);
+                // vDiv
+                var vDiv = this.reader.getFloat(grandChildren[0], 'vDiv');
+                if (!(vDiv != null && !isNaN(vDiv)))
+                    return "unable to parse vDiv of the primitive coordinates for ID = " + primitiveId;
+
+                // uPart
+                var uPart = this.reader.getFloat(grandChildren[0], 'uPart');
+                if (!(uPart != null && !isNaN(uPart)))
+                    return "unable to parse uPart of the primitive coordinates for ID = " + primitiveId;
+
+                // vPart
+                var vPart = this.reader.getFloat(grandChildren[0], 'vPart');
+                if (!(vPart != null && !isNaN(vPart)))
+                    return "unable to parse vPart of the primitive coordinates for ID = " + primitiveId;
+
+                //control
+                var control = grandChildren[0].getElementsByTagName('controlpoint');
+                var controlPoint = [];
+
+                for (var i = 0; i < control.length; ++i) {
+                    var xx = this.reader.getFloat(control[i], 'xx');
+                    var yy = this.reader.getFloat(control[i], 'yy');
+                    var zz = this.reader.getFloat(control[i], 'zz');
+
+                    controlPoint.push([xx, yy, zz, 1]);
                 }
 
-                if (points.length != (npointUaux + 1) * (npointVaux + 1)) {
-                    this.onXMLError("Patch can't be created because controlPoints must be (orderV)*(orderU)");
-                }
-
-                primitive = {
-                    npointU: npointUaux,
-                    npointV: npointVaux,
-                    npartsU: this.reader.getFloat(grandChildren[0], 'npartsU'),
-                    npartsV: this.reader.getFloat(grandChildren[0], 'npartsV'),
-                    controlPoints: points
-                };
-                var patch = new MyPatch(this.scene, primitive);
-                
-                this.primitives[primitiveId] = patch;            
+                var patch = new MyPatch(this.scene, primitiveId, uPart, vPart, uDiv, vDiv, controlPoint);
+                this.primitives[primitiveId] = patch;
             }
 
             else {
@@ -1151,6 +1139,50 @@ class MySceneGraph {
                             continue;
                         }
                     }
+                    break;
+                case "animations":
+                    grandChildren = children[j].children;
+                    var animations = [];
+
+                    for (let k = 0; k < grandChildren.length; k++) {
+                        if (grandChildren[k].nodeName != "keyframe")
+                            return "There must be, at least, one keyframe per animation";
+                        else if (grandChildren[k].children.length != 3)
+                            return "Missing transformations";
+                        else if (grandChildren[k].children[0].nodeName != "translate" ||
+                            grandChildren[k].children[1].nodeName != "rotate" ||
+                            grandChildren[k].children[2].nodeName != "scale")
+                            return "Transformations missing/not in order";
+
+                        var instant = this.reader.getString(grandChildren[k], 'instant');
+
+                        var translate = [
+                            this.reader.getString(grandChildren[k].children[0], 'x'),
+                            this.reader.getString(grandChildren[k].children[0], 'y'),
+                            this.reader.getString(grandChildren[k].children[0], 'z')
+                        ]
+                        var rotate = [
+                            this.reader.getString(grandChildren[k].children[1], 'angle_x'),
+                            this.reader.getString(grandChildren[k].children[1], 'angle_y'),
+                            this.reader.getString(grandChildren[k].children[1], 'angle_z')
+                        ]
+                        var scale = [
+                            this.reader.getString(grandChildren[k].children[2], 'x'),
+                            this.reader.getString(grandChildren[k].children[2], 'y'),
+                            this.reader.getString(grandChildren[k].children[2], 'z')
+                        ]
+
+                        var animation = {
+                            instant: instant,
+                            translate: translate,
+                            rotate: rotate,
+                            scale: scale,
+                        }
+
+                        animations.push(animation);
+                    }
+                    var keyframe = new KeyframeAnimation(this.scene, animations);
+                    node.animation = keyframe;
                     break;
                 default:
                     this.onXMLMinorError("graphBuilder: unknow tag <" + children[j].nodeName + "> for component " + node.id);

@@ -191,7 +191,7 @@
         </primitive>
 -->
         <primitive id="demoPlane">
-            <plane npartsU="5" npartsV="8"/>
+           <plane vDiv="5" uDiv="5"/>
         </primitive>
 
 
