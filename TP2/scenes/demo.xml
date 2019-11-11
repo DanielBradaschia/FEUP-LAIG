@@ -153,7 +153,7 @@
     </animations>
 
     <primitives>
-        <!--
+        
         <primitive id="demoRectangle">
             <rectangle x1="-0.5" y1="-1" x2="0.5" y2="1" />
         </primitive>
@@ -188,10 +188,6 @@
 
         <primitive id="parasolTop">
             <cylinder slices="6" stacks="30" base="4" top="0" height="1.5"/>
-        </primitive>
--->
-        <primitive id="demoPlane">
-           <plane vDiv="5" uDiv="5"/>
         </primitive>
 
 

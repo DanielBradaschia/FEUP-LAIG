@@ -854,10 +854,11 @@ class MySceneGraph {
                 if (!(height != null && !isNaN(height)))
                     return "unable to parse height of the primitive coordinates for ID = " + primitiveId;
 
+                let cylinder;
                 if (primitiveType == 'cylinder')
-                    cylinder = new MyCylinder(this.scene, primitiveId, base, top, slices, stacks, height);
+                    cylinder = new MyCylinder(this.scene, primitiveId, baseRadius, topRadius, slices, stacks, height);
                 else if (primitiveType == 'cylinder2')
-                    cylinder = new Cylinder2(this.scene, primitiveId, base, top, slices, stacks, height);
+                    cylinder = new Cylinder2(this.scene, primitiveId, baseRadius, topRadius, slices, stacks, height);
 
                 this.primitives[primitiveId] = cylinder;
             }
@@ -1381,18 +1382,19 @@ class MySceneGraph {
      * Displays the scene, processing each node, starting in the root node.
      */
     displayScene() {
-        for (const primitive in this.primitives) {
+       /* for (const primitive in this.primitives) {
+            this.scene.scale(20,20,20);
             this.primitives[primitive].display();
         }
-        
+        */
 
         //To test the parsing/creation of the primitives, call the display function directly
         //this.primitives['demoRectangle'].display();
-        /*
+        
         this.scene.pushMatrix();
         this.renderScene(this.scene, this.nodeAux);
         this.scene.popMatrix();
-        */
+        
     }
 
 }

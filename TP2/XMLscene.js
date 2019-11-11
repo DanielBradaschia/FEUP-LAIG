@@ -35,7 +35,7 @@ class XMLscene extends CGFscene {
         this.gl.depthFunc(this.gl.LEQUAL);
 
         this.axis = new CGFaxis(this);
-        this.texture_rtt = new CGFtextureRTT(this, 10, 10);
+        this.texture_rtt = new CGFtextureRTT(this, this.gl.canvas.width, this.gl.canvas.height);
         this.security = new MySecurityCamera(this);
         this.setUpdatePeriod(100);
     }
@@ -159,7 +159,7 @@ class XMLscene extends CGFscene {
     /**
      * Renders the scene.
      */
-    render(security_camera) {
+    render() {
         // ---- BEGIN Background, camera and axis setup
 
         // Clear image and depth buffer everytime we update the scene
@@ -175,7 +175,6 @@ class XMLscene extends CGFscene {
 
         this.pushMatrix();
         //this.axis.display();
-
         let i = 0;
         for (var j in this.lightGroup)
         {
@@ -206,16 +205,18 @@ class XMLscene extends CGFscene {
         this.popMatrix();
         // ---- END Background, camera and axis setup
     }
-
-    display() {
+    
+    renderSecurity(){
         this.texture_rtt.attachToFrameBuffer();
-        this.render(this.security_camera);
-
-        this.texture_rtt.detachFromFrameBuffer()
-        this.render(this.security_camera);
-
-        this.disable(this.gl.DEPTH_TEST);
+        this.render();
+        this.texture_rtt.detachFromFrameBuffer();
+    }
+    
+    display() {
+        this.renderSecurity();
+        this.render();
+        this.gl.disable(this.gl.DEPTH_TEST);
         this.security.display();
-        this.enable(this.gl.DEPTH_TEST);
+        this.gl.enable(this.gl.DEPTH_TEST);
     }
 }
