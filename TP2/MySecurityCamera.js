@@ -3,7 +3,9 @@ class MySecurityCamera extends CGFobject {
     constructor(scene) {
         super(scene);
 
-        this.rectangle = new MyRectangle(scene, 1, 0.3, 0.9, 0.3, 0.9);
+        //this.scene.gl.canvas.width = 982
+        //this.scene.gl.canvas.height = 722
+        this.rectangle = new MyRectangle(scene, 1, 0.3, 1, -0.25, -1);
 
         this.rectangle_shader = new CGFshader(this.scene.gl, "shaders/texture2.vert", "shaders/texture2.frag");
         this.init();

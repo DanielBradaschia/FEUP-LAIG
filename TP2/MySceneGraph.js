@@ -856,7 +856,7 @@ class MySceneGraph {
 
                 let cylinder;
                 if (primitiveType == 'cylinder')
-                    cylinder = new MyCylinder(this.scene, primitiveId, baseRadius, topRadius, slices, stacks, height);
+                    cylinder = new MyCylinder(this.scene, primitiveId, slices, stacks, baseRadius, topRadius, height);
                 else if (primitiveType == 'cylinder2')
                     cylinder = new Cylinder2(this.scene, primitiveId, baseRadius, topRadius, slices, stacks, height);
 
