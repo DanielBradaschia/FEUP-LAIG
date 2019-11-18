@@ -80,6 +80,7 @@
         <texture id="floorTexture" file="./images/floor.jpg" />
         <texture id="skyTexture" file="./images/sky.jpg" />
         <texture id="waterTexture" file="./images/waterTex.jpg" />
+        <texture id="flagTexture" file="./images/flag.jpg" />
     </textures>
 
     <materials>
@@ -189,6 +190,40 @@
         <primitive id="parasolTop">
             <cylinder slices="6" stacks="30" base="4" top="0" height="1.5"/>
         </primitive>
+      
+        <primitive id="flagPole">
+            <cylinder2 base="0.3" top="0.3" slices="6" stacks="30" height="9"/>
+        </primitive>
+      
+        <primitive id="flag">
+          <patch vDiv="100" uDiv="100" vPart="4" uPart="4">
+            <controlpoint zz="100" yy="20" xx="0"/>
+            <controlpoint zz="90" yy="20" xx="0"/>
+            <controlpoint zz="70" yy="15" xx="0"/>
+            <controlpoint zz="50" yy="1" xx="0"/>
+            <controlpoint zz="0" yy="1" xx="0"/>
+            <controlpoint zz="100" yy="1" xx="50"/>
+            <controlpoint zz="90" yy="1" xx="50"/>
+            <controlpoint zz="70" yy="100" xx="50"/>
+            <controlpoint zz="50" yy="1" xx="50"/>
+            <controlpoint zz="20" yy="10" xx="50"/>
+            <controlpoint zz="100" yy="5" xx="100"/>
+            <controlpoint zz="90" yy="40" xx="100"/>
+            <controlpoint zz="7" yy="0" xx="100"/>
+            <controlpoint zz="50" yy="100" xx="100"/>
+            <controlpoint zz="0" yy="0" xx="100"/>
+            <controlpoint zz="100" yy="20" xx="150"/>
+            <controlpoint zz="90" yy="20" xx="150"/>
+            <controlpoint zz="70" yy="10" xx="150"/>
+            <controlpoint zz="50" yy="1" xx="150"/>
+            <controlpoint zz="0" yy="1" xx="150"/>
+            <controlpoint zz="100" yy="20" xx="200"/>
+            <controlpoint zz="90" yy="20" xx="200"/>
+            <controlpoint zz="70" yy="10" xx="200"/>
+            <controlpoint zz="50" yy="1" xx="200"/>
+            <controlpoint zz="0" yy="1" xx="200"/>
+          </patch>
+        </primitive>
 
 
     </primitives>
@@ -209,59 +244,6 @@
                 <primitiveref id="demoCylinder" />
                 <primitiveref id="demoSphere" />
                 <primitiveref id="demoTorus" />
-
-
-                patch vDiv="100" uDiv="100" vPart="4" uPart="4">
-
-<controlpoint zz="100" yy="20" xx="0"/>
-
-<controlpoint zz="90" yy="20" xx="0"/>
-
-<controlpoint zz="70" yy="15" xx="0"/>
-
-<controlpoint zz="50" yy="1" xx="0"/>
-
-<controlpoint zz="0" yy="1" xx="0"/>
-
-<controlpoint zz="100" yy="1" xx="50"/>
-
-<controlpoint zz="90" yy="1" xx="50"/>
-
-<controlpoint zz="70" yy="100" xx="50"/>
-
-<controlpoint zz="50" yy="1" xx="50"/>
-
-<controlpoint zz="20" yy="10" xx="50"/>
-
-<controlpoint zz="100" yy="5" xx="100"/>
-
-<controlpoint zz="90" yy="40" xx="100"/>
-
-<controlpoint zz="7" yy="0" xx="100"/>
-
-<controlpoint zz="50" yy="100" xx="100"/>
-
-<controlpoint zz="0" yy="0" xx="100"/>
-
-<controlpoint zz="100" yy="20" xx="150"/>
-
-<controlpoint zz="90" yy="20" xx="150"/>
-
-<controlpoint zz="70" yy="10" xx="150"/>
-
-<controlpoint zz="50" yy="1" xx="150"/>
-
-<controlpoint zz="0" yy="1" xx="150"/>
-
-<controlpoint zz="100" yy="20" xx="200"/>
-
-<controlpoint zz="90" yy="20" xx="200"/>
-
-<controlpoint zz="70" yy="10" xx="200"/>
-
-<controlpoint zz="50" yy="1" xx="200"/>
-
-<controlpoint zz="0" yy="1" xx="200"/>
             -->
                 <componentref id="table" />
                 <componentref id="ball" />
@@ -274,7 +256,50 @@
                 <componentref id="ball2" />
                 <componentref id="floor" />
                 <componentref id="background" />
+                <componentref id="flag" />
 
+            </children>
+        </component>
+  
+        <component id="flag">
+            <transformation>
+              <translate x="-10" y="0" z="-10" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="flag1" />
+                <componentref id="flag2" />
+            </children>
+        </component>
+  
+        <component id="flag1">
+            <transformation>
+              <transformationref id="tableLegRotation" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="tableLegTexture" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="flagPole" />
+            </children>
+        </component>
+  
+        <component id="flag2">
+            <transformation>
+              <translate x="0" y="9" z="0" />
+              <rotate axis="x" angle="90" />
+              <scale x="0.04" y="0.04" z="0.04" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="flagTexture" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="flag" />
             </children>
         </component>
         
