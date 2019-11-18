@@ -702,7 +702,53 @@ class MySceneGraph {
                 return "ID must be unique for each animation (conflict: ID = " + animationId + ")";
             }
 
-            this.animations[animationId] = children[i];
+
+            var keyframes = [];
+            var grandChildren = children[i].children;
+
+            for (let k = 0; k < grandChildren.length; k++) {
+                if (grandChildren[k].nodeName != "keyframe")
+                    return "There must be, at least, one keyframe per animation";
+                else if (grandChildren[k].children.length != 3)
+                    return "Missing transformations";
+                else if (grandChildren[k].children[0].nodeName != "translate" ||
+                    grandChildren[k].children[1].nodeName != "rotate" ||
+                    grandChildren[k].children[2].nodeName != "scale")
+                    return "Transformations missing/not in order";
+
+                var instant = this.reader.getString(grandChildren[k], 'instant');
+
+                var translate = [
+                    this.reader.getString(grandChildren[k].children[0], 'x'),
+                    this.reader.getString(grandChildren[k].children[0], 'y'),
+                    this.reader.getString(grandChildren[k].children[0], 'z')
+                ]
+                var rotate = [
+                    this.reader.getString(grandChildren[k].children[1], 'angle_x'),
+                    this.reader.getString(grandChildren[k].children[1], 'angle_y'),
+                    this.reader.getString(grandChildren[k].children[1], 'angle_z')
+                ]
+                var scale = [
+                    this.reader.getString(grandChildren[k].children[2], 'x'),
+                    this.reader.getString(grandChildren[k].children[2], 'y'),
+                    this.reader.getString(grandChildren[k].children[2], 'z')
+                ]
+
+                var animation = {
+                    instant: instant,
+                    translate: translate,
+                    rotate: rotate,
+                    scale: scale,
+                }
+
+                keyframes.push(animation);
+            }
+            var keyframe = new KeyframeAnimation(this.scene, keyframes);
+
+            console.log(keyframe);
+
+
+            this.animations[animationId] = keyframe;
 
         }
 
@@ -1143,47 +1189,23 @@ class MySceneGraph {
                     break;
                 case "animations":
                     grandChildren = children[j].children;
-                    var animations = [];
+
+                    if (grandChildren.length == 0) return "At least one animation is required";
 
                     for (let k = 0; k < grandChildren.length; k++) {
-                        if (grandChildren[k].nodeName != "keyframe")
-                            return "There must be, at least, one keyframe per animation";
-                        else if (grandChildren[k].children.length != 3)
-                            return "Missing transformations";
-                        else if (grandChildren[k].children[0].nodeName != "translate" ||
-                            grandChildren[k].children[1].nodeName != "rotate" ||
-                            grandChildren[k].children[2].nodeName != "scale")
-                            return "Transformations missing/not in order";
-
-                        var instant = this.reader.getString(grandChildren[k], 'instant');
-
-                        var translate = [
-                            this.reader.getString(grandChildren[k].children[0], 'x'),
-                            this.reader.getString(grandChildren[k].children[0], 'y'),
-                            this.reader.getString(grandChildren[k].children[0], 'z')
-                        ]
-                        var rotate = [
-                            this.reader.getString(grandChildren[k].children[1], 'angle_x'),
-                            this.reader.getString(grandChildren[k].children[1], 'angle_y'),
-                            this.reader.getString(grandChildren[k].children[1], 'angle_z')
-                        ]
-                        var scale = [
-                            this.reader.getString(grandChildren[k].children[2], 'x'),
-                            this.reader.getString(grandChildren[k].children[2], 'y'),
-                            this.reader.getString(grandChildren[k].children[2], 'z')
-                        ]
-
-                        var animation = {
-                            instant: instant,
-                            translate: translate,
-                            rotate: rotate,
-                            scale: scale,
+                        if (grandChildren[k].nodeName == "animationref") {
+                            var keyframeId = this.reader.getString(grandChildren[k], 'id');
+                            if (keyframeId.length == 0) {
+                                this.onXMLMinorError("parseAnimations: an transformation id must be defined in order to reference it");
+                                continue;
+                            }
+                            if (this.animations[keyframeId] == null) {
+                                this.onXMLMinorError("parseAnimations: transformation '" + keyframeId + "' does not exist");
+                                continue;
+                            }
+                            node.animation = this.animations[keyframeId];
                         }
-
-                        animations.push(animation);
                     }
-                    var keyframe = new KeyframeAnimation(this.scene, animations);
-                    node.animation = keyframe;
                     break;
                 default:
                     this.onXMLMinorError("graphBuilder: unknow tag <" + children[j].nodeName + "> for component " + node.id);
