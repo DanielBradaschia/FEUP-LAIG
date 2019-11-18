@@ -37,6 +37,7 @@ class XMLscene extends CGFscene {
         this.axis = new CGFaxis(this);
         this.texture_rtt = new CGFtextureRTT(this, this.gl.canvas.width, this.gl.canvas.height);
         this.security = new MySecurityCamera(this);
+        this.displayAxis = true;
         this.setUpdatePeriod(16.67);
     }
 
@@ -174,7 +175,8 @@ class XMLscene extends CGFscene {
         this.applyViewMatrix();
 
         this.pushMatrix();
-        //this.axis.display();
+        if (this.displayAxis)
+            this.axis.display();
         let i = 0;
         for (var j in this.lightGroup)
         {
