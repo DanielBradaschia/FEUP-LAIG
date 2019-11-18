@@ -209,6 +209,59 @@
                 <primitiveref id="demoCylinder" />
                 <primitiveref id="demoSphere" />
                 <primitiveref id="demoTorus" />
+
+
+                patch vDiv="100" uDiv="100" vPart="4" uPart="4">
+
+<controlpoint zz="100" yy="20" xx="0"/>
+
+<controlpoint zz="90" yy="20" xx="0"/>
+
+<controlpoint zz="70" yy="15" xx="0"/>
+
+<controlpoint zz="50" yy="1" xx="0"/>
+
+<controlpoint zz="0" yy="1" xx="0"/>
+
+<controlpoint zz="100" yy="1" xx="50"/>
+
+<controlpoint zz="90" yy="1" xx="50"/>
+
+<controlpoint zz="70" yy="100" xx="50"/>
+
+<controlpoint zz="50" yy="1" xx="50"/>
+
+<controlpoint zz="20" yy="10" xx="50"/>
+
+<controlpoint zz="100" yy="5" xx="100"/>
+
+<controlpoint zz="90" yy="40" xx="100"/>
+
+<controlpoint zz="7" yy="0" xx="100"/>
+
+<controlpoint zz="50" yy="100" xx="100"/>
+
+<controlpoint zz="0" yy="0" xx="100"/>
+
+<controlpoint zz="100" yy="20" xx="150"/>
+
+<controlpoint zz="90" yy="20" xx="150"/>
+
+<controlpoint zz="70" yy="10" xx="150"/>
+
+<controlpoint zz="50" yy="1" xx="150"/>
+
+<controlpoint zz="0" yy="1" xx="150"/>
+
+<controlpoint zz="100" yy="20" xx="200"/>
+
+<controlpoint zz="90" yy="20" xx="200"/>
+
+<controlpoint zz="70" yy="10" xx="200"/>
+
+<controlpoint zz="50" yy="1" xx="200"/>
+
+<controlpoint zz="0" yy="1" xx="200"/>
             -->
                 <componentref id="table" />
                 <componentref id="ball" />
