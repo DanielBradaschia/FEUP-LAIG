@@ -1,0 +1,808 @@
+<lxs>
+    <scene root="demoRoot" axis_length="5"/>
+
+     <views default="main" >
+        <perspective id="main" near="0.1" far="90" angle="60">
+            <from x="10" y="5" z="12" />
+            <to x="0" y="1" z="0" />
+        </perspective>
+
+        <perspective id="not_main" near="0.1" far="90" angle="90">
+            <from x="10" y="5" z="12" />
+            <to x="0" y="1" z="0" />
+        </perspective>
+
+        <ortho id="ortho_front" near="0.1" far="70" left="-10" right="10" top="10" bottom="-10">
+            <from x="5" y="5" z="20" />
+            <to x="5" y="5" z="0" />
+        </ortho>
+    </views>
+
+    <globals>
+        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+        <background r="0.0" g="0.0" b="0.0" a="1.0" />
+    </globals>
+
+    <lights>
+        <omni id="demoLight" enabled="1">
+            <location x="9.8" y="11.9" z="10" w="1.0" />
+            <ambient r="0" g="0" b="0" a="1.0" />
+            <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+            <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+        </omni>
+
+        <omni id="light_1" enabled="0">
+            <location x="30" y="15" z="3.5" w="1" />
+            <ambient r="0.1" g="0.1" b="0.1" a="1"/>
+            <diffuse r="0.7" g="0.7" b="0.7" a="1"/>
+            <specular r="0.7" g="0.7" b="0.7" a="1"/>
+        </omni>
+    
+        <omni id="light_2" enabled="0">
+            <location x="35" y="15" z="20" w="1" />
+            <ambient r="0.1" g="0.1" b="0.1" a="1"/>
+            <diffuse r="0.7" g="0.7" b="0.7" a="1"/>
+            <specular r="0.7" g="0.7" b="0.7" a="1"/>
+        </omni>
+    
+        <omni id="light_3" enabled="0">
+            <location x="3" y="10" z="27" w="1" />
+            <ambient r="0.1" g="0.1" b="0.1" a="1"/>
+            <diffuse r="0.7" g="0.7" b="0.7" a="1"/>
+            <specular r="0.7" g="0.7" b="0.7" a="1"/>
+        </omni>
+    
+        <omni id="light_4" enabled="0">
+            <location x="0" y="20" z="20" w="1" />
+            <ambient r="0.1" g="0.1" b="0.1" a="1"/>
+            <diffuse r="0.7" g="0.7" b="0.7" a="1"/>
+            <specular r="0.7" g="0.7" b="0.7" a="1"/>
+        </omni>
+    
+        <spot id="spot_light" enabled="0" angle="30" exponent="5">
+            <location x="30" y="20" z="30" w="1" />
+            <target x="15" y="10" z="0" />
+            <ambient r="0" g="0" b="0" a="1" />
+            <diffuse r="0.8" g="0.8" b="0.8" a="1" />
+            <specular r="0.2" g="0.2" b="0.2" a="1" />
+        </spot>
+    </lights>
+
+    <textures>
+        <texture id="demoTexture" file="./scenes/images/vidral.jpg" />
+        <texture id="floaterTexture" file="./scenes/images/floater.jpg" />
+        <texture id="tableLegTexture" file="./images/metal.jpg" />
+        <texture id="ballTexture" file="./images/ball.jpg" />
+        <texture id="chairTexture" file="./images/chair.jpg" />
+        <texture id="tableTexture" file="./images/table.jpg" />
+        <texture id="boarderTexture" file="./images/boarder.jpg" />
+        <texture id="parasolTexture" file="./images/parasol.jpg" />
+        <texture id="floorTexture" file="./images/floor.jpg" />
+        <texture id="skyTexture" file="./images/sky.jpg" />
+        <texture id="waterTexture" file="./images/waterTex.jpg" />
+        <texture id="flagTexture" file="./images/flag.jpg" />
+    </textures>
+
+    <materials>
+        <material id="demoMaterial" shininess="10">
+            <emission r="0.0" g="0.0" b="0.0" a="0.0" />
+            <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
+            <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+            <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+        </material>
+    
+        <material id="emeraldMaterial" shininess="76.8">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.0215" g="0.1745" b="0.0215" a="0.55" />
+            <diffuse r="0.07568" g="0.61424" b="0.07568" a="0.55" />
+            <specular r="0.633" g="0.727811" b="0.633" a="0.55" />
+        </material>
+
+        <material id="yellowMaterial" shininess="27.8974">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.329412" g="0.223529" b="0.027451" a="1.0" />
+            <diffuse r="0.780392" g="0.568627" b="0.113725" a="1.0" />
+            <specular r="0.992157" g="0.941176" b="0.807843" a="1.0" />
+        </material>
+
+        <material id="cyanMaterial" shininess="32.0">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.0" g="0.1" b="0.06" a="1.0" />
+            <diffuse r="0.0" g="0.50980392" b="0.50980392" a="1.0" />
+            <specular r="0.50196078" g="0.50196078" b="0.50196078" a="1.0" />
+        </material>
+        
+        <material id="bluePlastic" shininess="10">
+            <emission r="0.0" g="0.0" b="0.5" a="0" />
+            <ambient r="0.0" g="0.0" b="0.5" a="0" />
+            <diffuse r="0.01" g="0.01" b="0.01" a="0" />
+            <specular r="0.4" g="0.4" b="0.4" a="0" />
+        </material>
+
+        <material id="pinkPlastic" shininess="10">
+            <emission r="1.0" g="0.2" b="1.0" a="0" />
+            <ambient r="0.0" g="0.0" b="0.0" a="0" />
+            <diffuse r="0.01" g="0.01" b="0.01" a="0" />
+            <specular r="0.4" g="0.4" b="0.4" a="0" />
+        </material>
+
+        <material id="silverMaterial" shininess="76.8">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.25" g="0.25" b="0.25" a="1.0" />
+            <diffuse r="0.4" g="0.4" b="0.4" a="1.0" />
+            <specular r="0.774597" g="0.774597" b="0.774597" a="1.0" />
+        </material>
+
+
+    </materials>
+
+    <transformations>
+
+        <transformation id="demoTransform">
+            <scale x="5" y="1" z="5" />
+            <rotate axis="x" angle="-45" />
+            <rotate axis="z" angle="-45" />
+        </transformation>
+
+        <transformation id="tableLegRotation">
+            <rotate axis="x" angle="-90" />
+        </transformation>
+
+    </transformations>
+
+    <animations>
+        <animation id="flag_move" >
+          <keyframe instant="5.0" >
+            <translate x="0.0" y="0.0" z="0.0" />
+            <rotate angle_x="0.0" angle_y="2.0" angle_z="0.0" />
+            <scale x="1.0" y="1.0" z="3.0" />
+          </keyframe>
+
+          <keyframe instant="8.0" >
+            <translate x="0.0" y="0.0" z="0.0" />
+            <rotate angle_x="0.0" angle_y="1.0" angle_z="0.0" />
+            <scale x="1.0" y="1.0" z="1.0" />
+          </keyframe>
+        </animation>
+
+        <animation id="ball_move" >
+          <keyframe instant="5.0" >
+            <translate x="0.0" y="-4.0" z="-40.0" />
+            <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+            <scale x="1.0" y="1.0" z="1.0" />
+          </keyframe>
+
+          <keyframe instant="8.0" >
+            <translate x="0.0" y="0.0" z="0.0" />
+            <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+            <scale x="1.0" y="1.0" z="1.0" />
+          </keyframe>
+        </animation>
+
+        <animation id="ball_move2" >
+          <keyframe instant="5.0" >
+            <translate x="0.0" y="0.0" z="60.0" />
+            <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+            <scale x="1.0" y="1.0" z="1.0" />
+          </keyframe>
+
+          <keyframe instant="8.0" >
+            <translate x="0.0" y="0.0" z="0.0" />
+            <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+            <scale x="1.0" y="1.0" z="1.0" />
+          </keyframe>
+        </animation>
+
+        <animation id="parasol_move" >
+          <keyframe instant="5.0" >
+            <translate x="0.0" y="0.0" z="0.0" />
+            <rotate angle_x="0.0" angle_y="0.0" angle_z="20.0" />
+            <scale x="1.0" y="1.0" z="1.0" />
+          </keyframe>
+
+          <keyframe instant="8.0" >
+            <translate x="0.0" y="0.0" z="0.0" />
+            <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+            <scale x="1.0" y="1.0" z="1.0" />
+          </keyframe>
+        </animation>
+
+        <animation id="floater_move" >
+          <keyframe instant="5.0" >
+            <translate x="-20.0" y="0.0" z="0.0" />
+            <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+            <scale x="1.0" y="1.0" z="1.0" />
+          </keyframe>
+
+          <keyframe instant="8.0" >
+            <translate x="0.0" y="0.0" z="0.0" />
+            <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+            <scale x="1.0" y="1.0" z="1.0" />
+          </keyframe>
+        </animation>
+    </animations>
+
+    <primitives>
+        
+        <primitive id="demoRectangle">
+            <rectangle x1="-0.5" y1="-1" x2="0.5" y2="1" />
+        </primitive>
+
+        <primitive id="demoTriangle">
+            <triangle x1="-0.5" y1="-1" z1="0" x2="0.5" y2="1" z2="0" x3="3" y3="2" z3="0"/>
+        </primitive>
+      
+        <primitive id="demoCylinder">
+          <cylinder slices="20" stacks="20" base="2" top="0" height="4"/>
+        </primitive>
+
+        <primitive id="demoSphere">
+          <sphere radius="2" slices="20" stacks="20"/>
+        </primitive>
+        
+        <primitive id="demoTorus">
+          <torus inner="1" outer="5" slices="20" loops="20"/>
+        </primitive>
+    
+        <primitive id="tableLeg">
+            <cylinder slices="10" stacks="30" base="0.1" top="0.1" height="2.2"/>
+        </primitive>
+
+        <primitive id="poolBoarder">
+            <cylinder slices="10" stacks="30" base="0.3" top="0.3" height="10"/>
+        </primitive>
+        
+        <primitive id="parasolArm">
+            <cylinder slices="10" stacks="30" base="0.1" top="0.1" height="6"/>
+        </primitive>
+
+        <primitive id="parasolTop">
+            <cylinder slices="6" stacks="30" base="4" top="0" height="1.5"/>
+        </primitive>
+      
+        <primitive id="flagPole">
+            <cylinder2 base="0.3" top="0.3" slices="6" stacks="30" height="9"/>
+        </primitive>
+      
+        <primitive id="flag">
+          <patch vDiv="100" uDiv="100" vPart="4" uPart="4">
+            <controlpoint zz="100" yy="20" xx="0"/>
+            <controlpoint zz="90" yy="20" xx="0"/>
+            <controlpoint zz="70" yy="15" xx="0"/>
+            <controlpoint zz="50" yy="1" xx="0"/>
+            <controlpoint zz="0" yy="1" xx="0"/>
+            <controlpoint zz="100" yy="1" xx="50"/>
+            <controlpoint zz="90" yy="1" xx="50"/>
+            <controlpoint zz="70" yy="100" xx="50"/>
+            <controlpoint zz="50" yy="1" xx="50"/>
+            <controlpoint zz="20" yy="10" xx="50"/>
+            <controlpoint zz="100" yy="5" xx="100"/>
+            <controlpoint zz="90" yy="40" xx="100"/>
+            <controlpoint zz="7" yy="0" xx="100"/>
+            <controlpoint zz="50" yy="100" xx="100"/>
+            <controlpoint zz="0" yy="0" xx="100"/>
+            <controlpoint zz="100" yy="20" xx="150"/>
+            <controlpoint zz="90" yy="20" xx="150"/>
+            <controlpoint zz="70" yy="10" xx="150"/>
+            <controlpoint zz="50" yy="1" xx="150"/>
+            <controlpoint zz="0" yy="1" xx="150"/>
+            <controlpoint zz="100" yy="20" xx="200"/>
+            <controlpoint zz="90" yy="20" xx="200"/>
+            <controlpoint zz="70" yy="10" xx="200"/>
+            <controlpoint zz="50" yy="1" xx="200"/>
+            <controlpoint zz="0" yy="1" xx="200"/>
+          </patch>
+        </primitive>
+
+
+    </primitives>
+
+<components>
+        <component id="demoRoot">
+            <transformation>
+                <scale x="0.5" y="0.5" z="0.5" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+            <!--
+                <primitiveref id="demoRectangle" />
+                <primitiveref id="demoTriangle" />
+                <primitiveref id="demoCylinder" />
+                <primitiveref id="demoSphere" />
+                <primitiveref id="demoTorus" />
+            -->
+                <componentref id="table" />
+                <componentref id="ball" />
+                <componentref id="floater1" /> <!-- floater by the table -->
+                <componentref id="floater2" /> <!-- floater on pool -->
+                <componentref id="pool" />
+                <componentref id="parasol1" /> <!-- parasol by the table -->
+                <componentref id="chair1" />
+                <componentref id="chair2" />
+                <componentref id="ball2" />
+                <componentref id="floor" />
+                <componentref id="background" />
+                <componentref id="flag" />
+
+            </children>
+        </component>
+  
+        <component id="flag">
+            <transformation>
+              <translate x="-10" y="0" z="-10" />
+            </transformation>
+            <animationref id="flag_move" />
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="flag1" />
+                <componentref id="flag2" />
+            </children>
+        </component>
+  
+        <component id="flag1">
+            <transformation>
+              <transformationref id="tableLegRotation" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="tableLegTexture" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="flagPole" />
+            </children>
+        </component>
+  
+        <component id="flag2">
+            <transformation>
+              <translate x="0" y="9" z="0" />
+              <rotate axis="x" angle="90" />
+              <scale x="0.04" y="0.04" z="0.04" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="flagTexture" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="flag" />
+            </children>
+        </component>
+        
+        <component id="background">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="face1" />
+                <componentref id="face2" />
+            </children>
+        </component>
+
+        <component id="face1">
+            <transformation>
+                <translate x="-13.2" y="5.7" z="0" />
+                <rotate axis="y" angle="90" />
+                <scale x="24" y="6" z="1" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="skyTexture" length_s="2.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="demoRectangle" />
+            </children>
+        </component>
+
+        <component id="face2">
+            <transformation>
+                <translate x="0" y="5.7" z="-12" />
+                <rotate axis="y" angle="180" />
+                <scale x="26.5" y="6" z="1" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="skyTexture" length_s="2.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="demoRectangle" />
+            </children>
+        </component>
+
+        <component id="floor">
+            <transformation>
+                <translate x="0" y="-0.3" z="0" />
+                <rotate axis="x" angle="-90" />
+                <scale x="26.5" y="12" z="1" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="floorTexture" length_s="1.0" length_t="2.0"/>
+            <children>
+                <primitiveref id="demoRectangle" />
+            </children>
+        </component>
+        
+       <component id="ball2">
+            <transformation>
+                <translate x="-2.75" y="0" z="-2.75" />
+                <scale x="0.3" y="0.3" z="0.3" />
+            </transformation>
+            <animationref id="ball_move" />
+            <materials>
+                <material id="yellowMaterial" />
+            </materials>
+            <texture id="floaterTexture" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="demoSphere" />
+            </children>
+       </component>
+
+
+       <component id="chair2">
+            <transformation>
+                <translate x="1" y="0" z="-8" />
+                <scale x="1.5" y="1.5" z="1.5" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="chairBase2" />
+                <componentref id="chairBase1" />
+                <componentref id="chairLeg1" />
+                <componentref id="chairLeg2" />
+            </children>
+        </component>
+
+       <component id="chair1">
+            <transformation>
+                <translate x="-2" y="0" z="-8" />
+                <scale x="1.5" y="1.5" z="1.5" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="chairBase2" />
+                <componentref id="chairBase1" />
+                <componentref id="chairLeg1" />
+                <componentref id="chairLeg2" />
+            </children>
+        </component>
+
+        <component id="chairLeg1">
+            <transformation>
+                <scale x="0.1" y="0.05" z="0.1" />
+            </transformation>
+            <materials>
+                <material id="silverMaterial" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="demoTorus" />
+            </children>
+        </component>
+
+        <component id="chairLeg2">
+            <transformation>
+                <translate x="0" y="0" z="-1.0" />
+                <scale x="0.1" y="0.05" z="0.1" />
+            </transformation>
+            <materials>
+                <material id="silverMaterial" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="demoTorus" />
+            </children>
+        </component>
+
+        <component id="chairBase1">
+            <transformation>
+                <translate x="0" y="0.3" z="-0.5" />
+                <rotate axis="x" angle="-90" />
+                <scale x="1" y="0.75" z="1" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="chairTexture" length_s="5.0" length_t="5.0"/>
+            <children>
+                <primitiveref id="demoRectangle" />
+            </children>
+        </component>
+
+        <component id="chairBase2">
+            <transformation>
+                <translate x="0" y="0.685" z="-1.2" />
+                <rotate axis="x" angle="-40" />
+                <scale x="1" y="0.5" z="1" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="chairTexture" length_s="5.0" length_t="5.0"/>
+            <children>
+                <primitiveref id="demoRectangle" />
+            </children>
+        </component>
+
+       <component id="parasol1">
+            <transformation>
+                <translate x="-8.5" y="0" z="0" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="parasolArm" />
+                <componentref id="parasolTop" />
+            </children>
+        </component>
+
+        <component id="parasolTop">
+            <transformation>
+                <translate x="0" y="5.5" z="0" />
+                <transformationref id="tableLegRotation" />
+            </transformation>
+            <animationref id="parasol_move" />
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="parasolTexture" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="parasolTop" />
+            </children>
+        </component>
+
+        <component id="parasolArm">
+            <transformation>
+                <transformationref id="tableLegRotation" />
+            </transformation>
+            <materials>
+                <material id="cyanMaterial" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="parasolArm" />
+            </children>
+        </component>
+
+        <component id="poolTop">
+            <transformation>
+                <rotate axis="x" angle="-90" />
+                <scale x="5" y="5" z="5" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="waterTexture" length_s="1.0" length_t="2.0"/>
+            <children>
+                <primitiveref id="demoRectangle" />
+            </children>
+        </component>
+
+        <component id="poolBoarder_1">
+            <transformation>
+                <translate x="-2.5" y="0" z="-5" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="boarderTexture" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="poolBoarder" />
+            </children>
+        </component>
+
+        <component id="poolBoarder_2">
+            <transformation>
+                <translate x="2.5" y="0" z="-5" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="boarderTexture" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="poolBoarder" />
+            </children>
+        </component>
+
+        <component id="poolBoarder_3">
+            <transformation>
+                <translate x="2.5" y="0" z="-5" />
+                <rotate axis="y" angle="-90" />
+                <scale x="1" y="1" z="0.5" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="boarderTexture" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="poolBoarder" />
+            </children>
+        </component>
+
+        <component id="poolBoarder_4">
+            <transformation>
+                <translate x="2.5" y="0" z="5" />
+                <rotate axis="y" angle="-90" />
+                <scale x="1" y="1" z="0.5" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="boarderTexture" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="poolBoarder" />
+            </children>
+        </component>
+
+        <component id="pool">
+            <transformation>
+                <scale x="1.5" y="1" z="1" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="poolTop" />
+                <componentref id="poolBoarder_1" />
+                <componentref id="poolBoarder_2" />
+                <componentref id="poolBoarder_3" />
+                <componentref id="poolBoarder_4" />
+            </children>
+        </component>
+
+        <component id="floater1">
+            <transformation>
+                <translate x="-5.5" y="0.9" z="1.6" />
+                <rotate axis="y" angle="90" />
+                <rotate axis="x" angle="-17" />
+                <scale x="0.175" y="0.175" z="0.175" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="floaterTexture" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="demoTorus" />
+            </children>
+        </component>
+
+        <component id="floater2">
+            <transformation>
+                <translate x="0.5" y="0" z="0.7" />
+                <rotate axis="x" angle="-90" />
+                <scale x="0.2" y="0.2" z="0.2" />
+            </transformation>
+            <animationref id="floater_move" />
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="floaterTexture" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="demoTorus" />
+            </children>
+        </component>
+
+        <component id="ball">
+            <transformation>
+                <translate x="-6.5" y="0.7" z="-1" />
+                <scale x="0.3" y="0.3" z="0.3" />
+            </transformation>
+            <animationref id="ball_move2" />
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="ballTexture" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="demoSphere" />
+            </children>
+        </component>
+
+        <component id="table">
+            <transformation>
+                <translate x="-7" y="0" z="0" />
+                <rotate axis="y" angle="-90"/>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="tableLegBottomLeft" />
+                <componentref id="tableLegBottomRight" />
+                <componentref id="tableLegTopLeft" />
+                <componentref id="tableLegTopRight" />
+                <componentref id="tableTop" />
+            </children>
+        </component>
+
+        <component id="tableLegBottomLeft">
+            <transformation>
+                <translate x="-1.9" y="0" z="-1.1" />
+                <transformationref id="tableLegRotation" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="tableLegTexture" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="tableLeg" />
+            </children>
+        </component>
+
+        <component id="tableLegBottomRight">
+            <transformation>
+                <translate x="1.9" y="0" z="-1.1" />
+                <transformationref id="tableLegRotation" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="tableLegTexture" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="tableLeg" />
+            </children>
+        </component>
+
+        <component id="tableLegTopLeft">
+            <transformation>
+                <translate x="-1.9" y="0" z="1.1" />
+                <transformationref id="tableLegRotation" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="tableLegTexture" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="tableLeg" />
+            </children>
+        </component>
+
+        <component id="tableLegTopRight">
+            <transformation>
+                <translate x="1.9" y="0" z="1.1" />
+                <transformationref id="tableLegRotation" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="tableLegTexture" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="tableLeg" />
+            </children>
+        </component>
+        
+        <component id="tableTop">
+            <transformation>
+                <translate x="0" y="2.2" z="0" />
+                <scale x="2.35" y="2.35" z="2.35"/>
+                <rotate axis="x" angle="-90" />
+                <rotate axis="z" angle="-90" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="tableTexture" length_s ="4.0" length_t="4.0"/>
+            <children>
+                <primitiveref id="demoRectangle" />
+            </children>
+        </component>
+
+    </components>
+</lxs>
