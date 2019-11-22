@@ -34,6 +34,10 @@ class XMLscene extends CGFscene {
         this.gl.enable(this.gl.CULL_FACE);
         this.gl.depthFunc(this.gl.LEQUAL);
 
+        var date = new Date();
+
+        this.initTime = date.getTime();
+
         this.axis = new CGFaxis(this);
         this.texture_rtt = new CGFtextureRTT(this, this.gl.canvas.width, this.gl.canvas.height);
         this.security = new MySecurityCamera(this);
@@ -223,6 +227,11 @@ class XMLscene extends CGFscene {
     }
     update(t) {
         var elapsedTime = (t - this.initTime) / 1000;
+
+        for (const key in this.graph.nodes) {
+            if (this.graph.nodes[key].animations != null)
+                this.graph.nodes[key].animations.update(elapsedTime);
+        }
     }
 
 }

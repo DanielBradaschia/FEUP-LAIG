@@ -16,7 +16,7 @@ class Node {
             this.transformMatrix = mat4.create();
             mat4.identity(this.transformMatrix);
             this.transforms = [];
-            this.animation = [];
+            this.animations;
             this.children = [];
             this.parent = null;
         }

@@ -151,6 +151,19 @@
     </transformations>
 
     <animations>
+     <animation id="chair_move2" >
+          <keyframe instant="5.0" >
+            <translate x="0.0" y="0.0" z="0.0" />
+            <rotate angle_x="0.0" angle_y="60.0" angle_z="0.0" />
+            <scale x="1.0" y="1.0" z="1.0" />
+          </keyframe>
+
+          <keyframe instant="15.0" >
+            <translate x="5.0" y="0.0" z="0.0" />
+            <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+            <scale x="1.0" y="1.0" z="1.0" />
+          </keyframe>
+        </animation>
     </animations>
 
     <primitives>
@@ -381,6 +394,7 @@
                 <translate x="1" y="0" z="-8" />
                 <scale x="1.5" y="1.5" z="1.5" />
             </transformation>
+             <animationref id="chair_move2" />
             <materials>
                 <material id="demoMaterial" />
             </materials>

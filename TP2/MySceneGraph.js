@@ -706,6 +706,13 @@ class MySceneGraph {
             var keyframes = [];
             var grandChildren = children[i].children;
 
+            keyframes.push({
+                instant: 0,
+                translate: [0, 0, 0],
+                rotate: [0, 0, 0],
+                scale: [1, 1, 1]
+            })
+
             for (let k = 0; k < grandChildren.length; k++) {
                 if (grandChildren[k].nodeName != "keyframe")
                     return "There must be, at least, one keyframe per animation";
@@ -745,7 +752,6 @@ class MySceneGraph {
             }
             var keyframe = new KeyframeAnimation(this.scene, keyframes);
 
-            console.log(keyframe);
 
 
             this.animations[animationId] = keyframe;
@@ -1188,24 +1194,19 @@ class MySceneGraph {
                         }
                     }
                     break;
-                case "animations":
-                    grandChildren = children[j].children;
-
-                    if (grandChildren.length == 0) return "At least one animation is required";
-
-                    for (let k = 0; k < grandChildren.length; k++) {
-                        if (grandChildren[k].nodeName == "animationref") {
-                            var keyframeId = this.reader.getString(grandChildren[k], 'id');
-                            if (keyframeId.length == 0) {
-                                this.onXMLMinorError("parseAnimations: an transformation id must be defined in order to reference it");
-                                continue;
-                            }
-                            if (this.animations[keyframeId] == null) {
-                                this.onXMLMinorError("parseAnimations: transformation '" + keyframeId + "' does not exist");
-                                continue;
-                            }
-                            node.animation = this.animations[keyframeId];
+                case "animationref":
+                    if (children[j].nodeName == "animationref") {
+                        var keyframeId = this.reader.getString(children[j], 'id');
+                        if (keyframeId.length == 0) {
+                            this.onXMLMinorError("parseAnimations: an transformation id must be defined in order to reference it");
+                            continue;
                         }
+                        if (this.animations[keyframeId] == null) {
+                            this.onXMLMinorError("parseAnimations: transformation '" + keyframeId + "' does not exist");
+                            continue;
+                        }
+                        node.animations = this.animations[keyframeId];
+                        
                     }
                     break;
                 default:
@@ -1381,6 +1382,9 @@ class MySceneGraph {
     renderScene(scene, node) {
         scene.multMatrix(node.transformMatrix);
         this.nodeMaterial = node.materials;
+        let animation = node.animations;  
+        if (animation != undefined)
+            animation.apply();      
 
         for (let i = 0; i < node.children.length; i++) {
             if (node.children[i].type == 'primitive') {
@@ -1388,7 +1392,9 @@ class MySceneGraph {
                 if (node.texture.texture != "none") {
                     node.children[i].primitive.updateTexCoords(node.texture.length_s, node.texture.length_t);
                     node.texture.texture.bind();
-                }
+                }             
+                
+
                 node.children[i].primitive.display();
             }
         }
