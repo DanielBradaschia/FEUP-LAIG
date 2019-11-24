@@ -151,15 +151,90 @@
     </transformations>
 
     <animations>
-     <animation id="chair_move2" >
+        <animation id="flag_move" >
           <keyframe instant="5.0" >
             <translate x="0.0" y="0.0" z="0.0" />
-            <rotate angle_x="0.0" angle_y="60.0" angle_z="0.0" />
+            <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+            <scale x="1.0" y="1.0" z="3.0" />
+          </keyframe>
+
+          <keyframe instant="8.0" >
+            <translate x="0.0" y="0.0" z="0.0" />
+            <rotate angle_x="0.0" angle_y="-2.0" angle_z="0.0" />
+            <scale x="1.0" y="1.0" z="3.0" />
+          </keyframe>
+
+          <keyframe instant="13.0" >
+            <translate x="0.0" y="0.0" z="0.0" />
+            <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+            <scale x="1.0" y="1.0" z="1.0" />
+          </keyframe>
+        </animation>
+
+        <animation id="ball_move" >
+          <keyframe instant="5.0" >
+            <translate x="0.0" y="0.0" z="0.0" />
+            <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+            <scale x="1.0" y="1.0" z="1.0" />
+          </keyframe>
+
+          <keyframe instant="10.0" >
+            <translate x="0.0" y="0.0" z="20.0" />
+            <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
             <scale x="1.0" y="1.0" z="1.0" />
           </keyframe>
 
           <keyframe instant="15.0" >
-            <translate x="5.0" y="0.0" z="0.0" />
+            <translate x="0.0" y="0.0" z="0.0" />
+            <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+            <scale x="1.0" y="1.0" z="1.0" />
+          </keyframe>
+        </animation>
+
+        <animation id="ball_move2" >
+          <keyframe instant="5.0" >
+            <translate x="0.0" y="0.0" z="60.0" />
+            <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+            <scale x="1.0" y="1.0" z="1.0" />
+          </keyframe>
+
+          <keyframe instant="8.0" >
+            <translate x="0.0" y="0.0" z="0.0" />
+            <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+            <scale x="1.0" y="1.0" z="1.0" />
+          </keyframe>
+
+        </animation>
+
+        <animation id="parasol_move" >
+          <keyframe instant="5.0" >
+            <translate x="0.0" y="0.0" z="0.0" />
+            <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+            <scale x="1.0" y="1.0" z="1.0" />
+          </keyframe>
+
+          <keyframe instant="8.0" >
+            <translate x="0.0" y="0.0" z="0.0" />
+            <rotate angle_x="0.0" angle_y="0.0" angle_z="20.0" />
+            <scale x="1.0" y="1.0" z="1.0" />
+          </keyframe>
+
+          <keyframe instant="20.0" >
+            <translate x="0.0" y="0.0" z="0.0" />
+            <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+            <scale x="1.0" y="1.0" z="1.0" />
+          </keyframe>
+        </animation>
+
+        <animation id="floater_move" >
+          <keyframe instant="5.0" >
+            <translate x="-20.0" y="0.0" z="0.0" />
+            <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+            <scale x="1.0" y="1.0" z="1.0" />
+          </keyframe>
+
+          <keyframe instant="8.0" >
+            <translate x="0.0" y="0.0" z="0.0" />
             <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
             <scale x="1.0" y="1.0" z="1.0" />
           </keyframe>
@@ -278,6 +353,7 @@
             <transformation>
               <translate x="-10" y="0" z="-10" />
             </transformation>
+            <animationref id="flag_move" />
             <materials>
                 <material id="demoMaterial" />
             </materials>
@@ -374,11 +450,12 @@
             </children>
         </component>
         
-       <component id="ball2">
+       <component id="ball2">   <!--Ball in pool-->
             <transformation>
                 <translate x="-2.75" y="0" z="-2.75" />
                 <scale x="0.3" y="0.3" z="0.3" />
             </transformation>
+            <animationref id="ball_move" />
             <materials>
                 <material id="yellowMaterial" />
             </materials>
@@ -394,7 +471,6 @@
                 <translate x="1" y="0" z="-8" />
                 <scale x="1.5" y="1.5" z="1.5" />
             </transformation>
-             <animationref id="chair_move2" />
             <materials>
                 <material id="demoMaterial" />
             </materials>
@@ -500,6 +576,7 @@
                 <translate x="0" y="5.5" z="0" />
                 <transformationref id="tableLegRotation" />
             </transformation>
+            <animationref id="parasol_move" />
             <materials>
                 <material id="demoMaterial" />
             </materials>
@@ -631,6 +708,7 @@
                 <rotate axis="x" angle="-90" />
                 <scale x="0.2" y="0.2" z="0.2" />
             </transformation>
+            <animationref id="floater_move" />
             <materials>
                 <material id="demoMaterial" />
             </materials>
@@ -645,6 +723,7 @@
                 <translate x="-6.5" y="0.7" z="-1" />
                 <scale x="0.3" y="0.3" z="0.3" />
             </transformation>
+            <animationref id="ball_move2" />
             <materials>
                 <material id="demoMaterial" />
             </materials>

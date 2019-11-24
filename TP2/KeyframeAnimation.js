@@ -14,15 +14,16 @@ class KeyframeAnimation extends Animation {
     }
 
     calcAnimation() {
-        var d_instant = 0;
-        var d_scale = { x: 1, y: 1, z: 1 }
-        var d_translate = { x: 0, y: 0, z: 0 }
-        var d_rotate = { x: 0, y: 0, z: 0 }
-
         this.transformations.push(null);
 
 
         for (let i = 0; i < this.animations.length - 1; i++) {
+
+            var d_instant = 0;
+            var d_scale = { x: 1, y: 1, z: 1 }
+            var d_translate = { x: 0, y: 0, z: 0 }
+            var d_rotate = { x: 0, y: 0, z: 0 }
+
             d_instant = this.animations[i + 1].instant - this.animations[i].instant;
 
             d_scale.x = ((this.animations[i + 1].scale[0] - this.animations[i].scale[0]) / d_instant) / 60;
