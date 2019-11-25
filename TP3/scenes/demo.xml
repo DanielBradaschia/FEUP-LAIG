@@ -72,7 +72,7 @@
         <texture id="demoTexture" file="./scenes/images/vidral.jpg" />
         <texture id="floaterTexture" file="./scenes/images/floater.jpg" />
         <texture id="parasolTexture" file="./images/parasol.jpg" />
-        <texture id="boardTexture" file="./images/board.jpg" />
+        <texture id="boardTexture" file="./images/board.png" />
     </textures>
 
     <materials>
@@ -306,7 +306,7 @@
 
         <component id="Piece1">
             <transformation>
-                <translate x="5.0" y="0.0" z="0.0" />
+                <translate x="5.0" y="0.0" z="-1.5" />
                 <scale x="1" y="1" z="1" />
             </transformation>
             <materials>
@@ -333,7 +333,7 @@
 
         <component id="Piece3">
             <transformation>
-                <translate x="-5.0" y="0.0" z="0.0" />
+                <translate x="-5.0" y="0.0" z="1.5" />
                 <scale x="1" y="3" z="1" />
             </transformation>
             <materials>
