@@ -71,16 +71,8 @@
     <textures>
         <texture id="demoTexture" file="./scenes/images/vidral.jpg" />
         <texture id="floaterTexture" file="./scenes/images/floater.jpg" />
-        <texture id="tableLegTexture" file="./images/metal.jpg" />
-        <texture id="ballTexture" file="./images/ball.jpg" />
-        <texture id="chairTexture" file="./images/chair.jpg" />
-        <texture id="tableTexture" file="./images/table.jpg" />
-        <texture id="boarderTexture" file="./images/boarder.jpg" />
         <texture id="parasolTexture" file="./images/parasol.jpg" />
-        <texture id="floorTexture" file="./images/floor.jpg" />
-        <texture id="skyTexture" file="./images/sky.jpg" />
-        <texture id="waterTexture" file="./images/waterTex.jpg" />
-        <texture id="flagTexture" file="./images/flag.jpg" />
+        <texture id="boardTexture" file="./images/board.jpg" />
     </textures>
 
     <materials>
@@ -263,56 +255,13 @@
           <torus inner="1" outer="5" slices="20" loops="20"/>
         </primitive>
     
-        <primitive id="tableLeg">
-            <cylinder slices="10" stacks="30" base="0.1" top="0.1" height="2.2"/>
+        <primitive id="demoPyramid">
+            <pyramid slices="4" stacks="2" />
         </primitive>
 
-        <primitive id="poolBoarder">
-            <cylinder slices="10" stacks="30" base="0.3" top="0.3" height="10"/>
+        <primitive id="Board">
+            <rectangle x1="-1" y1="-1" x2="1" y2="1" />
         </primitive>
-        
-        <primitive id="parasolArm">
-            <cylinder slices="10" stacks="30" base="0.1" top="0.1" height="6"/>
-        </primitive>
-
-        <primitive id="parasolTop">
-            <cylinder slices="6" stacks="30" base="4" top="0" height="1.5"/>
-        </primitive>
-      
-        <primitive id="flagPole">
-            <cylinder2 base="0.3" top="0.3" slices="6" stacks="30" height="9"/>
-        </primitive>
-      
-        <primitive id="flag">
-          <patch vDiv="100" uDiv="100" vPart="4" uPart="4">
-            <controlpoint zz="100" yy="20" xx="0"/>
-            <controlpoint zz="90" yy="20" xx="0"/>
-            <controlpoint zz="70" yy="15" xx="0"/>
-            <controlpoint zz="50" yy="1" xx="0"/>
-            <controlpoint zz="0" yy="1" xx="0"/>
-            <controlpoint zz="100" yy="1" xx="50"/>
-            <controlpoint zz="90" yy="1" xx="50"/>
-            <controlpoint zz="70" yy="100" xx="50"/>
-            <controlpoint zz="50" yy="1" xx="50"/>
-            <controlpoint zz="20" yy="10" xx="50"/>
-            <controlpoint zz="100" yy="5" xx="100"/>
-            <controlpoint zz="90" yy="40" xx="100"/>
-            <controlpoint zz="7" yy="0" xx="100"/>
-            <controlpoint zz="50" yy="100" xx="100"/>
-            <controlpoint zz="0" yy="0" xx="100"/>
-            <controlpoint zz="100" yy="20" xx="150"/>
-            <controlpoint zz="90" yy="20" xx="150"/>
-            <controlpoint zz="70" yy="10" xx="150"/>
-            <controlpoint zz="50" yy="1" xx="150"/>
-            <controlpoint zz="0" yy="1" xx="150"/>
-            <controlpoint zz="100" yy="20" xx="200"/>
-            <controlpoint zz="90" yy="20" xx="200"/>
-            <controlpoint zz="70" yy="10" xx="200"/>
-            <controlpoint zz="50" yy="1" xx="200"/>
-            <controlpoint zz="0" yy="1" xx="200"/>
-          </patch>
-        </primitive>
-
 
     </primitives>
 
@@ -332,496 +281,68 @@
                 <primitiveref id="demoCylinder" />
                 <primitiveref id="demoSphere" />
                 <primitiveref id="demoTorus" />
+                <primitiveref id="demoPyramid" />
             -->
-                <componentref id="table" />
-                <componentref id="ball" />
-                <componentref id="floater1" /> <!-- floater by the table -->
-                <componentref id="floater2" /> <!-- floater on pool -->
-                <componentref id="pool" />
-                <componentref id="parasol1" /> <!-- parasol by the table -->
-                <componentref id="chair1" />
-                <componentref id="chair2" />
-                <componentref id="ball2" />
-                <componentref id="floor" />
-                <componentref id="background" />
-                <componentref id="flag" />
-
+                <componentref id="Board" />
+                <componentref id="Piece1" />
+                <componentref id="Piece2" />
+                <componentref id="Piece3" />
             </children>
         </component>
   
-        <component id="flag">
-            <transformation>
-              <translate x="-10" y="0" z="-10" />
-            </transformation>
-            <animationref id="flag_move" />
-            <materials>
-                <material id="demoMaterial" />
-            </materials>
-            <texture id="none" />
-            <children>
-                <componentref id="flag1" />
-                <componentref id="flag2" />
-            </children>
-        </component>
-  
-        <component id="flag1">
-            <transformation>
-              <transformationref id="tableLegRotation" />
-            </transformation>
-            <materials>
-                <material id="demoMaterial" />
-            </materials>
-            <texture id="tableLegTexture" length_s="1.0" length_t="1.0"/>
-            <children>
-                <primitiveref id="flagPole" />
-            </children>
-        </component>
-  
-        <component id="flag2">
-            <transformation>
-              <translate x="0" y="9" z="0" />
-              <rotate axis="x" angle="90" />
-              <scale x="0.04" y="0.04" z="0.04" />
-            </transformation>
-            <materials>
-                <material id="demoMaterial" />
-            </materials>
-            <texture id="flagTexture" length_s="1.0" length_t="1.0"/>
-            <children>
-                <primitiveref id="flag" />
-            </children>
-        </component>
-        
-        <component id="background">
-            <transformation>
-            </transformation>
-            <materials>
-                <material id="demoMaterial" />
-            </materials>
-            <texture id="none" />
-            <children>
-                <componentref id="face1" />
-                <componentref id="face2" />
-            </children>
-        </component>
-
-        <component id="face1">
-            <transformation>
-                <translate x="-13.2" y="5.7" z="0" />
-                <rotate axis="y" angle="90" />
-                <scale x="24" y="6" z="1" />
-            </transformation>
-            <materials>
-                <material id="demoMaterial" />
-            </materials>
-            <texture id="skyTexture" length_s="2.0" length_t="1.0"/>
-            <children>
-                <primitiveref id="demoRectangle" />
-            </children>
-        </component>
-
-        <component id="face2">
-            <transformation>
-                <translate x="0" y="5.7" z="-12" />
-                <rotate axis="y" angle="180" />
-                <scale x="26.5" y="6" z="1" />
-            </transformation>
-            <materials>
-                <material id="demoMaterial" />
-            </materials>
-            <texture id="skyTexture" length_s="2.0" length_t="1.0"/>
-            <children>
-                <primitiveref id="demoRectangle" />
-            </children>
-        </component>
-
-        <component id="floor">
-            <transformation>
-                <translate x="0" y="-0.3" z="0" />
-                <rotate axis="x" angle="-90" />
-                <scale x="26.5" y="12" z="1" />
-            </transformation>
-            <materials>
-                <material id="demoMaterial" />
-            </materials>
-            <texture id="floorTexture" length_s="1.0" length_t="2.0"/>
-            <children>
-                <primitiveref id="demoRectangle" />
-            </children>
-        </component>
-        
-       <component id="ball2">   <!--Ball in pool-->
-            <transformation>
-                <translate x="-2.75" y="0" z="-2.75" />
-                <scale x="0.3" y="0.3" z="0.3" />
-            </transformation>
-            <animationref id="ball_move" />
-            <materials>
-                <material id="yellowMaterial" />
-            </materials>
-            <texture id="floaterTexture" length_s="1.0" length_t="1.0"/>
-            <children>
-                <primitiveref id="demoSphere" />
-            </children>
-       </component>
-
-
-       <component id="chair2">
-            <transformation>
-                <translate x="1" y="0" z="-8" />
-                <scale x="1.5" y="1.5" z="1.5" />
-            </transformation>
-            <materials>
-                <material id="demoMaterial" />
-            </materials>
-            <texture id="none" />
-            <children>
-                <componentref id="chairBase2" />
-                <componentref id="chairBase1" />
-                <componentref id="chairLeg1" />
-                <componentref id="chairLeg2" />
-            </children>
-        </component>
-
-       <component id="chair1">
-            <transformation>
-                <translate x="-2" y="0" z="-8" />
-                <scale x="1.5" y="1.5" z="1.5" />
-            </transformation>
-            <materials>
-                <material id="demoMaterial" />
-            </materials>
-            <texture id="none" />
-            <children>
-                <componentref id="chairBase2" />
-                <componentref id="chairBase1" />
-                <componentref id="chairLeg1" />
-                <componentref id="chairLeg2" />
-            </children>
-        </component>
-
-        <component id="chairLeg1">
-            <transformation>
-                <scale x="0.1" y="0.05" z="0.1" />
-            </transformation>
-            <materials>
-                <material id="silverMaterial" />
-            </materials>
-            <texture id="none" />
-            <children>
-                <primitiveref id="demoTorus" />
-            </children>
-        </component>
-
-        <component id="chairLeg2">
-            <transformation>
-                <translate x="0" y="0" z="-1.0" />
-                <scale x="0.1" y="0.05" z="0.1" />
-            </transformation>
-            <materials>
-                <material id="silverMaterial" />
-            </materials>
-            <texture id="none" />
-            <children>
-                <primitiveref id="demoTorus" />
-            </children>
-        </component>
-
-        <component id="chairBase1">
-            <transformation>
-                <translate x="0" y="0.3" z="-0.5" />
-                <rotate axis="x" angle="-90" />
-                <scale x="1" y="0.75" z="1" />
-            </transformation>
-            <materials>
-                <material id="demoMaterial" />
-            </materials>
-            <texture id="chairTexture" length_s="5.0" length_t="5.0"/>
-            <children>
-                <primitiveref id="demoRectangle" />
-            </children>
-        </component>
-
-        <component id="chairBase2">
-            <transformation>
-                <translate x="0" y="0.685" z="-1.2" />
-                <rotate axis="x" angle="-40" />
-                <scale x="1" y="0.5" z="1" />
-            </transformation>
-            <materials>
-                <material id="demoMaterial" />
-            </materials>
-            <texture id="chairTexture" length_s="5.0" length_t="5.0"/>
-            <children>
-                <primitiveref id="demoRectangle" />
-            </children>
-        </component>
-
-       <component id="parasol1">
-            <transformation>
-                <translate x="-8.5" y="0" z="0" />
-            </transformation>
-            <materials>
-                <material id="demoMaterial" />
-            </materials>
-            <texture id="none" />
-            <children>
-                <componentref id="parasolArm" />
-                <componentref id="parasolTop" />
-            </children>
-        </component>
-
-        <component id="parasolTop">
-            <transformation>
-                <translate x="0" y="5.5" z="0" />
-                <transformationref id="tableLegRotation" />
-            </transformation>
-            <animationref id="parasol_move" />
-            <materials>
-                <material id="demoMaterial" />
-            </materials>
-            <texture id="parasolTexture" length_s="1.0" length_t="1.0"/>
-            <children>
-                <primitiveref id="parasolTop" />
-            </children>
-        </component>
-
-        <component id="parasolArm">
-            <transformation>
-                <transformationref id="tableLegRotation" />
-            </transformation>
-            <materials>
-                <material id="cyanMaterial" />
-            </materials>
-            <texture id="none" />
-            <children>
-                <primitiveref id="parasolArm" />
-            </children>
-        </component>
-
-        <component id="poolTop">
+        <component id="Board">
             <transformation>
                 <rotate axis="x" angle="-90" />
-                <scale x="5" y="5" z="5" />
+                <scale x="10" y="10" z="10" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="waterTexture" length_s="1.0" length_t="2.0"/>
-            <children>
-                <primitiveref id="demoRectangle" />
+            <texture id="boardTexture"/>
+            <children>    
+                <primitiveref id="Board" />
             </children>
         </component>
 
-        <component id="poolBoarder_1">
+        <component id="Piece1">
             <transformation>
-                <translate x="-2.5" y="0" z="-5" />
+                <translate x="5.0" y="0.0" z="0.0" />
+                <scale x="1" y="1" z="1" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="boarderTexture" length_s="1.0" length_t="1.0"/>
-            <children>
-                <primitiveref id="poolBoarder" />
+            <texture id="parasolTexture" />
+            <children>    
+                <primitiveref id="demoPyramid" />
             </children>
         </component>
 
-        <component id="poolBoarder_2">
+        <component id="Piece2">
             <transformation>
-                <translate x="2.5" y="0" z="-5" />
+                <scale x="1" y="2" z="1" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="boarderTexture" length_s="1.0" length_t="1.0"/>
-            <children>
-                <primitiveref id="poolBoarder" />
+            <texture id="floaterTexture" />
+            <children>    
+                <primitiveref id="demoPyramid" />
             </children>
         </component>
 
-        <component id="poolBoarder_3">
+        <component id="Piece3">
             <transformation>
-                <translate x="2.5" y="0" z="-5" />
-                <rotate axis="y" angle="-90" />
-                <scale x="1" y="1" z="0.5" />
+                <translate x="-5.0" y="0.0" z="0.0" />
+                <scale x="1" y="3" z="1" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="boarderTexture" length_s="1.0" length_t="1.0"/>
-            <children>
-                <primitiveref id="poolBoarder" />
+            <texture id="demoTexture" />
+            <children>    
+                <primitiveref id="demoPyramid" />
             </children>
         </component>
-
-        <component id="poolBoarder_4">
-            <transformation>
-                <translate x="2.5" y="0" z="5" />
-                <rotate axis="y" angle="-90" />
-                <scale x="1" y="1" z="0.5" />
-            </transformation>
-            <materials>
-                <material id="demoMaterial" />
-            </materials>
-            <texture id="boarderTexture" length_s="1.0" length_t="1.0"/>
-            <children>
-                <primitiveref id="poolBoarder" />
-            </children>
-        </component>
-
-        <component id="pool">
-            <transformation>
-                <scale x="1.5" y="1" z="1" />
-            </transformation>
-            <materials>
-                <material id="demoMaterial" />
-            </materials>
-            <texture id="none" />
-            <children>
-                <componentref id="poolTop" />
-                <componentref id="poolBoarder_1" />
-                <componentref id="poolBoarder_2" />
-                <componentref id="poolBoarder_3" />
-                <componentref id="poolBoarder_4" />
-            </children>
-        </component>
-
-        <component id="floater1">
-            <transformation>
-                <translate x="-5.5" y="0.9" z="1.6" />
-                <rotate axis="y" angle="90" />
-                <rotate axis="x" angle="-17" />
-                <scale x="0.175" y="0.175" z="0.175" />
-            </transformation>
-            <materials>
-                <material id="demoMaterial" />
-            </materials>
-            <texture id="floaterTexture" length_s="1.0" length_t="1.0"/>
-            <children>
-                <primitiveref id="demoTorus" />
-            </children>
-        </component>
-
-        <component id="floater2">
-            <transformation>
-                <translate x="0.5" y="0" z="0.7" />
-                <rotate axis="x" angle="-90" />
-                <scale x="0.2" y="0.2" z="0.2" />
-            </transformation>
-            <animationref id="floater_move" />
-            <materials>
-                <material id="demoMaterial" />
-            </materials>
-            <texture id="floaterTexture" length_s="1.0" length_t="1.0"/>
-            <children>
-                <primitiveref id="demoTorus" />
-            </children>
-        </component>
-
-        <component id="ball">
-            <transformation>
-                <translate x="-6.5" y="0.7" z="-1" />
-                <scale x="0.3" y="0.3" z="0.3" />
-            </transformation>
-            <animationref id="ball_move2" />
-            <materials>
-                <material id="demoMaterial" />
-            </materials>
-            <texture id="ballTexture" length_s="1.0" length_t="1.0"/>
-            <children>
-                <primitiveref id="demoSphere" />
-            </children>
-        </component>
-
-        <component id="table">
-            <transformation>
-                <translate x="-7" y="0" z="0" />
-                <rotate axis="y" angle="-90"/>
-            </transformation>
-            <materials>
-                <material id="demoMaterial" />
-            </materials>
-            <texture id="none"/>
-            <children>
-                <componentref id="tableLegBottomLeft" />
-                <componentref id="tableLegBottomRight" />
-                <componentref id="tableLegTopLeft" />
-                <componentref id="tableLegTopRight" />
-                <componentref id="tableTop" />
-            </children>
-        </component>
-
-        <component id="tableLegBottomLeft">
-            <transformation>
-                <translate x="-1.9" y="0" z="-1.1" />
-                <transformationref id="tableLegRotation" />
-            </transformation>
-            <materials>
-                <material id="demoMaterial" />
-            </materials>
-            <texture id="tableLegTexture" length_s="1.0" length_t="1.0"/>
-            <children>
-                <primitiveref id="tableLeg" />
-            </children>
-        </component>
-
-        <component id="tableLegBottomRight">
-            <transformation>
-                <translate x="1.9" y="0" z="-1.1" />
-                <transformationref id="tableLegRotation" />
-            </transformation>
-            <materials>
-                <material id="demoMaterial" />
-            </materials>
-            <texture id="tableLegTexture" length_s="1.0" length_t="1.0"/>
-            <children>
-                <primitiveref id="tableLeg" />
-            </children>
-        </component>
-
-        <component id="tableLegTopLeft">
-            <transformation>
-                <translate x="-1.9" y="0" z="1.1" />
-                <transformationref id="tableLegRotation" />
-            </transformation>
-            <materials>
-                <material id="demoMaterial" />
-            </materials>
-            <texture id="tableLegTexture" length_s="1.0" length_t="1.0"/>
-            <children>
-                <primitiveref id="tableLeg" />
-            </children>
-        </component>
-
-        <component id="tableLegTopRight">
-            <transformation>
-                <translate x="1.9" y="0" z="1.1" />
-                <transformationref id="tableLegRotation" />
-            </transformation>
-            <materials>
-                <material id="demoMaterial" />
-            </materials>
-            <texture id="tableLegTexture" length_s="1.0" length_t="1.0"/>
-            <children>
-                <primitiveref id="tableLeg" />
-            </children>
-        </component>
-        
-        <component id="tableTop">
-            <transformation>
-                <translate x="0" y="2.2" z="0" />
-                <scale x="2.35" y="2.35" z="2.35"/>
-                <rotate axis="x" angle="-90" />
-                <rotate axis="z" angle="-90" />
-            </transformation>
-            <materials>
-                <material id="demoMaterial" />
-            </materials>
-            <texture id="tableTexture" length_s ="4.0" length_t="4.0"/>
-            <children>
-                <primitiveref id="demoRectangle" />
-            </children>
-        </component>
-
     </components>
 </lxs>

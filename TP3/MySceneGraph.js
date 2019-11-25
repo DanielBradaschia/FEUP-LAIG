@@ -797,8 +797,9 @@ class MySceneGraph {
                 (grandChildren[0].nodeName != 'rectangle' && grandChildren[0].nodeName != 'triangle' &&
                  grandChildren[0].nodeName != 'cylinder' && grandChildren[0].nodeName != 'cylinder2' &&
                  grandChildren[0].nodeName != 'sphere' && grandChildren[0].nodeName != 'torus' &&
-                 grandChildren[0].nodeName != 'plane' && grandChildren[0].nodeName != 'patch')) {
-                return "There must be exactly 1 primitive type (rectangle, triangle, cylinder, cylinder2, sphere, torus, patch or plane)"
+                 grandChildren[0].nodeName != 'plane' && grandChildren[0].nodeName != 'patch' &&
+                grandChildren[0].nodeName != 'pyramid')) {
+                return "There must be exactly 1 primitive type (rectangle, triangle, cylinder, cylinder2, sphere, torus, patch, plane or pyramid)"
             }
 
             // Specifications for the current primitive.
@@ -1013,6 +1014,22 @@ class MySceneGraph {
 
                 var patch = new MyPatch(this.scene, primitiveId, uPart, vPart, uDiv, vDiv, controlPoint);
                 this.primitives[primitiveId] = patch;
+            }
+
+            else if (primitiveType == 'pyramid') {
+                // slices
+                var slices = this.reader.getFloat(grandChildren[0], 'slices');
+                if (!(slices != null && !isNaN(slices)))
+                    return "unable to parse slices of the primitive coordinates for ID = " + primitiveId;
+
+                // stacks
+                var stacks = this.reader.getFloat(grandChildren[0], 'stacks');
+                if (!(stacks != null && !isNaN(stacks)))
+                    return "unable to parse stacks of the primitive coordinates for ID = " + primitiveId;
+
+                var pyramid = new MyPyramid(this.scene, slices, stacks);
+
+                this.primitives[primitiveId] = pyramid;
             }
 
             else {
@@ -1411,19 +1428,18 @@ class MySceneGraph {
      * Displays the scene, processing each node, starting in the root node.
      */
     displayScene() {
-       /* for (const primitive in this.primitives) {
+        //To test the parsing/creation of the primitives, call the display function directly
+        //this.primitives['demoPyramid'].display();
+        /*for (const primitive in this.primitives) {
             this.scene.scale(20,20,20);
             this.primitives[primitive].display();
-        }
-        */
-
-        //To test the parsing/creation of the primitives, call the display function directly
-        //this.primitives['demoRectangle'].display();
+        }*/
         
+
+                
         this.scene.pushMatrix();
         this.renderScene(this.scene, this.nodeAux);
         this.scene.popMatrix();
-        
     }
 
 }
