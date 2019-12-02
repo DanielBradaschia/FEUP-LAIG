@@ -40,7 +40,6 @@ class XMLscene extends CGFscene {
 
         this.axis = new CGFaxis(this);
         this.texture_rtt = new CGFtextureRTT(this, this.gl.canvas.width, this.gl.canvas.height);
-        this.security = new MySecurityCamera(this);
         this.displayAxis = true;
         this.setUpdatePeriod(16.67);
     }
@@ -50,7 +49,6 @@ class XMLscene extends CGFscene {
      */
     initCameras() {
         this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
-        this.security_camera = this.security;
     }
     /**
      * Initializes the scene lights with the values read from the XML file.
@@ -222,7 +220,6 @@ class XMLscene extends CGFscene {
         this.renderSecurity();
         this.render();
         this.gl.disable(this.gl.DEPTH_TEST);
-        this.security.display();
         this.gl.enable(this.gl.DEPTH_TEST);
     }
     update(t) {
