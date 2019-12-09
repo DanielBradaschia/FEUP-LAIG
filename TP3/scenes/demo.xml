@@ -32,40 +32,39 @@
         </omni>
 
         <omni id="light_1" enabled="0">
-            <location x="30" y="15" z="3.5" w="1" />
-            <ambient r="0.1" g="0.1" b="0.1" a="1"/>
-            <diffuse r="0.7" g="0.7" b="0.7" a="1"/>
-            <specular r="0.7" g="0.7" b="0.7" a="1"/>
+            <location x="-9.8" y="11.9" z="-10" w="1.0" />
+            <ambient r="0" g="0" b="0" a="1.0" />
+            <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+            <specular r="1.0" g="1.0" b="1.0" a="1.0" />
         </omni>
     
         <omni id="light_2" enabled="0">
-            <location x="35" y="15" z="20" w="1" />
+            <location x="4" y="5" z="4" w="1" />
             <ambient r="0.1" g="0.1" b="0.1" a="1"/>
             <diffuse r="0.7" g="0.7" b="0.7" a="1"/>
             <specular r="0.7" g="0.7" b="0.7" a="1"/>
         </omni>
     
         <omni id="light_3" enabled="0">
-            <location x="3" y="10" z="27" w="1" />
+            <location x="-4" y="5" z="-4" w="1" />
             <ambient r="0.1" g="0.1" b="0.1" a="1"/>
             <diffuse r="0.7" g="0.7" b="0.7" a="1"/>
             <specular r="0.7" g="0.7" b="0.7" a="1"/>
         </omni>
     
         <omni id="light_4" enabled="0">
-            <location x="0" y="20" z="20" w="1" />
+            <location x="4" y="5" z="-4" w="1" />
             <ambient r="0.1" g="0.1" b="0.1" a="1"/>
             <diffuse r="0.7" g="0.7" b="0.7" a="1"/>
             <specular r="0.7" g="0.7" b="0.7" a="1"/>
         </omni>
     
-        <spot id="spot_light" enabled="0" angle="30" exponent="5">
-            <location x="30" y="20" z="30" w="1" />
-            <target x="15" y="10" z="0" />
-            <ambient r="0" g="0" b="0" a="1" />
-            <diffuse r="0.8" g="0.8" b="0.8" a="1" />
-            <specular r="0.2" g="0.2" b="0.2" a="1" />
-        </spot>
+        <omni id="light_5" enabled="0">
+            <location x="-4" y="5" z="4" w="1" />
+            <ambient r="0.1" g="0.1" b="0.1" a="1"/>
+            <diffuse r="0.7" g="0.7" b="0.7" a="1"/>
+            <specular r="0.7" g="0.7" b="0.7" a="1"/>
+        </omni>
     </lights>
 
     <textures>
@@ -187,7 +186,7 @@
             </children>
         </component>
   
-        <component id="Board">
+        <component id="Board"> <!--cada casa tem 3.5 de tamanho em X e 2.75 de tamanho em Z-->
             <transformation>
                 <rotate axis="x" angle="-90" />
                 <scale x="10" y="10" z="10" />
@@ -217,6 +216,7 @@
 
         <component id="Piece2">
             <transformation>
+                <translate x="0.0" y="0.0" z="2.75" />
                 <scale x="1" y="2" z="1" />
             </transformation>
             <materials>
