@@ -17,12 +17,18 @@ serialInclude(['../lib/CGF.js',
                 'MyInterface.js',
                 'MyRectangle.js',
                 'MyNode.js',
-                'Animation.js',
-                'KeyframeAnimation.js',
                 'MyPyramid.js',
                 'MyPlayer.js',
-                'MyPiece.js',          
-
+                'MyPiece.js', 
+                'MyMove.js',
+                'MyAnimation.js',
+                'MyAnimationRef.js',
+                'MyBezierAnimation.js',    
+                'MyCircularAnimation.js',
+                'MyComboAnimation.js',
+                'MyComboRef.js',
+                'MyLinearAnimation.js',
+                'MyServer.js',
 main=function()
 {
 	// Standard application, scene and interface setup
