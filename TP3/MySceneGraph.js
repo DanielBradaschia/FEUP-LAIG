@@ -1429,17 +1429,18 @@ class MySceneGraph {
      */
     displayScene() {
         //To test the parsing/creation of the primitives, call the display function directly
-        //this.primitives['demoPyramid'].display();
+        //this.primitives['demoCylinder'].display();
         /*for (const primitive in this.primitives) {
             this.scene.scale(20,20,20);
             this.primitives[primitive].display();
         }*/
         
 
-                
+            
         this.scene.pushMatrix();
         this.renderScene(this.scene, this.nodeAux);
         this.scene.popMatrix();
+        
     }
 
 }

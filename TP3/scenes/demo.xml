@@ -71,6 +71,7 @@
         <texture id="demoTexture" file="./scenes/images/vidral.jpg" />
         <texture id="floaterTexture" file="./scenes/images/floater.jpg" />
         <texture id="parasolTexture" file="./images/parasol.jpg" />
+        <texture id="spaceTexture" file="./images/space.jpg" />
         <texture id="boardTexture" file="./images/board.png" />
     </textures>
 
@@ -135,10 +136,6 @@
             <rotate axis="z" angle="-45" />
         </transformation>
 
-        <transformation id="tableLegRotation">
-            <rotate axis="x" angle="-90" />
-        </transformation>
-
     </transformations>
 
     <animations>
@@ -151,12 +148,28 @@
             <rectangle x1="-0.5" y1="-1" x2="0.5" y2="1" />
         </primitive>
     
+        <primitive id="demoSquare">
+            <rectangle x1="-0.5" y1="-0.5" x2="0.5" y2="0.5" />
+        </primitive>
+    
         <primitive id="demoPyramid">
             <pyramid slices="4" stacks="2" />
         </primitive>
 
         <primitive id="Board">
             <rectangle x1="-1" y1="-1" x2="1" y2="1" />
+        </primitive>
+
+        <primitive id="Plane">
+            <plane vDiv="5" uDiv="5"/>
+        </primitive>
+
+        <primitive id="demoCylinder">
+          <cylinder slices="20" stacks="20" base="1" top="1" height="2"/>
+        </primitive>
+
+        <primitive id="demoSphere">
+          <sphere radius="2" slices="20" stacks="20"/>
         </primitive>
 
     </primitives>
@@ -176,20 +189,373 @@
                 <primitiveref id="demoTriangle" />
                 <primitiveref id="demoCylinder" />
                 <primitiveref id="demoSphere" />
-                <primitiveref id="demoTorus" />
                 <primitiveref id="demoPyramid" />
             -->
+                <primitiveref id="Plane" />
                 <componentref id="Board" />
                 <componentref id="Piece1" />
                 <componentref id="Piece2" />
                 <componentref id="Piece3" />
+                <componentref id="Chair1"/>
+                <componentref id="Chair2"/>
+                <componentref id="Table"/>
+                <componentref id="Room"/>
             </children>
         </component>
-  
-        <component id="Board"> <!--cada casa tem 3.5 de tamanho em X e 2.75 de tamanho em Z-->
+
+        <component id="Room">
+            <transformation>
+            <translate x="0" y="3.8" z="0" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none" />
+            <children>    
+                <componentref id="WallN" />
+                <componentref id="WallS" />
+                <componentref id="WallW" />
+                <componentref id="WallE" />
+                <componentref id="Floor" />
+                <componentref id="Ceiling" />
+            </children>
+        </component>
+
+        <component id="Table">
+            <transformation>
+                <translate x="0" y="-0.15" z="0" />
+                <scale x="1" y="1.15" z="1"/>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none" />
+            <children>    
+                <componentref id="tableTop" />
+                <componentref id="tableLeg1" />
+                <componentref id="tableLeg2" />
+                <componentref id="tableLeg3" />
+                <componentref id="tableLeg4" />
+            </children>
+        </component>
+
+        <component id="tableTop">
+            <transformation>
+                <scale x="10.5" y="5" z="5.5" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+            <materials>
+                <material id="silverMaterial" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="demoRectangle" />
+            </children>
+        </component>
+
+        <component id="tableLeg1">
+            <transformation>
+                <translate x="-4.75" y="-5" z="-5" />
+                <scale x="0.5" y="2.5" z="0.5" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <primitiveref id="demoCylinder" />
+            </children>
+        </component>
+
+        <component id="tableLeg2">
+            <transformation>
+                <translate x="4.75" y="-5" z="-5" />
+                <scale x="0.5" y="2.5" z="0.5" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <primitiveref id="demoCylinder" />
+            </children>
+        </component>
+
+        <component id="tableLeg3">
+            <transformation>
+                <translate x="-4.75" y="-5" z="5" />
+                <scale x="0.5" y="2.5" z="0.5" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <primitiveref id="demoCylinder" />
+            </children>
+        </component>
+
+        <component id="tableLeg4">
+            <transformation>
+                <translate x="4.75" y="-5" z="5" />
+                <scale x="0.5" y="2.5" z="0.5" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <primitiveref id="demoCylinder" />
+            </children>
+        </component>
+
+        <component id="Chair2">
+            <transformation>
+                <rotate axis="y" angle="180" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none" />
+            <children>    
+                <componentref id="Chair1"/>
+            </children>
+        </component>
+
+        <component id="Chair1">
+            <transformation>
+                <translate x="0.0" y="-2.0" z="7.0" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none" />
+            <children>    
+                <componentref id="chairBase1" />
+                <componentref id="chairBase2" />
+                <componentref id="chairLeg1" />
+                <componentref id="chairLeg2" />
+                <componentref id="chairLeg3" />
+                <componentref id="chairLeg4" />
+                <componentref id="chairBall1" />
+                <componentref id="chairBall2" />
+            </children>
+        </component>
+
+        <component id="chairBase1">
+            <transformation>
+                <translate x="0.0" y="0.0" z="2.0" />
+                <scale x="5" y="5" z="5" />
+                <rotate axis="x" angle="90" />                
+            </transformation>
+            <materials>
+                <material id="silverMaterial" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="demoSquare" />
+            </children>
+        </component>
+
+        <component id="chairBase2">
+            <transformation>
+                <translate x="0.0" y="2.0" z="4.0" />
+                <scale x="4" y="4" z="4" />
+            </transformation>
+            <materials>
+                <material id="silverMaterial" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="demoSquare" />
+            </children>
+        </component>
+
+        <component id="chairLeg1">
+            <transformation>
+                <translate x="-2.0" y="0.0" z="0.0" />
+                <scale x="0.5" y="2.0" z="0.5" />
+                <rotate axis="x" angle="90" />                
+            </transformation>
+            <materials>
+                <material id="silverMaterial" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="demoCylinder" />
+            </children>
+        </component>
+
+        <component id="chairLeg2">
+            <transformation>
+                <translate x="2.0" y="0.0" z="0.0" />
+                <scale x="0.5" y="2.0" z="0.5" />
+                <rotate axis="x" angle="90" />                
+            </transformation>
+            <materials>
+                <material id="silverMaterial" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="demoCylinder" />
+            </children>
+        </component>
+
+        <component id="chairLeg3">
+            <transformation>
+                <translate x="-2.0" y="4.0" z="4.0" />
+                <scale x="0.5" y="4.0" z="0.5" />
+                <rotate axis="x" angle="90" />                    
+            </transformation>
+            <materials>
+                <material id="silverMaterial" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="demoCylinder" />
+            </children>
+        </component>
+
+        <component id="chairLeg4">
+            <transformation>
+                <translate x="2.0" y="4.0" z="4.0" />
+                <scale x="0.5" y="4.0" z="0.5" />
+                <rotate axis="x" angle="90" />                    
+            </transformation>
+            <materials>
+                <material id="silverMaterial" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="demoCylinder" />
+            </children>
+        </component>
+
+        <component id="chairBall1">
+            <transformation>
+                <translate x="2.0" y="4.0" z="4.0" />
+                <scale x="0.25" y="0.25" z="0.25" />
+            </transformation>
+            <materials>
+                <material id="silverMaterial" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="demoSphere" />
+            </children>
+        </component>
+
+        <component id="chairBall2">
+            <transformation>
+                <translate x="-2.0" y="4.0" z="4.0" />
+                <scale x="0.25" y="0.25" z="0.25" />
+            </transformation>
+            <materials>
+                <material id="silverMaterial" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="demoSphere" />
+            </children>
+        </component>
+
+        <component id="Ceiling">
+            <transformation>
+                <translate x="0.0" y="10.0" z="0.0" />
+                <scale x="40" y="40" z="40" />
+                <rotate axis="x" angle="180" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="spaceTexture" />
+            <children>    
+                <primitiveref id="Plane" />
+            </children>
+        </component>
+
+        <component id="Floor">
+            <transformation>
+                <translate x="0.0" y="-10.0" z="0.0" />
+                <scale x="40" y="40" z="40" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="spaceTexture" />
+            <children>    
+                <primitiveref id="Plane" />
+            </children>
+        </component>
+
+        <component id="WallN">
+            <transformation>
+                <translate x="0.0" y="0.0" z="-20.0" />
+                <scale x="40" y="20" z="40" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="spaceTexture" />
+            <children>    
+                <primitiveref id="Plane" />
+            </children>
+        </component>
+
+        <component id="WallS">
+            <transformation>
+                <translate x="0.0" y="0.0" z="20.0" />
+                <scale x="40" y="20" z="40" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="spaceTexture" />
+            <children>    
+                <primitiveref id="Plane" />
+            </children>
+        </component>
+
+        <component id="WallW">
+            <transformation>
+                <translate x="-20.0" y="0.0" z="0" />
+                <scale x="40" y="20" z="40" />
+                <rotate axis="z" angle="-90" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="spaceTexture" />
+            <children>    
+                <primitiveref id="Plane" />
+            </children>
+        </component>
+
+        <component id="WallE">
+            <transformation>
+                <translate x="20.0" y="0.0" z="0" />
+                <scale x="40" y="20" z="40" />
+                <rotate axis="z" angle="90" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="spaceTexture" />
+            <children>    
+                <primitiveref id="Plane" />
+            </children>
+        </component>
+
+        <component id="Board">
             <transformation>
                 <rotate axis="x" angle="-90" />
-                <scale x="10" y="10" z="10" />
+                <scale x="5" y="5" z="5" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -202,8 +568,8 @@
 
         <component id="Piece1">
             <transformation>
-                <translate x="5.0" y="0.0" z="-1.5" />
-                <scale x="1" y="1" z="1" />
+                <translate x="2.5" y="0.0" z="-2.0" />
+                <scale x="0.5" y="0.5" z="0.5" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -216,8 +582,8 @@
 
         <component id="Piece2">
             <transformation>
-                <translate x="0.0" y="0.0" z="2.75" />
-                <scale x="1" y="2" z="1" />
+                <translate x="1.0" y="0.0" z="1.75" />
+                <scale x="0.5" y="1" z="0.5" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -230,8 +596,8 @@
 
         <component id="Piece3">
             <transformation>
-                <translate x="-5.0" y="0.0" z="1.5" />
-                <scale x="1" y="3" z="1" />
+                <translate x="-4.0" y="0.0" z="1.75" />
+                <scale x="0.5" y="1.5" z="0.5" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
