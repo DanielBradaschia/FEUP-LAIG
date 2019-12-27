@@ -60,7 +60,7 @@ class XMLscene extends CGFscene {
 
         this.setPickEnabled(true);
 
-    //PROJECT3
+        //PROJECT3
     }
 
     /**
@@ -318,7 +318,7 @@ class XMLscene extends CGFscene {
         this.setActiveShader(this.defaultShader);
         //PROJECT3
 
-        this.popMatrix(); 
+        this.popMatrix();
     }
 
     logPicking() {
@@ -365,6 +365,10 @@ class XMLscene extends CGFscene {
             if (this.graph.nodes[key].animations != null)
                 this.graph.nodes[key].animations.update(elapsedTime);
         }
+    }
+
+    changeGraph(filename) {
+        this.graph = new MySceneGraph(filename, this);
     }
 
 }

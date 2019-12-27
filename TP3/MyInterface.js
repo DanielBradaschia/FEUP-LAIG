@@ -18,15 +18,48 @@ class MyInterface extends CGFinterface {
         // init GUI. For more information on the methods, check:
         //  http://workshop.chromeexperiments.com/examples/gui
 
+        
         this.gui = new dat.GUI();
+
         this.gui.add(this.scene, 'displayAxis').name("Display axis");
         this.model = {};
         // add a group of controls (and open/expand by defult)
+        this.scenes = this.gui.addFolder("Scenes");
+        this.scenes.open();
+        this.gui.scene = 'Scene_1';
+
+
+        this.gui.sceneList = this.scenes.add(this.gui, 'scene', ['Scene_1', 'Scene_2']);
+
+        this.gui.sceneList.onFinishChange(function () {
+            this.removeFolder("Lights", this.gui);
+            this.removeFolder("Players Turn", this.gui);
+            this.scene.changeGraph(this.gui.scene + '.xml');
+        }.bind(this))
 
         this.initKeys();
 
         return true;
     }
+
+    removeFolder(name, parent) {
+        if (!parent)
+            parent = this.gui;
+        var folder = parent.__folders[name];
+
+
+        if (!folder) {
+            return;
+        }
+
+        folder.close();
+
+        parent.__ul.removeChild(folder.domElement.parentNode);
+        delete parent.__folders[name];
+
+        parent.onResize();
+    };
+
 
     /**
      * initKeys
