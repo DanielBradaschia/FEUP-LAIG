@@ -73,6 +73,11 @@
         <texture id="parasolTexture" file="./images/parasol.jpg" />
         <texture id="spaceTexture" file="./images/space.jpg" />
         <texture id="boardTexture" file="./images/board.png" />
+        <texture id="wallTexture" file="./images/white_wall.jpg" />
+        <texture id="boarderTexture" file="./images/rocks.jpg" />
+        <texture id="metalTexture" file="./images/metal.jpg" />
+        <texture id="tableTexture" file="./images/bank.jpg" />
+        <texture id="skyTexture" file="./images/sky.jpg" />
     </textures>
 
     <materials>
@@ -172,6 +177,11 @@
           <sphere radius="2" slices="20" stacks="20"/>
         </primitive>
 
+        <primitive id="windowBoarder">
+            <cylinder slices="10" stacks="30" base="0.3" top="0.3" height="10"/>
+        </primitive>
+
+
     </primitives>
 
 <components>
@@ -200,6 +210,191 @@
                 <componentref id="Chair2"/>
                 <componentref id="Table"/>
                 <componentref id="Room"/>
+                <componentref id="window1" />
+                <componentref id="window2" />
+                <componentref id="sky1" />
+                <componentref id="sky2" />
+            </children>
+        </component>
+
+        <component id="sky2">
+            <transformation>
+                <rotate axis="y" angle="-90" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="sky1"/>
+            </children>
+        </component>
+
+        <component id="window2">
+            <transformation>
+                   <rotate axis="y" angle="-90" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="window1" />
+            </children>
+        </component>
+
+        <component id="sky1">
+            <transformation>
+                <translate x="-19.9" y="5" z="0" />
+                <rotate axis="x" angle="-90" />
+                <rotate axis="y" angle="-90" />
+                <scale x="5" y="5" z="5" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="skyTexture" length_s="2.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="demoRectangle" />
+            </children>
+        </component>
+
+        <component id="window1">
+            <transformation>
+                <translate x="-19.8" y="5" z="0" />
+                <rotate axis="x" angle="-90" />
+                <rotate axis="z" angle="-90" />
+                <rotate axis="y" angle="-90" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="windowBoarder_1" />
+                <componentref id="windowBoarder_2" />
+                <componentref id="windowBoarder_3" />
+                <componentref id="windowBoarder_4" />
+                <componentref id="windowBoarder_5" />
+                <componentref id="windowBoarder_6" />
+                <componentref id="windowBoarder_7" />
+                <componentref id="windowBoarder_8" />
+            </children>
+        </component>
+
+        <component id="windowBoarder_1">
+            <transformation>
+                <translate x="-2.5" y="0" z="-5" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="boarderTexture" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="windowBoarder" />
+            </children>
+        </component>
+
+        <component id="windowBoarder_2">
+            <transformation>
+                <translate x="2.5" y="0" z="-5" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="boarderTexture" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="windowBoarder" />
+            </children>
+        </component>
+
+        <component id="windowBoarder_3">
+            <transformation>
+                <translate x="2.5" y="0" z="-5" />
+                <rotate axis="y" angle="-90" />
+                <scale x="1" y="1" z="0.5" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="boarderTexture" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="windowBoarder" />
+            </children>
+        </component>
+
+        <component id="windowBoarder_4">
+            <transformation>
+                <translate x="2.5" y="0" z="5" />
+                <rotate axis="y" angle="-90" />
+                <scale x="1" y="1" z="0.5" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="boarderTexture" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="windowBoarder" />
+            </children>
+        </component>
+
+        <component id="windowBoarder_5">
+            <transformation>
+                <translate x="2.5" y="0" z="3.5" />
+                <rotate axis="y" angle="-90" />
+                <scale x="1" y="1" z="0.5" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="metalTexture" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="windowBoarder" />
+            </children>
+        </component>
+
+        <component id="windowBoarder_6">
+            <transformation>
+                <translate x="2.5" y="0" z="1" />
+                <rotate axis="y" angle="-90" />
+                <scale x="1" y="1" z="0.5" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="metalTexture" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="windowBoarder" />
+            </children>
+        </component>
+
+        <component id="windowBoarder_7">
+            <transformation>
+                <translate x="2.5" y="0" z="-1.5" />
+                <rotate axis="y" angle="-90" />
+                <scale x="1" y="1" z="0.5" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="metalTexture" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="windowBoarder" />
+            </children>
+        </component>
+
+        <component id="windowBoarder_8">
+            <transformation>
+                <translate x="2.5" y="0" z="-3.5" />
+                <rotate axis="y" angle="-90" />
+                <scale x="1" y="1" z="0.5" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="metalTexture" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="windowBoarder" />
             </children>
         </component>
 
@@ -229,7 +424,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="none" />
+            <texture id="tableTexture" length_s="1.0" length_t="1.0"/>
             <children>    
                 <componentref id="tableTop" />
                 <componentref id="tableLeg1" />
@@ -247,7 +442,7 @@
             <materials>
                 <material id="silverMaterial" />
             </materials>
-            <texture id="none" />
+            <texture id="inherit" />
             <children>
                 <primitiveref id="demoRectangle" />
             </children>
@@ -262,7 +457,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="none"/>
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="demoCylinder" />
             </children>
@@ -277,7 +472,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="none"/>
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="demoCylinder" />
             </children>
@@ -292,7 +487,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="none"/>
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="demoCylinder" />
             </children>
@@ -307,7 +502,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="none"/>
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="demoCylinder" />
             </children>
@@ -472,7 +667,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="parasolTexture" />
+            <texture id="wallTexture" />
             <children>    
                 <primitiveref id="Plane" />
             </children>
@@ -486,7 +681,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="parasolTexture" />
+            <texture id="wallTexture" />
             <children>    
                 <primitiveref id="Plane" />
             </children>
@@ -501,7 +696,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="parasolTexture" />
+            <texture id="wallTexture" length_s="1.0" length_t="1.0"/>
             <children>    
                 <primitiveref id="Plane" />
             </children>
@@ -516,7 +711,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="parasolTexture" />
+            <texture id="wallTexture" length_s="1.0" length_t="1.0"/>
             <children>    
                 <primitiveref id="Plane" />
             </children>
@@ -531,7 +726,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="parasolTexture" />
+            <texture id="wallTexture" length_s="1.0" length_t="1.0"/>
             <children>    
                 <primitiveref id="Plane" />
             </children>
@@ -546,7 +741,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="parasolTexture" />
+            <texture id="wallTexture" length_s="0.5" length_t="1.0"/>
             <children>    
                 <primitiveref id="Plane" />
             </children>

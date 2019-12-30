@@ -32,8 +32,8 @@ class MyInterface extends CGFinterface {
         this.gui.sceneList = this.scenes.add(this.gui, 'scene', ['Scene_1', 'Scene_2']);
 
         this.gui.sceneList.onFinishChange(function () {
-            this.removeFolder("Lights", this.gui);
-            this.removeFolder("Players Turn", this.gui);
+            //this.removeFolder("Lights", this.gui);
+            //this.removeFolder("Players Turn", this.gui);
             this.scene.changeGraph(this.gui.scene + '.xml');
         }.bind(this))
 

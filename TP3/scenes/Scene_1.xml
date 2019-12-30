@@ -73,6 +73,8 @@
         <texture id="parasolTexture" file="./images/parasol.jpg" />
         <texture id="spaceTexture" file="./images/space.jpg" />
         <texture id="boardTexture" file="./images/board.png" />
+        <texture id="metalTexture" file="./images/metal.jpg" />
+        <texture id="chairTexture" file="./images/chair.jpg" />
     </textures>
 
     <materials>
@@ -229,7 +231,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="none" />
+            <texture id="chairTexture" length_s="1.0" length_t="1.0"/>
             <children>    
                 <componentref id="tableTop" />
                 <componentref id="tableLeg1" />
@@ -247,7 +249,7 @@
             <materials>
                 <material id="silverMaterial" />
             </materials>
-            <texture id="none" />
+            <texture id="inherit" />
             <children>
                 <primitiveref id="demoRectangle" />
             </children>
@@ -262,7 +264,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="none"/>
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="demoCylinder" />
             </children>
@@ -277,7 +279,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="none"/>
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="demoCylinder" />
             </children>
@@ -292,7 +294,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="none"/>
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="demoCylinder" />
             </children>
@@ -307,7 +309,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="none"/>
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="demoCylinder" />
             </children>
@@ -355,7 +357,7 @@
             <materials>
                 <material id="silverMaterial" />
             </materials>
-            <texture id="none" />
+            <texture id="demoTexture" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="demoSquare" />
             </children>
@@ -369,7 +371,7 @@
             <materials>
                 <material id="silverMaterial" />
             </materials>
-            <texture id="none" />
+            <texture id="demoTexture" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="demoSquare" />
             </children>
@@ -384,7 +386,7 @@
             <materials>
                 <material id="silverMaterial" />
             </materials>
-            <texture id="none" />
+            <texture id="chairTexture" length_s="1.5" length_t="1.0"/>
             <children>
                 <primitiveref id="demoCylinder" />
             </children>
@@ -399,7 +401,7 @@
             <materials>
                 <material id="silverMaterial" />
             </materials>
-            <texture id="none" />
+            <texture id="chairTexture" length_s="1.5" length_t="1.0"/>
             <children>
                 <primitiveref id="demoCylinder" />
             </children>
@@ -414,7 +416,7 @@
             <materials>
                 <material id="silverMaterial" />
             </materials>
-            <texture id="none" />
+            <texture id="chairTexture" length_s="1.5" length_t="1.0"/>
             <children>
                 <primitiveref id="demoCylinder" />
             </children>
@@ -429,7 +431,7 @@
             <materials>
                 <material id="silverMaterial" />
             </materials>
-            <texture id="none" />
+            <texture id="chairTexture" length_s="1.5" length_t="1.0"/>
             <children>
                 <primitiveref id="demoCylinder" />
             </children>
@@ -443,7 +445,7 @@
             <materials>
                 <material id="silverMaterial" />
             </materials>
-            <texture id="none" />
+            <texture id="demoTexture" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="demoSphere" />
             </children>
@@ -457,7 +459,7 @@
             <materials>
                 <material id="silverMaterial" />
             </materials>
-            <texture id="none" />
+            <texture id="demoTexture" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="demoSphere" />
             </children>
