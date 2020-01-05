@@ -27,8 +27,6 @@ class XMLscene extends CGFscene {
 
         this.sceneInited = false;
 
-        // this.initCameras();
-
         this.enableTextures(true);
 
         this.gl.clearDepth(100.0);
@@ -52,43 +50,43 @@ class XMLscene extends CGFscene {
         this.spotGreen = false;
         this.spotBlue = false;
 
-        this.selectedCamera = 3;
+        this.selectedCamera = 0;
         this.defaultCamera = 0;
-        this.view = { 'Front View': 0, 'Left View': 1, 'Right View': 2, 'Back View': 3 };
+        this.view = { 'Front': 0, 'Left': 1, 'Right': 2, 'Back': 3 };
         this.viewAngle = 0;
 
         this.ambient = { 'Scene_1': 0, 'Scene_2': 1 };
 
         this.setPickEnabled(true);
 
-        this.gameOrchestrator = new MyGameOrchestrator(this);
+        this.XeroG = new MyXeroG(this);
 
         this.playGame = false;
         this.timeInit;
         this.timeEnd;
 
         this.undo = function () {
-            this.gameOrchestrator.undoMove();
+            this.XeroG.undoMove();
         }
 
         this.startGame = function () {
-            alert("Game has started!");
+            alert("Xero-G started!");
             this.playGame = true;
             this.timeInit = performance.now();
-            this.gameOrchestrator.clearGame();
+            this.XeroG.clearGame();
         }
 
         this.clear = function () {
             this.playGame = false;
-            this.gameOrchestrator.clearGame();
-            alert("Game has ended!");
+            this.XeroG.clearGame();
+            alert("Game Over!");
             this.timeEnd = performance.now();
             console.log("Game Time: " + (this.timeEnd - this.timeInit) / 1000);
         }
 
         this.video = function () {
-            if(this.gameOrchestrator.videoRunning == false) {
-                this.gameOrchestrator.playVideo();
+            if(this.XeroG.videoRunning == false) {
+                this.XeroG.playVideo();
             }
         }
     }
@@ -216,10 +214,7 @@ class XMLscene extends CGFscene {
             this.ani[key].update(this.deltaTime);
         }
 
-        this.gameOrchestrator.update(this.deltaTime);
-        /*for (var key in this.gameOrchestrator.animator.animation){
-            this.gameOrchestrator.animatir.animation[key].update(this.deltaTime);
-        }*/
+        this.XeroG.update(this.deltaTime);
         this.lastTime = t;
 
     }
@@ -227,21 +222,20 @@ class XMLscene extends CGFscene {
 
     updateCamera(i) {
         var cam = this.graphs[this.currGraph].cameraz[this.graphs[this.currGraph].viewIds[i]];
-        // this.interface.setActiveCamera(this.camera);
-        switch (this.gameOrchestrator.turn) {
+        switch (this.XeroG.turn) {
             case 0:
-                if (this.viewAngle > 0 && this.gameOrchestrator.pause) {
+                if (this.viewAngle > 0 && this.XeroG.pause) {
                     this.camera.orbit((0, 0, 1), 5 * DEGREE_TO_RAD);
                     this.viewAngle -= 5;
                 }
-                else this.gameOrchestrator.pause = true;
+                else this.XeroG.pause = true;
                 break;
             case 1:
-                if (this.viewAngle < 180 && this.gameOrchestrator.pause) {
+                if (this.viewAngle < 180 && this.XeroG.pause) {
                     this.camera.orbit((0, 0, 1), -5 * DEGREE_TO_RAD);
                     this.viewAngle += 5;
                 }
-                else this.gameOrchestrator.pause = true;
+                else this.XeroG.pause = true;
                 break;
         }
 
@@ -254,8 +248,8 @@ class XMLscene extends CGFscene {
         this.clearPickRegistration();
 
         if (this.playGame == true) {
-            this.gameOrchestrator.logPicking();
-            this.gameOrchestrator.gameRunning = true;
+            this.XeroG.logPicking();
+            this.XeroG.gameRunning = true;
         }
 
         if (this.sceneInited) {
@@ -321,7 +315,7 @@ class XMLscene extends CGFscene {
 
             this.pushMatrix();
             this.translate(3, 3.2, 2);
-            this.gameOrchestrator.display();
+            this.XeroG.display();
             this.popMatrix();
 
             this.popMatrix();

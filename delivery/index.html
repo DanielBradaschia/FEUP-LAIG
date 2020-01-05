@@ -6,22 +6,45 @@
     <link rel="icon" href="data:,">
 
 <style>
-body, html {
-    border: 0;
-    padding: 0;
-    margin: 0;
-    overflow: hidden;
-}
+body,
+        html {
+            border: 0;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+        }
 
-canvas {
-    width: 100%;
-    height: 100%;
-}
+        canvas {
+            width: 100%;
+            height: 100%;
+        }
+
+        #panel {
+            font-family: Verdana, Geneva, sans-serif;
+            position: absolute;
+            padding: 2em;
+            background-color: rgba(0, 0, 0, 0.4);
+            color: white;
+            width: 20%;
+            min-width: 20%;
+        }
+
+        #panel h1 {
+            font-size: 1.5em;
+            text-align: center;
+            margin: 0;
+            padding-bottom: 1em;
+        }  
+
 </style>
 </head>
 <body>
 
 <script src="main.js"></script>
+
+<div id="panel">
+    <h1>Xero-G</h1>
+</div>
 
 </body>
 </html>
