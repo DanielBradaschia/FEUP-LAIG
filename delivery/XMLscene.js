@@ -64,6 +64,8 @@ class XMLscene extends CGFscene {
         this.gameOrchestrator = new MyGameOrchestrator(this);
 
         this.playGame = false;
+        this.timeInit;
+        this.timeEnd;
 
         this.undo = function () {
             this.gameOrchestrator.undoMove();
@@ -72,6 +74,7 @@ class XMLscene extends CGFscene {
         this.startGame = function () {
             alert("Game has started!");
             this.playGame = true;
+            this.timeInit = performance.now();
             this.gameOrchestrator.clearGame();
         }
 
@@ -79,6 +82,8 @@ class XMLscene extends CGFscene {
             this.playGame = false;
             this.gameOrchestrator.clearGame();
             alert("Game has ended!");
+            this.timeEnd = performance.now();
+            console.log("Game Time: " + (this.timeEnd - this.timeInit) / 60000);
         }
 
         this.video = function () {

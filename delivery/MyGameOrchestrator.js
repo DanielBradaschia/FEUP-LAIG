@@ -23,6 +23,7 @@ class MyGameOrchestrator extends CGFobject {
         this.oldPieces = [];
 
         this.initialmoves = 0;
+
     }
 
     logPicking() {
