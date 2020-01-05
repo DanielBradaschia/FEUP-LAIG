@@ -178,7 +178,7 @@
             <transformation>
             </transformation>
             <materials>
-                <material id="demoMaterial" />
+                <material id="whiterubberMaterial" />
             </materials>
             <texture id="chairTexture" length_s="1" length_t="1" />
             <children>
@@ -194,7 +194,7 @@
                 <scale x="2" y="2" z="0.08" />
             </transformation>
             <materials>
-                <material id="silverMaterial" />
+                <material id="inherit" />
             </materials>
             <texture id="inherit" />
             <children>
@@ -253,7 +253,7 @@
                 <scale x="0.2" y="1" z="0.2" />
             </transformation>
             <materials>
-                <material id="demoMaterial" />
+                <material id="inherit" />
             </materials>
             <texture id="inherit" />
             <children>

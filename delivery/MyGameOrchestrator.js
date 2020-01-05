@@ -34,8 +34,16 @@ class MyGameOrchestrator extends CGFobject {
                         let customId = this.scene.pickResults[i][1];
                         let row = (customId - 1) % 6 + 1;
                         let col = Math.floor((customId - 1) / 6) + 1;
+                        
+                        if(this.initialmoves <= 2)
+                            row = 1;
+                        if (this.initialmoves > 2 && this.initialmoves < 5)
+                        {
+                            row = 6;
+                        }
                         if (this.gameSequence.checkMove([row, col]) && this.initialmoves != 2 && this.initialmoves != 5) {
-                            this.playInitialPieces([row, col, this.turn]);
+                                this.playInitialPieces([row, col, this.turn]);    
+                            
                             this.initialmoves += 1;
                         }
                         else if (this.gameSequence.checkMove([row, col]) && (this.initialmoves == 2 || this.initialmoves == 5)){

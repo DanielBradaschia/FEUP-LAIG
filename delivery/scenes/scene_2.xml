@@ -276,7 +276,7 @@
             <transformation>
             </transformation>
             <materials>
-                <material id="demoMaterial" />
+                <material id="whiterubberMaterial" />
             </materials>
             <texture id="none" />
             <children>
@@ -306,7 +306,7 @@
                 <scale x="2.2" y="0.2" z="2.2" />
             </transformation>
             <materials>
-                <material id="silverMaterial" />
+                <material id="inherit" />
             </materials>
             <texture id="none"/>
             <children>
@@ -320,7 +320,7 @@
                 <scale x="2.2" y="0.2" z="2.2" />
             </transformation>
             <materials>
-                <material id="silverMaterial" />
+                <material id="inherit" />
             </materials>
             <texture id="none"/>
             <children>
@@ -332,7 +332,7 @@
                 
             </transformation>
             <materials>
-                <material id="silverMaterial" />
+                <material id="inherit" />
             </materials>
             <texture id="none" />
             <children>
@@ -348,7 +348,7 @@
                 <scale x="0.1" y="0.1" z="0.6" />
             </transformation>
             <materials>
-                <material id="silverMaterial" />
+                <material id="inherit" />
             </materials>
             <texture id="none"  />
             <children>
@@ -362,7 +362,7 @@
                 <scale x="0.1" y="0.1" z="0.6" />
             </transformation>
             <materials>
-                <material id="silverMaterial" />
+                <material id="inherit" />
             </materials>
             <texture id="none"  />
             <children>
@@ -376,7 +376,7 @@
                 <scale x="0.1" y="0.1" z="0.6" />
             </transformation>
             <materials>
-                <material id="silverMaterial" />
+                <material id="inherit" />
             </materials>
             <texture id="none"  />
             <children>
@@ -390,7 +390,7 @@
                 <scale x="0.1" y="0.1" z="0.6" />
             </transformation>
             <materials>
-                <material id="silverMaterial" />
+                <material id="inherit" />
             </materials>
             <texture id="none"  />
             <children>
@@ -404,7 +404,7 @@
                 <translate x="-6.6" y="0" z="-2.8" />
             </transformation>
             <materials>
-                <material id="demoMaterial" />
+                <material id="whiterubberMaterial" />
             </materials>
             <texture id="none" />
             <children>
@@ -420,7 +420,7 @@
                 <scale x="2.2" y="0.2" z="2.2" />
             </transformation>
             <materials>
-                <material id="silverMaterial" />
+                <material id="inherit" />
             </materials>
             <texture id="none" />
             <children>
@@ -434,7 +434,7 @@
                 <scale x="2.2" y="0.2" z="2.2" />
             </transformation>
             <materials>
-                <material id="silverMaterial" />
+                <material id="inherit" />
             </materials>
             <texture id="none"  />
             <children>
@@ -445,7 +445,7 @@
             <transformation>
             </transformation>
             <materials>
-                <material id="silverMaterial" />
+                <material id="inherit" />
             </materials>
             <texture id="none"  />
             <children>
@@ -461,7 +461,7 @@
                 <scale x="0.1" y="0.1" z="0.6" />
             </transformation>
             <materials>
-                <material id="silverMaterial" />
+                <material id="inherit" />
             </materials>
             <texture id="none"  />
             <children>
@@ -475,7 +475,7 @@
                 <scale x="0.1" y="0.1" z="0.6" />
             </transformation>
             <materials>
-                <material id="silverMaterial" />
+                <material id="inherit" />
             </materials>
             <texture id="none"  />
             <children>
@@ -489,7 +489,7 @@
                 <scale x="0.1" y="0.1" z="0.6" />
             </transformation>
             <materials>
-                <material id="silverMaterial" />
+                <material id="inherit" />
             </materials>
             <texture id="none"  />
             <children>
@@ -504,7 +504,7 @@
                 
             </transformation>
             <materials>
-                <material id="silverMaterial" />
+                <material id="inherit" />
             </materials>
             <texture id="none"  />
             <children>
@@ -522,7 +522,7 @@
                 <scale x="30" y="30" z="1" />
             </transformation>
             <materials>
-                <material id="demoMaterial" />
+                <material id="glassMaterial" />
             </materials>
             <texture id="wallTexture" length_s="1" length_t="1" />
             <children>
@@ -535,7 +535,7 @@
             <transformation>
             </transformation>
             <materials>
-                <material id="none" />
+                <material id="woodMaterial" />
             </materials>
             <texture id="none" />
             <children>
@@ -552,7 +552,7 @@
                 <scale x="30" y="15" z="1" />
             </transformation>
             <materials>
-                <material id="demoMaterial" />
+                <material id="inherit" />
             </materials>
             <texture id="wallTexture" length_s="1" length_t="1" />
             <children>
@@ -567,7 +567,7 @@
                 <scale x="30" y="15" z="1" />
             </transformation>
             <materials>
-                <material id="demoMaterial" />
+                <material id="inherit" />
             </materials>
             <texture id="wallTexture" length_s="1" length_t="1" />
             <children>
@@ -582,7 +582,7 @@
                 <scale x="30" y="15" z="1" />
             </transformation>
             <materials>
-                <material id="demoMaterial" />
+                <material id="inherit" />
             </materials>
             <texture id="wallTexture" length_s="1" length_t="1" />
             <children>
@@ -597,7 +597,7 @@
             <scale x="30" y="15" z="1" />
           </transformation>
           <materials>
-                <material id="demoMaterial" />
+                <material id="inherit" />
             </materials>
             <texture id="wallTexture" length_s="1" length_t="1" />
           <children>
