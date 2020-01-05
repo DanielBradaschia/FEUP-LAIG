@@ -83,7 +83,7 @@ class XMLscene extends CGFscene {
             this.gameOrchestrator.clearGame();
             alert("Game has ended!");
             this.timeEnd = performance.now();
-            console.log("Game Time: " + (this.timeEnd - this.timeInit) / 60000);
+            console.log("Game Time: " + (this.timeEnd - this.timeInit) / 1000);
         }
 
         this.video = function () {

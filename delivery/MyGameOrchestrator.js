@@ -23,6 +23,8 @@ class MyGameOrchestrator extends CGFobject {
         this.oldPieces = [];
 
         this.initialmoves = 0;
+        this.turnBegin;
+        this.turnEnd;
 
     }
 
@@ -43,18 +45,21 @@ class MyGameOrchestrator extends CGFobject {
                             row = 6;
                         }
                         if (this.gameSequence.checkMove([row, col]) && this.initialmoves != 2 && this.initialmoves != 5) {
-                                this.playInitialPieces([row, col, this.turn]);    
-                            
+                            this.turnBegin = performance.now();                            
+                            this.playInitialPieces([row, col, this.turn]);    
                             this.initialmoves += 1;
+                            this.turnEnd = performance.now();
                         }
                         else if (this.gameSequence.checkMove([row, col]) && (this.initialmoves == 2 || this.initialmoves == 5)){
+                            this.turnBegin = performance.now();
                             this.playPiece([row, col, this.turn]);
                             if (this.initialmoves == 2) 
                             {
                                 this.initialmoves+=1;
                             }
+                            this.turnEnd = performance.now();
                         }
-
+                        console.log("Player " + this.turn + " Time: " + (this.turnEnd - this.turnBegin) / 1000);
                         this.pause = true;
                     }
                 }
