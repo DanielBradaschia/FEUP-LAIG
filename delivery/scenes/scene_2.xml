@@ -3,19 +3,19 @@
 
      <views default="defaultCamera">
     <perspective id="defaultCamera" near="0.1" far="500" angle="45">
-      <from x="7" y="8.2" z="2" />
+       <from x="0" y="8.2" z="2" />
       <to x="3" y="3.2" z="2" />
     </perspective>
     <perspective id="leftCamera" near="0.1" far="500" angle="45">
-      <from x="3" y="8.2" z="6" />
+      <from x="3" y="8.2" z="5" />
       <to x="3" y="3.2" z="2" />
     </perspective>
     <perspective id="rightCamera" near="0.1" far="500" angle="45">
-      <from x="3" y="8.2" z="-2" />
+      <from x="3" y="8.2" z="-1" />
       <to x="3" y="3.2" z="2" />
     </perspective>
     <perspective id="backCamera" near="0.1" far="500" angle="45">
-      <from x="-1" y="8.2" z="2" />
+      <from x="6" y="8.2" z="2" />
       <to x="3" y="3.2" z="2" />
     </perspective>
 
@@ -524,7 +524,7 @@
             <materials>
                 <material id="glassMaterial" />
             </materials>
-            <texture id="wallTexture" length_s="1" length_t="1" />
+            <texture id="spaceTexture" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="Rectangle" />
             </children>
@@ -554,7 +554,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="wallTexture" length_s="1" length_t="1" />
+            <texture id="spaceTexture" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="Rectangle"  />
             </children>
@@ -569,7 +569,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="wallTexture" length_s="1" length_t="1" />
+            <texture id="spaceTexture" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="Rectangle"  />
             </children>
@@ -584,7 +584,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="wallTexture" length_s="1" length_t="1" />
+            <texture id="spaceTexture" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="Rectangle"  />
             </children>
@@ -599,7 +599,7 @@
           <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="wallTexture" length_s="1" length_t="1" />
+            <texture id="spaceTexture" length_s="1" length_t="1" />
           <children>
             <primitiveref id="Rectangle"  />
           </children>
